@@ -5,7 +5,7 @@
 ### Projects
 
 <div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 2rem;">
-  <img src="images/underground_rebellion.png" alt="Underground Rebellion" style="width: 300px; border-radius: 12px;">
+  <img src="images/underground_rebellion.png" alt="Underground Rebellion" style="width: 400px; height: auto; border-radius: 12px;">
   
   <div>
     <h3 style="margin-top: 0;"><a href="https://plbc.itch.io/underground-rebellion" style="color: #1e6bb8;">Underground Rebellion</a></h3>
