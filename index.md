@@ -4,12 +4,14 @@
 
 ### Projects
 
-<div style="display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px; margin-bottom: 2em; max-width: 100%;">
-  <img src="images/underground_rebellion.png" alt="Underground Rebellion" style="width: 320px; max-width: 100%; border-radius: 12px; flex-shrink: 0;">
+<div style="display: flex; align-items: flex-start; gap: 20px; margin-bottom: 2rem;">
+  <img src="images/underground_rebellion.png" alt="Underground Rebellion" style="width: 300px; border-radius: 12px;">
   
-  <div style="flex: 1; min-width: 280px;">
+  <div>
     <h3 style="margin-top: 0;"><a href="https://plbc.itch.io/underground-rebellion" style="color: #1e6bb8;">Underground Rebellion</a></h3>
-    <p style="margin-top: 0;">A 2D Pixelart action-platformer developed for PC where players have to defeat enemies by stealth or by tiring them out by defending themselves against their attacks through a parry system. In this project I was responsible for developing the player mechanics (from parry, dash, walljump, among others), UI/UX, tutorial and minimap system.</p>
+    <p style="text-align: justify;">
+      A 2D Pixelart action-platformer developed for PC where players have to defeat enemies by stealth or by tiring them out by defending themselves against their attacks through a parry system. In this project I was responsible for developing the player mechanics (from parry, dash, walljump, among others), UI/UX, tutorial and minimap system.
+    </p>
   </div>
 </div>
 
