@@ -1,11 +1,9 @@
-title: John Doe # your name (or website title) here
+title: Pedro Coelho # your name (or website title) here
 logo: "/images/Logo_urahara.jpg?raw=true" # your photo (or logo) here
 description: > # your text below (remove <br> elements if you don't need line breaks)
-  First description 
+  Hi, my name is Pedro and I'm a game developer with a passion for creating immersive interactive experiences. I'm currently deepening my knowledge through a Master's Degree in Digital Games at the University of Aveiro. This is my space to share the projects I've been working on and show a little of my journey in the world of game development.
   <br><br>
-  Second description 
-  <br><br>
-  <a href="https://www.linkedin.com/in/example/">View My LinkedIn Profile</a> 
+  <a href="https://www.linkedin.com/in/pedrocoelho485/">View My LinkedIn Profile</a> 
   
 remote_theme: pages-themes/minimal@v0.2.0
 plugins:
