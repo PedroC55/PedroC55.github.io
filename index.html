@@ -6,41 +6,60 @@
   <title>Portfólio - Pedro Coelho</title>
   <link rel="stylesheet" href="assets/css/style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <aside class="sidebar">
-      <img src="assets/img/CV.jpg" alt="Foto de perfil" class="profile-pic">
-      <h1>Pedro Coelho</h1>
-      <p class="description">
-        Hi, my name is Pedro and I'm a game developer with a passion for creating immersive interactive experiences. I'm currently deepening my knowledge through a Master's Degree in Digital Games at the University of Aveiro. This is my space to share the projects I've been working on and show a little of my journey in the world of game development.
-      </p>
-      <div class="contact">
-        <p><strong>Email:</strong> <a href="pedrocoelho485@gmail.com">pedrocoelho485@gmail.com</a></p>
-        <div class="social-links">
-          <a href="https://github.com/PedroC55" target="_blank">GitHub</a>
-          <a href="https://www.linkedin.com/in/pedrocoelho485/" target="_blank">LinkedIn</a>
+  <div id="particles-js">
+    <div class="container">
+      <aside class="sidebar">
+        <img src="assets/img/CV.jpg" alt="Foto de perfil" class="profile-pic">
+        <h1>Pedro Coelho</h1>
+        <p class="description">
+          Hi, my name is Pedro and I'm a game developer with a passion for creating immersive interactive experiences. I'm currently deepening my knowledge through a Master's Degree in Digital Games at the University of Aveiro. This is my space to share the projects I've been working on and show a little of my journey in the world of game development.
+        </p>
+        <div class="contact">
+          <p><strong>Email:</strong> <a href="pedrocoelho485@gmail.com">pedrocoelho485@gmail.com</a></p>
+          <div class="social-links">
+            <a href="https://github.com/PedroC55" target="_blank">GitHub</a>
+            <a href="https://www.linkedin.com/in/pedrocoelho485/" target="_blank">LinkedIn</a>
+          </div>
         </div>
-      </div>
-    </aside>
+      </aside>
 
-    <main class="projects">
-      <h2>My Projects</h2>
+      <main class="projects">
+        <h2>My Projects</h2>
 
-      <div class="project">
-        <h3>Underground Rebellion</h3>
-        <p>A 2D Pixelart action-platformer developed for PC where players have to defeat enemies by stealth or by tiring them out by defending themselves against their attacks through a parry system. In this project I was responsible for developing the player mechanics (from parry, dash, walljump, among others), UI/UX, tutorial and minimap system.</p>
-        <a href="https://link-para-o-projeto.com" target="_blank">Ver Projeto</a>
-      </div>
+        <div class="project">
+          <h3>Underground Rebellion</h3>
+          <p>A 2D Pixelart action-platformer developed for PC where players have to defeat enemies by stealth or by tiring them out by defending themselves against their attacks through a parry system. In this project I was responsible for developing the player mechanics (from parry, dash, walljump, among others), UI/UX, tutorial and minimap system.</p>
+          <a href="https://link-para-o-projeto.com" target="_blank">Ver Projeto</a>
+        </div>
 
-      <div class="project">
-        <h3>Bake 'em Up</h3>
-        <p>Descrição do segundo projeto. Um protótipo em Unreal Engine ou similar.</p>
-        <a href="https://link-para-o-projeto.com" target="_blank">Ver Projeto</a>
-      </div>
+        <div class="project">
+          <h3>Bake 'em Up</h3>
+          <p>Descrição do segundo projeto. Um protótipo em Unreal Engine ou similar.</p>
+          <a href="https://link-para-o-projeto.com" target="_blank">Ver Projeto</a>
+        </div>
 
-      <!-- Adiciona mais projetos aqui -->
-    </main>
+        <!-- Adiciona mais projetos aqui -->
+      </main>
+    </div>
   </div>
 </body>
+<script>
+  particlesJS("particles-js", {
+    particles: {
+      number: { value: 80 },
+      size: { value: 2 },
+      color: { value: "#00ffcc" },
+      line_linked: { enable: true, color: "#00ffcc" },
+      move: { speed: 1 }
+    },
+    interactivity: {
+      events: {
+        onhover: { enable: true, mode: "repulse" }
+      }
+    }
+  });
+</script>
 </html>
