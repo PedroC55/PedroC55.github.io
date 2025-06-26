@@ -9,6 +9,7 @@ body {
   color: #f8f8f2;
   display: flex;
   min-height: 100vh;
+  font-size: 15px;   
 }
 
 .container {
@@ -35,13 +36,15 @@ body {
 
 .description {
   margin: 10px 0;
-  font-size: 12px;
+  font-size: 14px;           /* era 12 px                                        */
+  line-height: 1.6;
   text-align: left;
 }
 
 .contact {
   margin-top: 20px;
-  font-size: 12px;
+  font-size: 14px;           /* era 12 px                                        */
+  line-height: 1.6;
   text-align: left;
 }
 
@@ -87,14 +90,15 @@ body {
 
 .project p {
   margin-bottom: 10px;
-  font-size: 12px;
+  font-size: 14px;           /* era 12 px                                        */
+  line-height: 1.6;
   text-align: justify;
 }
 
 .project a {
   color: #2c6f96;
   text-decoration: underline;
-  font-size: 12px;
+  font-size: 13px;   
 }
 
 #particles-js {
@@ -129,7 +133,7 @@ a:hover {
 .skills-table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 12px;
+  font-size: 13px;   
   background-color: #f6f9fc;
   border-radius: 10px;
   overflow: hidden;  /* arredondar também o conteúdo */
@@ -137,6 +141,7 @@ a:hover {
 
 .skills-table thead th {
   padding: 12px 10px;
+  font-size: 13px;
   text-align: left;
   color: #2c6f96;              /* cabeçalhos em azul-pastel              */
   border-bottom: 2px solid #2c6f96;
@@ -144,6 +149,7 @@ a:hover {
 
 .skills-table tbody td {
   padding: 10px 10px;
+  font-size: 13px;
   border-bottom: 1px solid #444;
 }
 
@@ -254,3 +260,8 @@ h1, h2, .sidebar h1, .projects h2, .skills h2 {
   letter-spacing: 1px;      /* opcional: pequenos ajustes */
   font-weight: 400;         /* VT323 só tem peso "regular" */
 }
+
+.sidebar h1     { font-size: 34px; }    /* era 32 px (VT323) */
+.projects h2,
+.skills h2      { font-size: 26px; }    /* era 24 px */
+.project h3     { font-size: 18px; }  
