@@ -199,7 +199,7 @@ a:hover {
 
 #video-modal {
   position: fixed;
-  inset: 0;                       /* top:0 right:0 bottom:0 left:0 */
+  inset: 0;
   background: rgba(0, 0, 0, 0.85);
   display: flex;
   align-items: center;
@@ -207,19 +207,33 @@ a:hover {
   z-index: 1000;
 }
 
+/* Aumenta a largura até 90 vw e preserva o aspect-ratio 16:9  */
 .modal-content {
   position: relative;
-  aspect-ratio: 16/9; 
-  width: 80%;
+  width: 90vw;           /* 90% da largura da viewport */
+  max-width: 1280px;     /* não ultrapassa 1280 px, para não ficar gigante demais */
+  aspect-ratio: 16 / 9;  /* força proporção 16:9 */
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 0 25px #00ffccaa;
 }
 
+/* O iframe ocupa 100 % da .modal-content (já com aspect-ratio) */
 .modal-content iframe {
-  display: block;
   width: 100%;
-  height: 100%;      /* ajusta conforme gostares */
+  height: 100%;
+  display: block;
+}
+
+/* Ecrãs pequenos: 100 vw mas altura automática */
+@media (max-width: 600px) {
+  .modal-content {
+    width: 100vw;
+    aspect-ratio: auto;  /* deixa o  iframe cuidar da altura */
+  }
+  .modal-content iframe {
+    height: 56.25vw;     /* 16:9 → 9/16 = 0.5625 */
+  }
 }
 
 .close {
