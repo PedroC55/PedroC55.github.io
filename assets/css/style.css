@@ -5,7 +5,6 @@
 }
 
 body {
-  font-family: 'Inter', sans-serif;
   background-color: #111;
   color: #f8f8f2;
   display: flex;
@@ -59,9 +58,6 @@ body {
 }
 
 .projects h2 {
-  font-family: 'VT323', monospace;
-  letter-spacing: 1px;      /* opcional: pequenos ajustes */
-  font-weight: 400;
   margin-bottom: 30px;
   font-size: 20px;
   color: #00ffcc;
@@ -122,9 +118,6 @@ a:hover {
 }
 
 .skills h2 {
-  font-family: 'VT323', monospace;
-  letter-spacing: 1px;      /* opcional: pequenos ajustes */
-  font-weight: 400;
   margin-bottom: 20px;
   font-size: 20px;
   color: #ffdf4f;    /* destaque amarelo arcade */
@@ -251,4 +244,10 @@ a:hover {
   cursor: pointer;
   text-shadow: 0 0 10px #000;
   user-select: none;
+}
+
+h1, h2, .sidebar h1, .projects h2, .skills h2 {
+  font-family: 'VT323', monospace;
+  letter-spacing: 1px;      /* opcional: pequenos ajustes */
+  font-weight: 400;         /* VT323 só tem peso "regular" */
 }
