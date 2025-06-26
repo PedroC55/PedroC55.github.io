@@ -18,7 +18,8 @@ body {
 
 .sidebar {
   width: 300px;
-  background-color: #222;
+  background-color: #2c6f96;   /* azul-pastel escuro */
+  color: #f0f8ff;    
   padding: 20px;
   text-align: center;
   position: sticky;
@@ -54,18 +55,20 @@ body {
 .projects {
   flex: 1;
   padding: 30px;
-  background-color: #1e1e2f;
+  background-color: #ffffff;   /* fundo branco                           */
+  color: #111; 
 }
 
 .projects h2 {
   margin-bottom: 30px;
   font-size: 20px;
-  color: #00ffcc;
+  color: #2c6f96;     
 }
 
 .project {
   margin-bottom: 25px;
-  background-color: #2e2e3f;
+  background-color: #f6f9fc;   /* ligeiro cinza-azulado para destacar     */
+  color: #111;
   padding: 20px;
   border-radius: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -74,7 +77,7 @@ body {
 
 .project:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 15px #00ffcc88;
+  box-shadow: 0 0 15px #2c6f96aa;
 }
 
 .project h3 {
@@ -89,7 +92,7 @@ body {
 }
 
 .project a {
-  color: #00ff99;
+  color: #2c6f96;
   text-decoration: underline;
   font-size: 12px;
 }
@@ -110,7 +113,7 @@ a {
 }
 
 a:hover {
-  color: #ff33cc;
+ color: #ff33cc; 
 }
 
 .skills {
@@ -120,14 +123,14 @@ a:hover {
 .skills h2 {
   margin-bottom: 20px;
   font-size: 20px;
-  color: #ffdf4f;    /* destaque amarelo arcade */
+  color: #2c6f96;         /* destaque amarelo arcade */
 }
 
 .skills-table {
   width: 100%;
   border-collapse: collapse;
   font-size: 12px;
-  background-color: #2e2e3f;
+  background-color: #f6f9fc;
   border-radius: 10px;
   overflow: hidden;  /* arredondar também o conteúdo */
 }
@@ -135,8 +138,8 @@ a:hover {
 .skills-table thead th {
   padding: 12px 10px;
   text-align: left;
-  color: #00ffcc;
-  border-bottom: 2px solid #00ffcc;
+  color: #2c6f96;              /* cabeçalhos em azul-pastel              */
+  border-bottom: 2px solid #2c6f96;
 }
 
 .skills-table tbody td {
@@ -145,12 +148,12 @@ a:hover {
 }
 
 .skills-table tbody tr:nth-child(even) {
-  background-color: #26263a;
+  background-color: #e9f1f7;
 }
 
 .skills-table tbody tr:hover {
-  background-color: #33334d;
-  box-shadow: 0 0 10px #00ffcc88;
+  background-color: #dbe7f0;   /* hover suave                            */
+  box-shadow: 0 0 10px #2c6f9688;
   transform: translateX(2px);
   transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
