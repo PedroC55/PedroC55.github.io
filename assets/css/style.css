@@ -96,10 +96,13 @@ body {
 
 #particles-js {
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  background-color: #111;
-  z-index: -1;
+  background-color: #111;   /* opcional—podes remover se já tiveres body {background} */
+  z-index: -1;              /* fica atrás de tudo */
+  pointer-events: none;     /* nunca intercepta cliques/hover */
 }
 
 a {
