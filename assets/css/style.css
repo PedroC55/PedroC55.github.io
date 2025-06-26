@@ -36,12 +36,13 @@ body {
 .description {
   margin: 10px 0;
   font-size: 12px;
-  text-align: justify;
+  text-align: left;
 }
 
 .contact {
   margin-top: 20px;
   font-size: 12px;
+  text-align: left;
 }
 
 .contact a {
@@ -111,4 +112,85 @@ a {
 
 a:hover {
   color: #ff33cc;
+}
+
+.skills {
+  margin-bottom: 40px;
+}
+
+.skills h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  color: #ffdf4f;    /* destaque amarelo arcade */
+}
+
+.skills-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  background-color: #2e2e3f;
+  border-radius: 10px;
+  overflow: hidden;  /* arredondar também o conteúdo */
+}
+
+.skills-table thead th {
+  padding: 12px 10px;
+  text-align: left;
+  color: #00ffcc;
+  border-bottom: 2px solid #00ffcc;
+}
+
+.skills-table tbody td {
+  padding: 10px 10px;
+  border-bottom: 1px solid #444;
+}
+
+.skills-table tbody tr:nth-child(even) {
+  background-color: #26263a;
+}
+
+.skills-table tbody tr:hover {
+  background-color: #33334d;
+  box-shadow: 0 0 10px #00ffcc88;
+  transform: translateX(2px);
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Responsividade: transforma em cartões verticais */
+@media (max-width: 600px) {
+  .skills-table,
+  .skills-table thead,
+  .skills-table tbody,
+  .skills-table tr,
+  .skills-table td,
+  .skills-table th {
+    display: block;
+  }
+
+  .skills-table thead {
+    position: absolute;           /* esconde cabeçalhos da vista mas mantém acessível */
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .skills-table tr {
+    margin-bottom: 12px;
+    border: 1px solid #444;
+    padding: 8px;
+  }
+
+  .skills-table td {
+    border: none;
+    position: relative;
+    padding-left: 50%;
+  }
+
+  /* Rótulo “Category / Skills” antes de cada célula */
+  .skills-table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 8px;
+    font-weight: bold;
+    color: #00ffcc;
+  }
 }

@@ -18,7 +18,7 @@
         Hi, my name is Pedro and I'm a game developer with a passion for creating immersive interactive experiences. I'm currently deepening my knowledge through a Master's Degree in Digital Games at the University of Aveiro. This is my space to share the projects I've been working on and show a little of my journey in the world of game development.
       </p>
       <div class="contact">
-        <p><strong>Email:</strong> <a href="pedrocoelho485@gmail.com">pedrocoelho485@gmail.com</a></p>
+        <p><a href="pedrocoelho485@gmail.com">pedrocoelho485@gmail.com</a></p>
         <div class="social-links">
           <a href="https://github.com/PedroC55" target="_blank">GitHub</a>
           <a href="https://www.linkedin.com/in/pedrocoelho485/" target="_blank">LinkedIn</a>
@@ -26,6 +26,44 @@
       </div>
     </aside>  
     <main class="projects">
+      <section class="skills">
+        <h2>Skills</h2>
+
+        <table class="skills-table">
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Skills</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Frontend</td>
+              <td>HTML, CSS, React.js</td>
+            </tr>
+            <tr>
+              <td>Backend</td>
+              <td>Java, Python, JavaScript, C#</td>
+            </tr>
+            <tr>
+              <td>Database</td>
+              <td>SQL, MongoDB, Apache Cassandra, Neo4j</td>
+            </tr>
+            <tr>
+              <td>Mobile</td>
+              <td>Android Native, Flutter/Dart</td>
+            </tr>
+            <tr>
+              <td>Game&nbsp;Design&nbsp;and&nbsp;Development</td>
+              <td>Unity, Blender, Pygame, Godot, Unreal Engine, Inform 7</td>
+            </tr>
+            <tr>
+              <td>Other</td>
+              <td>Bash, LaTeX, Assembly, GitHub, Git</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
       <h2>My Projects</h2>  
       <div class="project">
         <h3>Underground Rebellion</h3>
@@ -52,6 +90,14 @@
       interactivity: {
         events: { onhover: { enable: true, mode: "repulse" } }
       }
+    });
+    document.querySelectorAll('.skills-table').forEach(table => {
+        const headers = [...table.querySelectorAll('thead th')].map(h => h.textContent);
+        table.querySelectorAll('tbody tr').forEach(row =>
+          row.querySelectorAll('td').forEach((cell, i) =>
+            cell.setAttribute('data-label', headers[i])
+          )
+        );
     });
   </script>
 </body>
