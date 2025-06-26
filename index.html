@@ -68,7 +68,7 @@
       <h2>My Projects</h2>
       <div class="project" data-video="gWmr5IJRZf8"> <!-- ID do trailer -->
           <h3>Bake 'Em Up!</h3>
-          <p>a survival game/cooking simulator, developed for VR, where the player is a cat baker who owns a rulote bakery. The player's goal is to protect his food truck by defeating zombies that will appear, with the breads he bakes simultaneously, where each bread has a unique power. This is a university project that I'm working on with my team. It's not finished yet, but you can see a demo of the Alpha version. In this project I'm working as a programmer where I'm responsible for everything related to the enemies (AI, Ragdoll physics, etc.), sound design and UI/UX.</p>
+          <p>A survival game/cooking simulator, developed for VR, where the player is a cat baker who owns a rulote bakery. The player's goal is to protect his food truck by defeating zombies that will appear, with the breads he bakes simultaneously, where each bread has a unique power. This is a university project that I'm working on with my team. It's not finished yet, but you can see a demo of the Alpha version. In this project I'm working as a programmer where I'm responsible for everything related to the enemies (AI, Ragdoll physics, etc.), sound design and UI/UX.</p>
           <a href="https://github.com/Rafinha-uwu/Bake-em-Up" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
       </div>
       <div class="project" data-video="_AF4ouDuBSw"> <!-- ID do trailer -->
@@ -85,6 +85,11 @@
           <h3>Software Testing and Quality - Pick Up Points System</h3>
           <p>The aim of this project is to develop a pick up points system for different delivery companies to use, using React, Java, Spring Boot and Docker. The system also includes unit and integration tests.</p>
           <a href="https://github.com/PedroC55/TQS_Project" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
+      </div>
+      <div class="project" data-link="https://github.com/PedroC55/ICM_Project1"> <!-- ID do trailer -->
+          <h3>Introduction to Mobile Computing - MovingCampus</h3>
+          <p>Application that allows Erasmus students to explore the university of Aveiro, which relies on the use of location, QR Code reader and text recognition.</p>
+          <a href="https://github.com/PedroC55/ICM_Project1" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
       </div>
       <!-- Adiciona mais projetos aqui -->
     </main>
@@ -144,7 +149,7 @@
     const closeButton = modal.querySelector('.close');
     closeButton.addEventListener('click', closeModal);
     modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-    
+
     function closeModal() {
       modal.classList.add('hidden');
       document.getElementById('yt-frame').src = '';
