@@ -65,11 +65,11 @@
         </table>
       </section>
       <h2>My Projects</h2>  
-      <div class="project">
-        <h3>Underground Rebellion</h3>
-        <p>A 2D Pixelart action-platformer developed for PC where players have to defeat enemies by stealth or by tiring them out by defending themselves against their attacks through a parry system. In this project I was responsible for developing the player mechanics (from parry, dash, walljump, among others), UI/UX, tutorial and minimap system.</p>
-        <a href="https://plbc.itch.io/underground-rebellion" target="_blank">View Project</a>
-      </div>  
+      <div class="project" data-video="_AF4ouDuBSw"> <!-- ID do trailer -->
+          <h3>Underground Rebellion</h3>
+          <p>A 2D Pixelart action-platformer developed for PC where players have to defeat enemies by stealth or by tiring them out by defending themselves against their attacks through a parry system. In this project I was responsible for developing the player mechanics (from parry, dash, walljump, among others), UI/UX, tutorial and minimap system.</p>
+          <button class="btn-more">Watch trailer</button>
+      </div>
       <div class="project">
         <h3>Bake 'em Up</h3>
         <p>Descrição do segundo projeto. Um protótipo em Unreal Engine ou similar.</p>
@@ -77,6 +77,16 @@
       </div>  
       <!-- Adiciona mais projetos aqui -->
     </main>
+  </div>
+  <div id="video-modal" class="hidden">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <iframe id="yt-frame"
+              title="YouTube video player"
+              frameborder="0"
+              allow="autoplay; encrypted-media"
+              allowfullscreen></iframe>
+    </div>
   </div>
   <script>
     particlesJS("particles-js", {
@@ -99,6 +109,28 @@
           )
         );
     });
+    // ▶️ Abre modal quando se clica num projeto
+    document.querySelectorAll('.project').forEach(card => {
+          card.addEventListener('click', () => {
+              const videoId = card.dataset.video;
+              const modal = document.getElementById('video-modal');
+              const frame = document.getElementById('yt-frame');
+
+              frame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+              modal.classList.remove('hidden');
+          });
+      });
+
+      // ❌ Fecha modal (clicar X ou fora)
+      const modal = document.getElementById('video-modal');
+      const closeButton = modal.querySelector('.close');
+      closeButton.addEventListener('click', closeModal);
+      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+
+      function closeModal() {
+          modal.classList.add('hidden');
+          document.getElementById('yt-frame').src = ''; // pára reprodução
+      }
   </script>
 </body>
 </html>
