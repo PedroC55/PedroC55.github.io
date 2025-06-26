@@ -209,7 +209,8 @@ a:hover {
 
 .modal-content {
   position: relative;
-  max-width: 90%;
+  aspect-ratio: 16/9; 
+  width: 80%;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 0 25px #00ffccaa;
@@ -218,7 +219,7 @@ a:hover {
 .modal-content iframe {
   display: block;
   width: 100%;
-  height: 50vh;        /* ajusta conforme gostares */
+  height: 100%;      /* ajusta conforme gostares */
 }
 
 .close {
