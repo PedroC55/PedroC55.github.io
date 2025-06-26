@@ -65,7 +65,12 @@
           </tbody>
         </table>
       </section>
-      <h2>My Projects</h2>  
+      <h2>My Projects</h2>
+      <div class="project" data-video="gWmr5IJRZf8"> <!-- ID do trailer -->
+          <h3>Bake 'Em Up!</h3>
+          <p>a survival game/cooking simulator, developed for VR, where the player is a cat baker who owns a rulote bakery. The player's goal is to protect his food truck by defeating zombies that will appear, with the breads he bakes simultaneously, where each bread has a unique power. This is a university project that I'm working on with my team. It's not finished yet, but you can see a demo of the Alpha version. In this project I'm working as a programmer where I'm responsible for everything related to the enemies (AI, Ragdoll physics, etc.), sound design and UI/UX.</p>
+          <a href="https://github.com/Rafinha-uwu/Bake-em-Up" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
+      </div>
       <div class="project" data-video="_AF4ouDuBSw"> <!-- ID do trailer -->
           <h3>Underground Rebellion</h3>
           <p>A 2D Pixelart action-platformer developed for PC where players have to defeat enemies by stealth or by tiring them out by defending themselves against their attacks through a parry system. In this project I was responsible for developing the player mechanics (from parry, dash, walljump, among others), UI/UX, tutorial and minimap system.</p>
@@ -75,6 +80,11 @@
           <h3>SmartKeeper - Assistant for Active Ageing at Home</h3>
           <p>SmartKeeper is an assistant that serves older people in ways so they can keep their health, independency and autonomy by monitorizing everything that happens inside their home in a non-instrusive way. </p>
           <a href="https://bernardoleandro1.github.io/PI/" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
+      </div>
+      <div class="project" data-link="https://github.com/PedroC55/TQS_Project"> <!-- ID do trailer -->
+          <h3>Software Testing and Quality - Pick Up Points System</h3>
+          <p>The aim of this project is to develop a pick up points system for different delivery companies to use, using React, Java, Spring Boot and Docker. The system also includes unit and integration tests.</p>
+          <a href="https://github.com/PedroC55/TQS_Project" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
       </div>
       <!-- Adiciona mais projetos aqui -->
     </main>
@@ -112,26 +122,33 @@
     });
     // ▶️ Abre modal quando se clica num projeto
     document.querySelectorAll('.project').forEach(card => {
-          card.addEventListener('click', () => {
-              const videoId = card.dataset.video;
-              const modal = document.getElementById('video-modal');
-              const frame = document.getElementById('yt-frame');
+      card.addEventListener('click', () => {
+        const vid  = card.dataset.video;
+        const href = card.dataset.link;
 
-              frame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-              modal.classList.remove('hidden');
-          });
+        if (vid) {                 /* ---- abre modal de vídeo ---- */
+          const modal = document.getElementById('video-modal');
+          const frame = document.getElementById('yt-frame');
+          frame.src =
+            `https://www.youtube-nocookie.com/embed/${vid}` +
+            `?autoplay=1&mute=1&rel=0&playsinline=1`;
+          modal.classList.remove('hidden');
+        } else if (href) {         /* ---- redirecciona para página ---- */
+          window.open(href, '_blank');   // troca para '_self' se quiseres mesma aba
+        }
       });
+    });
 
-      // ❌ Fecha modal (clicar X ou fora)
-      const modal = document.getElementById('video-modal');
-      const closeButton = modal.querySelector('.close');
-      closeButton.addEventListener('click', closeModal);
-      modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-
-      function closeModal() {
-          modal.classList.add('hidden');
-          document.getElementById('yt-frame').src = ''; // pára reprodução
-      }
+    /* ❌ fecha modal (igual ao que já tinhas) */
+    const modal       = document.getElementById('video-modal');
+    const closeButton = modal.querySelector('.close');
+    closeButton.addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    
+    function closeModal() {
+      modal.classList.add('hidden');
+      document.getElementById('yt-frame').src = '';
+    }
   </script>
 </body>
 </html>
