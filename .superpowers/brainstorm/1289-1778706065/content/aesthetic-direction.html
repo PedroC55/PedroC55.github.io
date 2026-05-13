@@ -1,0 +1,70 @@
+<h2>Which aesthetic direction fits you best?</h2>
+<p class="subtitle">Three distinct visual personalities for your portfolio — each tells a different story about who you are as a developer.</p>
+
+<div class="cards">
+
+  <!-- OPTION A: Editorial Dark -->
+  <div class="card" data-choice="editorial" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0a0a0f;height:220px;padding:20px;font-family:Georgia,serif;overflow:hidden;position:relative;">
+      <div style="border-bottom:1px solid #333;padding-bottom:12px;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;">
+        <span style="color:#888;font-size:10px;letter-spacing:3px;font-family:sans-serif;">PC — PORTFOLIO</span>
+        <span style="color:#888;font-size:10px;font-family:sans-serif;">WORK  ABOUT  CONTACT</span>
+      </div>
+      <div style="color:#f5f0e8;font-size:38px;line-height:1.0;font-weight:700;margin-bottom:10px;letter-spacing:-1px;">Pedro<br>Coelho</div>
+      <div style="color:#c8b89a;font-size:11px;letter-spacing:4px;font-family:sans-serif;text-transform:uppercase;margin-bottom:10px;">Game Developer & Interactive Experience Designer</div>
+      <div style="position:absolute;bottom:20px;right:20px;border:1px solid #c8b89a;padding:6px 14px;font-size:9px;letter-spacing:2px;color:#c8b89a;font-family:sans-serif;">VIEW WORK ↓</div>
+      <div style="position:absolute;top:0;right:0;width:2px;height:100%;background:linear-gradient(to bottom,#c8b89a,transparent);"></div>
+    </div>
+    <div class="card-body">
+      <h3>A — Editorial Dark</h3>
+      <p>Sophisticated, magazine-like. Serif display font meets clean type. Warm accent against near-black. Feels like a top-tier creative studio. Timeless, confident, memorable for the right reasons.</p>
+      <p style="margin-top:8px;font-size:11px;opacity:0.6;">Palette: #0a0a0f · #f5f0e8 · #c8b89a &nbsp;|&nbsp; Fonts: Playfair Display + DM Sans</p>
+    </div>
+  </div>
+
+  <!-- OPTION B: Brutalist Terminal -->
+  <div class="card" data-choice="brutalist" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0c0c0c;height:220px;padding:20px;font-family:'Courier New',monospace;overflow:hidden;position:relative;">
+      <div style="color:#00ff41;font-size:10px;margin-bottom:6px;opacity:0.7;">$ portfolio --user=pedrocoelho --mode=interactive</div>
+      <div style="color:#00ff41;font-size:10px;margin-bottom:16px;opacity:0.5;">Loading profile... [████████████] 100%</div>
+      <div style="color:#fff;font-size:32px;font-weight:700;line-height:1.0;margin-bottom:8px;letter-spacing:-1px;">PEDRO<br><span style="color:#00ff41;">COELHO</span></div>
+      <div style="color:#888;font-size:10px;letter-spacing:2px;margin-bottom:12px;">GAME_DEV / VR / AR / UNITY</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:8px;">
+        <div style="border:1px solid #222;padding:6px;font-size:9px;color:#555;">[01] BAKE EM UP</div>
+        <div style="border:1px solid #222;padding:6px;font-size:9px;color:#555;">[02] UNDERGROUND</div>
+        <div style="border:1px solid #222;padding:6px;font-size:9px;color:#555;">[03] CALCULUS</div>
+        <div style="border:1px solid #333;padding:6px;font-size:9px;color:#00ff41;">[04] SPY ROOM_</div>
+      </div>
+      <div style="position:absolute;bottom:20px;right:20px;font-size:9px;color:#555;">&gt; cd /projects_</div>
+    </div>
+    <div class="card-body">
+      <h3>B — Brutalist Terminal</h3>
+      <p>Raw, unapologetic, developer-native. All monospace, terminal-inspired. Neon green on deep black. The site itself feels like a game artifact. Polarizing in the best way — nobody forgets it.</p>
+      <p style="margin-top:8px;font-size:11px;opacity:0.6;">Palette: #0c0c0c · #00ff41 · #ffffff &nbsp;|&nbsp; Fonts: JetBrains Mono (all)</p>
+    </div>
+  </div>
+
+  <!-- OPTION C: Studio Minimal -->
+  <div class="card" data-choice="studio" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f7f5f2;height:220px;padding:20px;font-family:sans-serif;overflow:hidden;position:relative;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;">
+        <span style="color:#1a1a1a;font-size:11px;font-weight:700;letter-spacing:1px;">PEDRO COELHO</span>
+        <span style="color:#999;font-size:10px;letter-spacing:2px;">WORK · ABOUT · CONTACT</span>
+      </div>
+      <div style="font-size:42px;font-weight:800;line-height:0.95;color:#1a1a1a;letter-spacing:-2px;margin-bottom:12px;">Game<br>Developer.</div>
+      <div style="font-size:11px;color:#666;max-width:220px;line-height:1.6;">Crafting interactive experiences — VR, AR, and everything in between. Based in Aveiro, PT.</div>
+      <div style="position:absolute;bottom:20px;left:20px;background:#1a1a1a;padding:8px 18px;font-size:9px;letter-spacing:2px;color:#f7f5f2;">SEE PROJECTS</div>
+      <div style="position:absolute;bottom:28px;right:20px;width:40px;height:1px;background:#ccc;"></div>
+    </div>
+    <div class="card-body">
+      <h3>C — Studio Minimal (Light)</h3>
+      <p>Confident, clean, professional. Generous whitespace, heavy type weight. The kind of portfolio a senior at Riot Games or IO Interactive would have. Serious without being cold.</p>
+      <p style="margin-top:8px;font-size:11px;opacity:0.6;">Palette: #f7f5f2 · #1a1a1a · #e84c3d &nbsp;|&nbsp; Fonts: Bricolage Grotesque + Instrument Sans</p>
+    </div>
+  </div>
+
+</div>
+
+<div class="section" style="margin-top:16px;">
+  <p class="subtitle" style="font-size:12px;">Click a card to select it, then reply in the terminal. You can also just tell me in words which direction appeals to you, or ask me to explore a hybrid.</p>
+</div>

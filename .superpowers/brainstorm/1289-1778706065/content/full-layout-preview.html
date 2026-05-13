@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio Layout Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: #050508; color: #f5f0e8; font-family: 'DM Sans', sans-serif; font-size: 13px; }
+  .label { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: #c8b89a; font-family: 'DM Sans', sans-serif; }
+  .section-tag { display: inline-block; font-size: 8px; letter-spacing: 3px; text-transform: uppercase; color: #4a3f33; border: 1px solid #1e1e1e; padding: 3px 10px; margin-bottom: 16px; }
+  .dim { color: #4a4035; }
+  .accent { color: #c8b89a; }
+  .rule { border: none; border-top: 1px solid #1a1a1a; margin: 0; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(5,5,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #111;
+    padding: 16px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  nav .logo { font-family: 'Playfair Display', serif; font-size: 14px; color: #c8b89a; letter-spacing: 1px; }
+  nav ul { list-style: none; display: flex; gap: 28px; }
+  nav ul li a { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #4a4035; text-decoration: none; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    padding: 0 48px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+    border-bottom: 1px solid #111;
+  }
+  .hero-eyebrow { font-size: 9px; letter-spacing: 5px; text-transform: uppercase; color: #4a4035; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: #c8b89a; }
+  .hero-name { font-family: 'Playfair Display', serif; font-size: clamp(64px, 9vw, 120px); font-weight: 900; line-height: 0.88; letter-spacing: -3px; color: #f5f0e8; margin-bottom: 28px; }
+  .hero-sub { display: flex; align-items: center; gap: 16px; margin-bottom: 40px; }
+  .hero-sub-line { width: 40px; height: 1px; background: #c8b89a; flex-shrink: 0; }
+  .hero-sub-text { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #6a5d50; }
+  .hero-cta { display: inline-flex; align-items: center; gap: 12px; }
+  .btn-outline { border: 1px solid #2a2218; padding: 10px 24px; font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #c8b89a; cursor: pointer; background: none; transition: all 0.3s; }
+  .hero-pg { position: absolute; right: 48px; bottom: 40px; font-family: 'Playfair Display', serif; font-size: 80px; font-weight: 900; color: #0f0f0f; line-height: 1; user-select: none; }
+
+  /* ── SECTION WRAPPER ── */
+  .section { padding: 96px 48px; border-bottom: 1px solid #111; }
+  .section-header { display: flex; align-items: baseline; gap: 20px; margin-bottom: 56px; }
+  .section-num { font-family: 'Playfair Display', serif; font-size: 13px; color: #2a2218; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; letter-spacing: -1px; color: #f5f0e8; }
+  .section-rule { flex: 1; height: 1px; background: #1a1a1a; }
+
+  /* ── ABOUT ── */
+  .about-grid { display: grid; grid-template-columns: 1fr 340px; gap: 64px; align-items: start; }
+  .about-pull { font-family: 'Playfair Display', serif; font-size: 22px; font-style: italic; line-height: 1.5; color: #c8b89a; margin-bottom: 24px; padding-left: 20px; border-left: 2px solid #c8b89a33; }
+  .about-body { font-size: 13px; line-height: 1.9; color: #7a6d60; }
+  .about-photo { background: linear-gradient(135deg, #111 0%, #0d0c0a 100%); border: 1px solid #1a1a1a; aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; }
+  .about-photo-inner { width: 80px; height: 80px; border-radius: 50%; background: #1a1a14; border: 1px solid #2a2218; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 20px; color: #c8b89a; }
+  .about-meta { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+  .about-meta-row { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 10px; border-bottom: 1px solid #111; }
+  .about-meta-label { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; color: #3a3028; }
+  .about-meta-value { font-size: 11px; color: #7a6d60; }
+
+  /* ── SKILLS ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: #111; border: 1px solid #111; }
+  .skill-cell { background: #0a0a0f; padding: 24px 28px; }
+  .skill-cat { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; color: #c8b89a; margin-bottom: 14px; }
+  .skill-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .skill-tag { font-size: 10px; color: #5a4d40; border: 1px solid #1a1a1a; padding: 3px 10px; }
+
+  /* ── PROJECTS ── */
+  .projects-list { display: flex; flex-direction: column; gap: 0; }
+  .project-card { border: 1px solid #141414; border-left: 3px solid #c8b89a33; padding: 28px 32px; background: #0a0a0f; margin-bottom: 8px; cursor: pointer; transition: all 0.3s; position: relative; }
+  .project-card:hover { border-left-color: #c8b89a; background: #0d0c09; }
+  .project-card-header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 10px; }
+  .project-cat { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; color: #4a3f33; }
+  .project-year { font-size: 9px; color: #2a2218; }
+  .project-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: #f5f0e8; margin-bottom: 8px; letter-spacing: -0.3px; }
+  .project-desc { font-size: 12px; color: #5a5045; line-height: 1.7; margin-bottom: 16px; }
+  .project-footer { display: flex; justify-content: space-between; align-items: center; }
+  .project-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tag { font-size: 9px; color: #3a3028; border: 1px solid #1a1a1a; padding: 2px 9px; }
+  .project-link { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #c8b89a; }
+
+  /* ── CONTACT ── */
+  .contact-inner { max-width: 560px; }
+  .contact-heading { font-family: 'Playfair Display', serif; font-size: 52px; font-weight: 700; font-style: italic; line-height: 1.0; color: #f5f0e8; letter-spacing: -2px; margin-bottom: 28px; }
+  .contact-email { font-size: 15px; color: #c8b89a; margin-bottom: 40px; letter-spacing: 1px; }
+  .contact-socials { display: flex; gap: 16px; }
+  .social-link { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #3a3028; border: 1px solid #1a1a1a; padding: 8px 18px; }
+
+  /* ── FOOTER ── */
+  footer { padding: 24px 48px; display: flex; justify-content: space-between; align-items: center; }
+  .footer-copy { font-size: 9px; color: #2a2218; letter-spacing: 2px; text-transform: uppercase; }
+
+  /* Section scroll indicator on hero */
+  .hero-scroll { position: absolute; right: 48px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .hero-scroll-line { width: 1px; height: 60px; background: linear-gradient(to bottom, transparent, #2a2218); }
+  .hero-scroll-label { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; color: #2a2218; writing-mode: vertical-rl; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">P·C</div>
+  <ul>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-eyebrow">Game Developer — University of Aveiro</div>
+  <div class="hero-name">Pedro<br>Coelho</div>
+  <div class="hero-sub">
+    <div class="hero-sub-line"></div>
+    <div class="hero-sub-text">Crafting immersive interactive experiences — VR, AR &amp; Digital Games</div>
+  </div>
+  <div class="hero-cta">
+    <button class="btn-outline">See My Work</button>
+  </div>
+  <div class="hero-pg">01</div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-label">scroll</div>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">About</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="about-grid">
+    <div>
+      <p class="about-pull">"A passion for creating immersive interactive experiences."</p>
+      <p class="about-body">Hi, my name is Pedro and I'm a game developer currently deepening my knowledge through a Master's Degree in Digital Games at the University of Aveiro. This is my space to share the projects I've been working on and show a little of my journey in the world of game development.</p>
+      <div class="about-meta">
+        <div class="about-meta-row">
+          <span class="about-meta-label">Degree</span>
+          <span class="about-meta-value">M.Sc. Digital Games — University of Aveiro</span>
+        </div>
+        <div class="about-meta-row">
+          <span class="about-meta-label">Focus</span>
+          <span class="about-meta-value">VR · AR · Game Design · Interactive Experiences</span>
+        </div>
+        <div class="about-meta-row">
+          <span class="about-meta-label">Location</span>
+          <span class="about-meta-value">Aveiro, Portugal</span>
+        </div>
+        <div class="about-meta-row">
+          <span class="about-meta-label">Available</span>
+          <span class="about-meta-value">Open to opportunities</span>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="about-photo">
+        <div class="about-photo-inner">PC</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section class="section" id="skills">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">Skills</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-cell">
+      <div class="skill-cat">Game Dev</div>
+      <div class="skill-list">
+        <span class="skill-tag">Unity</span><span class="skill-tag">Unreal Engine</span><span class="skill-tag">Godot</span><span class="skill-tag">Pygame</span><span class="skill-tag">Blender</span><span class="skill-tag">Inform 7</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-cat">Languages</div>
+      <div class="skill-list">
+        <span class="skill-tag">C#</span><span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">JavaScript</span><span class="skill-tag">Dart</span><span class="skill-tag">Assembly</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-cat">Frontend</div>
+      <div class="skill-list">
+        <span class="skill-tag">HTML</span><span class="skill-tag">CSS</span><span class="skill-tag">React.js</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-cat">Database</div>
+      <div class="skill-list">
+        <span class="skill-tag">SQL</span><span class="skill-tag">MongoDB</span><span class="skill-tag">Cassandra</span><span class="skill-tag">Neo4j</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-cat">Mobile</div>
+      <div class="skill-list">
+        <span class="skill-tag">Android Native</span><span class="skill-tag">Flutter</span><span class="skill-tag">Dart</span>
+      </div>
+    </div>
+    <div class="skill-cell">
+      <div class="skill-cat">Tools</div>
+      <div class="skill-list">
+        <span class="skill-tag">Git</span><span class="skill-tag">GitHub</span><span class="skill-tag">Bash</span><span class="skill-tag">LaTeX</span><span class="skill-tag">Docker</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section class="section" id="work">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">Work</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="projects-list">
+
+    <div class="project-card">
+      <div class="project-card-header">
+        <span class="project-cat">VR · Survival · Game Design</span>
+        <span class="project-year">2024</span>
+      </div>
+      <div class="project-title">Bake 'Em Up!</div>
+      <div class="project-desc">A VR survival cooking simulator where a cat baker defends their food truck from zombies using magically baked breads. Responsible for enemy AI, ragdoll physics, sound design, and UI/UX.</div>
+      <div class="project-footer">
+        <div class="project-tags">
+          <span class="tag">Unity</span><span class="tag">VR</span><span class="tag">C#</span><span class="tag">AI</span><span class="tag">itch.io</span>
+        </div>
+        <span class="project-link">View ↗</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-header">
+        <span class="project-cat">2D Platformer · Pixel Art</span>
+        <span class="project-year">2023</span>
+      </div>
+      <div class="project-title">Underground Rebellion</div>
+      <div class="project-desc">2D action-platformer with a parry system. Led player mechanics — parry, dash, wall jump — plus UI/UX, tutorial design, and a minimap system.</div>
+      <div class="project-footer">
+        <div class="project-tags">
+          <span class="tag">Unity</span><span class="tag">C#</span><span class="tag">Pixel Art</span><span class="tag">itch.io</span>
+        </div>
+        <span class="project-link">View ↗</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-header">
+        <span class="project-cat">AR · Mixed Reality</span>
+        <span class="project-year">2024</span>
+      </div>
+      <div class="project-title">Spy Room — Concept</div>
+      <div class="project-desc">AR game concept for Meta Quest using room scanning and spatial mapping. Laser-dodge mechanic with progressive difficulty. Built in Unity with Meta Quest SDK.</div>
+      <div class="project-footer">
+        <div class="project-tags">
+          <span class="tag">Unity</span><span class="tag">AR</span><span class="tag">Meta Quest</span><span class="tag">C#</span>
+        </div>
+        <span class="project-link">View ↗</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-header">
+        <span class="project-cat">Educational · Puzzle Game</span>
+        <span class="project-year">2023</span>
+      </div>
+      <div class="project-title">Calculus</div>
+      <div class="project-desc">Casual educational puzzle game set inside a primary school notebook. Players use arithmetic operations as weapons to stop falling numbers from escaping the grid.</div>
+      <div class="project-footer">
+        <div class="project-tags">
+          <span class="tag">Pygame</span><span class="tag">Python</span><span class="tag">Game Design</span>
+        </div>
+        <span class="project-link">View ↗</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-header">
+        <span class="project-cat">IoT · Smart Home</span>
+        <span class="project-year">2023</span>
+      </div>
+      <div class="project-title">SmartKeeper</div>
+      <div class="project-desc">Non-intrusive home monitoring assistant for older adults. Supports health, independence, and autonomy through passive home sensing and activity monitoring.</div>
+      <div class="project-footer">
+        <div class="project-tags">
+          <span class="tag">IoT</span><span class="tag">Web</span><span class="tag">UX</span>
+        </div>
+        <span class="project-link">View ↗</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-header">
+        <span class="project-cat">Full Stack · Web</span>
+        <span class="project-year">2023</span>
+      </div>
+      <div class="project-title">Pick Up Points System</div>
+      <div class="project-desc">Logistics platform for multiple delivery companies with pick-up point management. Includes unit and integration tests throughout.</div>
+      <div class="project-footer">
+        <div class="project-tags">
+          <span class="tag">React</span><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Docker</span>
+        </div>
+        <span class="project-link">View ↗</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-card-header">
+        <span class="project-cat">Mobile · Android</span>
+        <span class="project-year">2022</span>
+      </div>
+      <div class="project-title">MovingCampus</div>
+      <div class="project-desc">App for Erasmus students exploring the University of Aveiro using GPS location, QR code reading, and text recognition.</div>
+      <div class="project-footer">
+        <div class="project-tags">
+          <span class="tag">Android</span><span class="tag">QR Code</span><span class="tag">GPS</span><span class="tag">OCR</span>
+        </div>
+        <span class="project-link">View ↗</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <h2 class="section-title">Contact</h2>
+    <div class="section-rule"></div>
+  </div>
+  <div class="contact-inner">
+    <div class="contact-heading">Let's<br>talk.</div>
+    <div class="contact-email">pedrocoelho485@gmail.com</div>
+    <div class="contact-socials">
+      <a class="social-link">GitHub</a>
+      <a class="social-link">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-copy">© 2025 Pedro Coelho</span>
+  <span class="footer-copy">Game Developer — Aveiro, PT</span>
+</footer>
+
+</body>
+</html>

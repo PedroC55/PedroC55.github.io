@@ -1,0 +1,110 @@
+<h2>How should your hero section be structured?</h2>
+<p class="subtitle">The hero is the first thing people see — it sets the entire tone. Three approaches for the Editorial Dark direction.</p>
+
+<div class="cards">
+
+  <!-- OPTION A: Typographic Cover -->
+  <div class="card" data-choice="typo-cover" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0a0a0f;height:260px;padding:24px 28px;font-family:Georgia,serif;overflow:hidden;position:relative;border-bottom:1px solid #1a1a1a;">
+      <!-- Nav -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;">
+        <span style="color:#c8b89a;font-size:9px;letter-spacing:4px;font-family:sans-serif;">P·C</span>
+        <div style="display:flex;gap:16px;">
+          <span style="color:#555;font-size:9px;letter-spacing:2px;font-family:sans-serif;">WORK</span>
+          <span style="color:#555;font-size:9px;letter-spacing:2px;font-family:sans-serif;">ABOUT</span>
+          <span style="color:#555;font-size:9px;letter-spacing:2px;font-family:sans-serif;">CONTACT</span>
+        </div>
+      </div>
+      <!-- Giant name -->
+      <div style="color:#f5f0e8;font-size:58px;line-height:0.88;font-weight:700;letter-spacing:-2px;margin-bottom:16px;">Pedro<br>Coelho</div>
+      <!-- Thin rule + subtitle -->
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <div style="width:28px;height:1px;background:#c8b89a;"></div>
+        <span style="color:#c8b89a;font-size:8px;letter-spacing:3px;font-family:sans-serif;text-transform:uppercase;">Game Developer & Interactive Experience Designer</span>
+      </div>
+      <!-- CTA -->
+      <div style="position:absolute;bottom:24px;left:28px;display:flex;align-items:center;gap:12px;">
+        <div style="border:1px solid #c8b89a;padding:6px 16px;font-size:8px;letter-spacing:2px;color:#c8b89a;font-family:sans-serif;">SEE MY WORK</div>
+        <div style="width:1px;height:20px;background:#222;"></div>
+        <span style="color:#444;font-size:8px;letter-spacing:1px;font-family:sans-serif;">↓ scroll</span>
+      </div>
+      <!-- Decorative right element -->
+      <div style="position:absolute;top:0;right:0;bottom:0;width:3px;background:linear-gradient(to bottom,#c8b89a22,#c8b89a66,#c8b89a22);"></div>
+    </div>
+    <div class="card-body">
+      <h3>A — Typographic Cover</h3>
+      <p>The name is the visual. Giant serif type dominates. Everything else is subordinate: thin rule, small-caps subtitle, quiet CTA. Pure editorial — looks like a premium magazine title page.</p>
+      <p style="margin-top:6px;font-size:11px;opacity:0.6;">Best for: strong editorial/creative impression, fast load, zero distraction</p>
+    </div>
+  </div>
+
+  <!-- OPTION B: Asymmetric Split -->
+  <div class="card" data-choice="split" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0a0a0f;height:260px;overflow:hidden;position:relative;border-bottom:1px solid #1a1a1a;">
+      <!-- Nav -->
+      <div style="padding:16px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #111;">
+        <span style="color:#c8b89a;font-size:9px;letter-spacing:4px;font-family:sans-serif;">PEDRO COELHO</span>
+        <div style="display:flex;gap:14px;">
+          <span style="color:#444;font-size:8px;letter-spacing:2px;font-family:sans-serif;">WORK</span>
+          <span style="color:#444;font-size:8px;letter-spacing:2px;font-family:sans-serif;">ABOUT</span>
+          <span style="color:#444;font-size:8px;letter-spacing:2px;font-family:sans-serif;">CONTACT</span>
+        </div>
+      </div>
+      <!-- Split layout -->
+      <div style="display:flex;height:calc(100% - 40px);">
+        <!-- Left: text -->
+        <div style="flex:1.2;padding:20px;display:flex;flex-direction:column;justify-content:center;font-family:Georgia,serif;">
+          <div style="color:#555;font-size:8px;letter-spacing:3px;font-family:sans-serif;margin-bottom:10px;">MASTER'S · DIGITAL GAMES · AVEIRO</div>
+          <div style="color:#f5f0e8;font-size:38px;line-height:0.9;font-weight:700;letter-spacing:-1px;margin-bottom:14px;">Building<br>worlds,<br>one frame<br>at a time.</div>
+          <div style="border:1px solid #333;padding:6px 14px;font-size:8px;letter-spacing:2px;color:#c8b89a;font-family:sans-serif;display:inline-block;margin-top:4px;">VIEW PROJECTS</div>
+        </div>
+        <!-- Right: image/visual placeholder -->
+        <div style="width:140px;background:linear-gradient(135deg,#111 0%,#1a1208 100%);position:relative;border-left:1px solid #1a1a1a;display:flex;align-items:center;justify-content:center;">
+          <div style="width:70px;height:70px;border-radius:50%;background:linear-gradient(135deg,#2a1f0a,#1a2a1a);border:1px solid #333;display:flex;align-items:center;justify-content:center;">
+            <span style="color:#c8b89a;font-size:18px;font-family:Georgia,serif;">PC</span>
+          </div>
+          <div style="position:absolute;bottom:16px;left:50%;transform:translateX(-50%);font-size:7px;letter-spacing:2px;color:#444;font-family:sans-serif;white-space:nowrap;">GAME DEV</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Asymmetric Split</h3>
+      <p>Text-heavy left column, photo/visual on the right. Tagline instead of just the name — "Building worlds, one frame at a time." Feels more personal and narrative-driven. Shows the human.</p>
+      <p style="margin-top:6px;font-size:11px;opacity:0.6;">Best for: storytelling, humanizing the brand, showing the photo prominently</p>
+    </div>
+  </div>
+
+  <!-- OPTION C: Full-Width Immersive -->
+  <div class="card" data-choice="immersive" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#0a0a0f;height:260px;padding:0;font-family:Georgia,serif;overflow:hidden;position:relative;border-bottom:1px solid #1a1a1a;">
+      <!-- Subtle texture grid -->
+      <div style="position:absolute;inset:0;background-image:radial-gradient(circle,#1a1208 1px,transparent 1px);background-size:22px 22px;opacity:0.4;"></div>
+      <!-- Gradient overlay -->
+      <div style="position:absolute;inset:0;background:radial-gradient(ellipse 60% 60% at 50% 40%,rgba(200,184,154,0.06) 0%,transparent 70%);"></div>
+      <!-- Nav -->
+      <div style="position:relative;z-index:1;padding:16px 24px;display:flex;justify-content:space-between;">
+        <span style="color:#c8b89a;font-size:9px;letter-spacing:4px;font-family:sans-serif;">P·C</span>
+        <div style="display:flex;gap:16px;">
+          <span style="color:#444;font-size:9px;letter-spacing:2px;font-family:sans-serif;">WORK</span>
+          <span style="color:#444;font-size:9px;letter-spacing:2px;font-family:sans-serif;">ABOUT</span>
+          <span style="color:#444;font-size:9px;letter-spacing:2px;font-family:sans-serif;">CONTACT</span>
+        </div>
+      </div>
+      <!-- Centered content -->
+      <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;height:calc(100% - 44px);text-align:center;padding:0 24px;">
+        <div style="color:#c8b89a;font-size:8px;letter-spacing:4px;font-family:sans-serif;margin-bottom:12px;">GAME DEVELOPER</div>
+        <div style="color:#f5f0e8;font-size:50px;line-height:0.88;font-weight:700;letter-spacing:-2px;margin-bottom:12px;">Pedro<br>Coelho</div>
+        <div style="color:#666;font-size:9px;font-family:sans-serif;letter-spacing:1px;max-width:260px;line-height:1.7;margin-bottom:16px;">Creating immersive interactive experiences — VR, AR, and digital games</div>
+        <div style="border:1px solid #c8b89a44;padding:7px 20px;font-size:8px;letter-spacing:2px;color:#c8b89a;font-family:sans-serif;">EXPLORE MY WORK ↓</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Full-Width Immersive</h3>
+      <p>Centered, atmospheric. Name in the middle of the viewport on a textured dark background with a subtle radial glow. Feels like an intro screen. Quiet but striking — like walking into a gallery.</p>
+      <p style="margin-top:6px;font-size:11px;opacity:0.6;">Best for: atmosphere, cinematic feel, scroll-into-story structure</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:16px;font-size:12px;">Pick the one that best represents how you want to greet a hiring manager or game studio recruiter the first moment they land on your site.</p>
