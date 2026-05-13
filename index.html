@@ -5,31 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfólio - Pedro Coelho</title>
   <link rel="stylesheet" href="assets/css/style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;700;800;900&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
 <body>
   <div id="particles-js"></div>
   <div class="container">
     <aside class="sidebar">
-      <img src="assets/img/CV.jpg" alt="Foto de perfil" class="profile-pic">
+      <div class="profile-hex-wrapper">
+        <div class="profile-hex-ring"></div>
+        <img src="assets/img/CV.jpg" alt="Foto de perfil" class="profile-pic">
+      </div>
+      <span class="name-label">// game.dev</span>
       <h1>Pedro Coelho</h1>
       <p class="description">
         Hi, my name is Pedro and I'm a game developer with a passion for creating immersive interactive experiences. I'm currently deepening my knowledge through a Master's Degree in Digital Games at the University of Aveiro. This is my space to share the projects I've been working on and show a little of my journey in the world of game development.
       </p>
       <div class="contact">
-        <p><a href="pedrocoelho485@gmail.com">pedrocoelho485@gmail.com</a></p>
+        <p><a href="mailto:pedrocoelho485@gmail.com">pedrocoelho485@gmail.com</a></p>
         <div class="social-links">
           <a href="https://github.com/PedroC55" target="_blank">GitHub</a>
           <a href="https://www.linkedin.com/in/pedrocoelho485/" target="_blank">LinkedIn</a>
         </div>
       </div>
-    </aside>  
+    </aside>
+
     <main class="projects">
       <section class="skills">
         <h2>Skills</h2>
-
         <table class="skills-table">
           <thead>
             <tr>
@@ -65,45 +68,53 @@
           </tbody>
         </table>
       </section>
+
       <h2>My Projects</h2>
-      <div class="project" data-video="mbHaFuriT2E"> <!-- ID do trailer -->
-          <h3>Bake 'Em Up!</h3>
-          <p>A survival game/cooking simulator, developed for VR, where the player is a cat baker who owns a rulote bakery. The player's goal is to protect his food truck by defeating zombies that will appear, with the breads he bakes simultaneously, where each bread has a unique power. This is a university project that I'm working on with my team. It's not finished yet, but you can see a demo of the Alpha version. In this project I'm working as a programmer where I'm responsible for everything related to the enemies (AI, Ragdoll physics, etc.), sound design and UI/UX.</p>
-          <a href="https://rafinha-uwu.itch.io/bake-em-up" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
+
+      <div class="project" data-video="mbHaFuriT2E">
+        <h3>Bake 'Em Up!</h3>
+        <p>A survival game/cooking simulator, developed for VR, where the player is a cat baker who owns a rulote bakery. The player's goal is to protect his food truck by defeating zombies that will appear, with the breads he bakes simultaneously, where each bread has a unique power. This is a university project that I'm working on with my team. It's not finished yet, but you can see a demo of the Alpha version. In this project I'm working as a programmer where I'm responsible for everything related to the enemies (AI, Ragdoll physics, etc.), sound design and UI/UX.</p>
+        <a href="https://rafinha-uwu.itch.io/bake-em-up" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
       </div>
-      <div class="project" data-video="_AF4ouDuBSw"> <!-- ID do trailer -->
-          <h3>Underground Rebellion</h3>
-          <p>A 2D Pixelart action-platformer developed for PC where players have to defeat enemies by stealth or by tiring them out by defending themselves against their attacks through a parry system. In this project I was responsible for developing the player mechanics (from parry, dash, walljump, among others), UI/UX, tutorial and minimap system.</p>
-          <a href="https://plbc.itch.io/underground-rebellion" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
+
+      <div class="project" data-video="_AF4ouDuBSw">
+        <h3>Underground Rebellion</h3>
+        <p>A 2D Pixelart action-platformer developed for PC where players have to defeat enemies by stealth or by tiring them out by defending themselves against their attacks through a parry system. In this project I was responsible for developing the player mechanics (from parry, dash, walljump, among others), UI/UX, tutorial and minimap system.</p>
+        <a href="https://plbc.itch.io/underground-rebellion" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
       </div>
-      <div class="project" data-video="CxfQWhZdpqg"> <!-- ID do trailer -->
-          <h3>SmartKeeper - Assistant for Active Ageing at Home</h3>
-          <p>SmartKeeper is an assistant that serves older people in ways so they can keep their health, independency and autonomy by monitorizing everything that happens inside their home in a non-instrusive way. </p>
-          <a href="https://bernardoleandro1.github.io/PI/" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
+
+      <div class="project" data-video="CxfQWhZdpqg">
+        <h3>SmartKeeper - Assistant for Active Ageing at Home</h3>
+        <p>SmartKeeper is an assistant that serves older people in ways so they can keep their health, independency and autonomy by monitorizing everything that happens inside their home in a non-instrusive way.</p>
+        <a href="https://bernardoleandro1.github.io/PI/" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
       </div>
-      <div class="project" data-video="J5liV26ALCs"> <!-- ID do trailer -->
-          <h3>Calculus</h3>
-          <p>Calculus is a casual educational puzzle game where the player finds themselves inside the notebook of a primary school student who is learning basic arithmetic. They are immediately confronted with numbers that come to life and fall from the sky, threatening to escape from the grid world. To prevent this, the player has basic numbers and the four arithmetic operations at their disposal as weapons. As the pages are turned, the basic numbers change. Can the player think faster than the speed at which the numbers fall?</p>
-          <a href="https://plbc.itch.io/calculus" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
+
+      <div class="project" data-video="J5liV26ALCs">
+        <h3>Calculus</h3>
+        <p>Calculus is a casual educational puzzle game where the player finds themselves inside the notebook of a primary school student who is learning basic arithmetic. They are immediately confronted with numbers that come to life and fall from the sky, threatening to escape from the grid world. To prevent this, the player has basic numbers and the four arithmetic operations at their disposal as weapons. As the pages are turned, the basic numbers change. Can the player think faster than the speed at which the numbers fall?</p>
+        <a href="https://plbc.itch.io/calculus" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
       </div>
-      <div class="project" data-video="ZIM7osRks9c"> <!-- ID do trailer -->
-          <h3>Spy Room - Concept</h3>
-          <p>Spy Room is an AR game concept with VR elements developed for Meta Quest, where the player controls an avatar implemented in their physical space with the goal of collecting diamonds. The game uses room scanning and spatial mapping through Meta's MRUKit to integrate virtual elements into the real environment. The main mechanic is based on a progressive difficulty system where each diamond collected spawns a new horizontal laser in the room, forcing the player to use physical agility to dodge the increasing obstacles. The project includes a collision detection system, first-person motion tracking, a scoring interface, and visual feedback. Developed in Unity with C#, Meta Quest SDK, XR Interaction Toolkit, and AR Foundation.</p>
-          <a href="https://github.com/PedroC55/Spy_Room" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
+
+      <div class="project" data-video="ZIM7osRks9c">
+        <h3>Spy Room - Concept</h3>
+        <p>Spy Room is an AR game concept with VR elements developed for Meta Quest, where the player controls an avatar implemented in their physical space with the goal of collecting diamonds. The game uses room scanning and spatial mapping through Meta's MRUKit to integrate virtual elements into the real environment. The main mechanic is based on a progressive difficulty system where each diamond collected spawns a new horizontal laser in the room, forcing the player to use physical agility to dodge the increasing obstacles. The project includes a collision detection system, first-person motion tracking, a scoring interface, and visual feedback. Developed in Unity with C#, Meta Quest SDK, XR Interaction Toolkit, and AR Foundation.</p>
+        <a href="https://github.com/PedroC55/Spy_Room" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
       </div>
-      <div class="project" data-link="https://github.com/PedroC55/TQS_Project"> <!-- ID do trailer -->
-          <h3>Software Testing and Quality - Pick Up Points System</h3>
-          <p>The aim of this project is to develop a pick up points system for different delivery companies to use, using React, Java, Spring Boot and Docker. The system also includes unit and integration tests.</p>
-          <a href="https://github.com/PedroC55/TQS_Project" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
+
+      <div class="project" data-link="https://github.com/PedroC55/TQS_Project">
+        <h3>Software Testing and Quality - Pick Up Points System</h3>
+        <p>The aim of this project is to develop a pick up points system for different delivery companies to use, using React, Java, Spring Boot and Docker. The system also includes unit and integration tests.</p>
+        <a href="https://github.com/PedroC55/TQS_Project" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
       </div>
-      <div class="project" data-link="https://github.com/PedroC55/ICM_Project1"> <!-- ID do trailer -->
-          <h3>Introduction to Mobile Computing - MovingCampus</h3>
-          <p>Application that allows Erasmus students to explore the university of Aveiro, which relies on the use of location, QR Code reader and text recognition.</p>
-          <a href="https://github.com/PedroC55/ICM_Project1" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
+
+      <div class="project" data-link="https://github.com/PedroC55/ICM_Project1">
+        <h3>Introduction to Mobile Computing - MovingCampus</h3>
+        <p>Application that allows Erasmus students to explore the university of Aveiro, which relies on the use of location, QR Code reader and text recognition.</p>
+        <a href="https://github.com/PedroC55/ICM_Project1" class="btn-ext" target="_blank" onclick="event.stopPropagation()">View Project</a>
       </div>
-      <!-- Adiciona mais projetos aqui -->
     </main>
   </div>
+
   <div id="video-modal" class="hidden">
     <div class="modal-content">
       <span class="close">&times;</span>
@@ -114,47 +125,63 @@
               allowfullscreen></iframe>
     </div>
   </div>
+
   <script>
+    /* --- Particles --- */
     particlesJS("particles-js", {
       particles: {
-        number: { value: 80 },
-        size:   { value: 2 },
-        color:  { value: "#00ffcc" },
-        line_linked: { enable: true, color: "#00ffcc" },
-        move: { speed: 1 }
+        number: { value: 55 },
+        size:   { value: 1.4 },
+        color:  { value: "#00e5b4" },
+        opacity: { value: 0.35, random: true },
+        line_linked: {
+          enable: true,
+          color: "#00e5b4",
+          opacity: 0.1,
+          width: 1
+        },
+        move: { speed: 0.7 }
       },
       interactivity: {
         events: { onhover: { enable: true, mode: "repulse" } }
       }
     });
+
+    /* --- Responsive skills table data-labels --- */
     document.querySelectorAll('.skills-table').forEach(table => {
-        const headers = [...table.querySelectorAll('thead th')].map(h => h.textContent);
-        table.querySelectorAll('tbody tr').forEach(row =>
-          row.querySelectorAll('td').forEach((cell, i) =>
-            cell.setAttribute('data-label', headers[i])
-          )
-        );
+      const headers = [...table.querySelectorAll('thead th')].map(h => h.textContent);
+      table.querySelectorAll('tbody tr').forEach(row =>
+        row.querySelectorAll('td').forEach((cell, i) =>
+          cell.setAttribute('data-label', headers[i])
+        )
+      );
     });
-    // ▶️ Abre modal quando se clica num projeto
+
+    /* --- Stagger project card animations --- */
+    document.querySelectorAll('.project').forEach((card, i) => {
+      card.style.animationDelay = (0.4 + i * 0.1) + 's';
+    });
+
+    /* --- Project click → video modal or external link --- */
     document.querySelectorAll('.project').forEach(card => {
       card.addEventListener('click', () => {
         const vid  = card.dataset.video;
         const href = card.dataset.link;
 
-        if (vid) {                 /* ---- abre modal de vídeo ---- */
+        if (vid) {
           const modal = document.getElementById('video-modal');
           const frame = document.getElementById('yt-frame');
           frame.src =
             `https://www.youtube-nocookie.com/embed/${vid}` +
             `?autoplay=1&mute=1&rel=0&playsinline=1`;
           modal.classList.remove('hidden');
-        } else if (href) {         /* ---- redirecciona para página ---- */
-          window.open(href, '_blank');   // troca para '_self' se quiseres mesma aba
+        } else if (href) {
+          window.open(href, '_blank');
         }
       });
     });
 
-    /* ❌ fecha modal (igual ao que já tinhas) */
+    /* --- Close modal --- */
     const modal       = document.getElementById('video-modal');
     const closeButton = modal.querySelector('.close');
     closeButton.addEventListener('click', closeModal);
