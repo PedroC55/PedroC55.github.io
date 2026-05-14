@@ -3,344 +3,113 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pedro Coelho — Game Developer</title>
+  <title>Pedro Coelho — Game Developer & XR Developer</title>
   <meta name="description" content="Portfolio of Pedro Coelho, game developer specialising in VR, AR, and interactive experiences. Master's in Digital Games, University of Aveiro." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* ── DESIGN TOKENS ── */
+    :root {
+      --bg-primary:       #FAF7F2;
+      --bg-secondary:     #F2EDE4;
+      --bg-card:          #FFFFFF;
+      --accent-primary:   #C8956C;
+      --accent-secondary: #8B6F5E;
+      --text-primary:     #2C2416;
+      --text-secondary:   #6B5744;
+      --text-muted:       #A08878;
+      --border:           #E8DDD3;
+      --shadow:           rgba(44, 36, 22, 0.08);
+      --font-display:     'Playfair Display', Georgia, serif;
+      --font-body:        'DM Sans', system-ui, sans-serif;
+      --nav-h:            64px;
+      --section-v:        96px;
+      --section-h:        48px;
+      --max-w:            1120px;
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    img  { display: block; max-width: 100%; }
+    a    { color: inherit; text-decoration: none; }
+    ul   { list-style: none; }
+
+    /* ── BASE ── */
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── LAYOUT UTILITIES ── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .section {
+      padding: var(--section-v) var(--section-h);
+    }
+
+    /* ── SHARED SECTION HEADER ── */
+    .section-label {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.1;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 3rem;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--accent-primary);
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 <body>
-
-  <!-- ── NAVIGATION ── -->
-  <nav class="nav" id="nav">
-    <a class="nav-logo" href="#hero">P·C</a>
-    <ul class="nav-links">
-      <li><a href="#work">Work</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#skills">Skills</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-
-  <main>
-    <!-- ── HERO ── -->
-    <section class="hero" id="hero">
-      <div class="hero-inner">
-        <p class="hero-eyebrow">
-          <span class="hero-eyebrow-line"></span>
-          Game Developer — University of Aveiro
-        </p>
-        <h1 class="hero-name">Pedro<br>Coelho</h1>
-        <div class="hero-subtitle">
-          <span class="hero-subtitle-rule"></span>
-          <span class="hero-subtitle-text">Crafting immersive interactive experiences — VR, AR &amp; Digital Games</span>
-        </div>
-        <a href="#work" class="btn-hero">See My Work</a>
-      </div>
-      <span class="hero-pg" aria-hidden="true">01</span>
-      <div class="hero-scroll-indicator" aria-hidden="true">
-        <span class="hero-scroll-label">scroll</span>
-        <span class="hero-scroll-line"></span>
-      </div>
-    </section>
-
-    <!-- ── ABOUT ── -->
-    <section class="about section" id="about">
-      <div class="section-header reveal">
-        <span class="section-num">02</span>
-        <h2 class="section-title">About</h2>
-        <span class="section-rule"></span>
-      </div>
-      <div class="about-grid">
-        <div class="about-left reveal">
-          <blockquote class="about-pull">
-            "A passion for creating immersive interactive experiences."
-          </blockquote>
-          <p class="about-body">
-            Hi, my name is Pedro and I'm a game developer with a passion for creating immersive interactive experiences. I'm currently deepening my knowledge through a Master's Degree in Digital Games at the University of Aveiro. This is my space to share the projects I've been working on and show a little of my journey in the world of game development.
-          </p>
-          <dl class="about-meta">
-            <div class="about-meta-row">
-              <dt>Degree</dt>
-              <dd>M.Sc. Digital Games — University of Aveiro</dd>
-            </div>
-            <div class="about-meta-row">
-              <dt>Focus</dt>
-              <dd>VR · AR · Game Design · Interactive Experiences</dd>
-            </div>
-            <div class="about-meta-row">
-              <dt>Location</dt>
-              <dd>Aveiro, Portugal</dd>
-            </div>
-            <div class="about-meta-row">
-              <dt>Status</dt>
-              <dd>Open to opportunities</dd>
-            </div>
-          </dl>
-        </div>
-        <div class="about-right reveal">
-          <img src="assets/img/CV.jpg" alt="Pedro Coelho" class="about-photo">
-        </div>
-      </div>
-    </section>
-
-    <!-- ── SKILLS ── -->
-    <section class="skills-section section" id="skills">
-      <div class="section-header reveal">
-        <span class="section-num">03</span>
-        <h2 class="section-title">Skills</h2>
-        <span class="section-rule"></span>
-      </div>
-      <div class="skills-grid">
-        <div class="skill-cell reveal">
-          <span class="skill-cat">Game Dev</span>
-          <ul class="skill-tags">
-            <li>Unity</li><li>Unreal Engine</li><li>Godot</li>
-            <li>Pygame</li><li>Blender</li><li>Inform 7</li>
-          </ul>
-        </div>
-        <div class="skill-cell reveal">
-          <span class="skill-cat">Languages</span>
-          <ul class="skill-tags">
-            <li>C#</li><li>Python</li><li>Java</li>
-            <li>JavaScript</li><li>Dart</li><li>Assembly</li>
-          </ul>
-        </div>
-        <div class="skill-cell reveal">
-          <span class="skill-cat">Frontend</span>
-          <ul class="skill-tags">
-            <li>HTML</li><li>CSS</li><li>React.js</li>
-          </ul>
-        </div>
-        <div class="skill-cell reveal">
-          <span class="skill-cat">Database</span>
-          <ul class="skill-tags">
-            <li>SQL</li><li>MongoDB</li><li>Apache Cassandra</li><li>Neo4j</li>
-          </ul>
-        </div>
-        <div class="skill-cell reveal">
-          <span class="skill-cat">Mobile</span>
-          <ul class="skill-tags">
-            <li>Android Native</li><li>Flutter</li><li>Dart</li>
-          </ul>
-        </div>
-        <div class="skill-cell reveal">
-          <span class="skill-cat">Tools</span>
-          <ul class="skill-tags">
-            <li>Git</li><li>GitHub</li><li>Bash</li><li>LaTeX</li><li>Docker</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── WORK ── -->
-    <section class="work section" id="work">
-      <div class="section-header reveal">
-        <span class="section-num">04</span>
-        <h2 class="section-title">Work</h2>
-        <span class="section-rule"></span>
-      </div>
-      <div class="projects-list">
-
-        <article class="project-card reveal" data-video="mbHaFuriT2E">
-          <div class="project-card-header">
-            <span class="project-cat">VR · Survival · Game Design</span>
-            <span class="project-year">2024</span>
-          </div>
-          <h3 class="project-title">Bake 'Em Up!</h3>
-          <p class="project-desc">A survival game/cooking simulator, developed for VR, where the player is a cat baker who owns a rulote bakery. The player's goal is to protect his food truck by defeating zombies that will appear, with the breads he bakes simultaneously, where each bread has a unique power. This is a university project that I'm working on with my team. It's not finished yet, but you can see a demo of the Alpha version. In this project I'm working as a programmer where I'm responsible for everything related to the enemies (AI, Ragdoll physics, etc.), sound design and UI/UX.</p>
-          <div class="project-footer">
-            <ul class="project-tags"><li>Unity</li><li>VR</li><li>C#</li><li>AI</li></ul>
-            <a href="https://rafinha-uwu.itch.io/bake-em-up" class="project-link" target="_blank" onclick="event.stopPropagation()">View ↗</a>
-          </div>
-        </article>
-
-        <article class="project-card reveal" data-video="_AF4ouDuBSw">
-          <div class="project-card-header">
-            <span class="project-cat">2D Platformer · Pixel Art</span>
-            <span class="project-year">2023</span>
-          </div>
-          <h3 class="project-title">Underground Rebellion</h3>
-          <p class="project-desc">A 2D Pixelart action-platformer developed for PC where players have to defeat enemies by stealth or by tiring them out by defending themselves against their attacks through a parry system. In this project I was responsible for developing the player mechanics (from parry, dash, walljump, among others), UI/UX, tutorial and minimap system.</p>
-          <div class="project-footer">
-            <ul class="project-tags"><li>Unity</li><li>C#</li><li>Pixel Art</li></ul>
-            <a href="https://plbc.itch.io/underground-rebellion" class="project-link" target="_blank" onclick="event.stopPropagation()">View ↗</a>
-          </div>
-        </article>
-
-        <article class="project-card reveal" data-video="CxfQWhZdpqg">
-          <div class="project-card-header">
-            <span class="project-cat">IoT · Smart Home</span>
-            <span class="project-year">2023</span>
-          </div>
-          <h3 class="project-title">SmartKeeper — Assistant for Active Ageing at Home</h3>
-          <p class="project-desc">SmartKeeper is an assistant that serves older people in ways so they can keep their health, independency and autonomy by monitorizing everything that happens inside their home in a non-instrusive way.</p>
-          <div class="project-footer">
-            <ul class="project-tags"><li>IoT</li><li>Web</li><li>UX</li></ul>
-            <a href="https://bernardoleandro1.github.io/PI/" class="project-link" target="_blank" onclick="event.stopPropagation()">View ↗</a>
-          </div>
-        </article>
-
-        <article class="project-card reveal" data-video="J5liV26ALCs">
-          <div class="project-card-header">
-            <span class="project-cat">Educational · Puzzle Game</span>
-            <span class="project-year">2023</span>
-          </div>
-          <h3 class="project-title">Calculus</h3>
-          <p class="project-desc">Calculus is a casual educational puzzle game where the player finds themselves inside the notebook of a primary school student who is learning basic arithmetic. They are immediately confronted with numbers that come to life and fall from the sky, threatening to escape from the grid world. To prevent this, the player has basic numbers and the four arithmetic operations at their disposal as weapons. As the pages are turned, the basic numbers change. Can the player think faster than the speed at which the numbers fall?</p>
-          <div class="project-footer">
-            <ul class="project-tags"><li>Pygame</li><li>Python</li><li>Game Design</li></ul>
-            <a href="https://plbc.itch.io/calculus" class="project-link" target="_blank" onclick="event.stopPropagation()">View ↗</a>
-          </div>
-        </article>
-
-        <article class="project-card reveal" data-video="ZIM7osRks9c">
-          <div class="project-card-header">
-            <span class="project-cat">AR · Mixed Reality</span>
-            <span class="project-year">2024</span>
-          </div>
-          <h3 class="project-title">Spy Room — Concept</h3>
-          <p class="project-desc">Spy Room is an AR game concept with VR elements developed for Meta Quest, where the player controls an avatar implemented in their physical space with the goal of collecting diamonds. The game uses room scanning and spatial mapping through Meta's MRUKit to integrate virtual elements into the real environment. The main mechanic is based on a progressive difficulty system where each diamond collected spawns a new horizontal laser in the room, forcing the player to use physical agility to dodge the increasing obstacles. The project includes a collision detection system, first-person motion tracking, a scoring interface, and visual feedback. Developed in Unity with C#, Meta Quest SDK, XR Interaction Toolkit, and AR Foundation.</p>
-          <div class="project-footer">
-            <ul class="project-tags"><li>Unity</li><li>AR</li><li>Meta Quest</li><li>C#</li></ul>
-            <a href="https://github.com/PedroC55/Spy_Room" class="project-link" target="_blank" onclick="event.stopPropagation()">View ↗</a>
-          </div>
-        </article>
-
-        <article class="project-card reveal" data-link="https://github.com/PedroC55/TQS_Project">
-          <div class="project-card-header">
-            <span class="project-cat">Full Stack · Web</span>
-            <span class="project-year">2023</span>
-          </div>
-          <h3 class="project-title">Software Testing and Quality — Pick Up Points System</h3>
-          <p class="project-desc">The aim of this project is to develop a pick up points system for different delivery companies to use, using React, Java, Spring Boot and Docker. The system also includes unit and integration tests.</p>
-          <div class="project-footer">
-            <ul class="project-tags"><li>React</li><li>Java</li><li>Spring Boot</li><li>Docker</li></ul>
-            <a href="https://github.com/PedroC55/TQS_Project" class="project-link" target="_blank" onclick="event.stopPropagation()">View ↗</a>
-          </div>
-        </article>
-
-        <article class="project-card reveal" data-link="https://github.com/PedroC55/ICM_Project1">
-          <div class="project-card-header">
-            <span class="project-cat">Mobile · Android</span>
-            <span class="project-year">2022</span>
-          </div>
-          <h3 class="project-title">Introduction to Mobile Computing — MovingCampus</h3>
-          <p class="project-desc">Application that allows Erasmus students to explore the university of Aveiro, which relies on the use of location, QR Code reader and text recognition.</p>
-          <div class="project-footer">
-            <ul class="project-tags"><li>Android</li><li>QR Code</li><li>GPS</li><li>OCR</li></ul>
-            <a href="https://github.com/PedroC55/ICM_Project1" class="project-link" target="_blank" onclick="event.stopPropagation()">View ↗</a>
-          </div>
-        </article>
-
-      </div>
-    </section>
-
-    <!-- ── CONTACT ── -->
-    <section class="contact section" id="contact">
-      <div class="section-header reveal">
-        <span class="section-num">05</span>
-        <h2 class="section-title">Contact</h2>
-        <span class="section-rule"></span>
-      </div>
-      <div class="contact-inner reveal">
-        <p class="contact-heading">Let's<br>talk.</p>
-        <a href="mailto:pedrocoelho485@gmail.com" class="contact-email">pedrocoelho485@gmail.com</a>
-        <div class="contact-socials">
-          <a href="https://github.com/PedroC55" class="social-btn" target="_blank">GitHub</a>
-          <a href="https://www.linkedin.com/in/pedrocoelho485/" class="social-btn" target="_blank">LinkedIn</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <span>© 2026 Pedro Coelho</span>
-    <span>Game Developer — Aveiro, PT</span>
-  </footer>
-
-  <!-- ── VIDEO MODAL ── -->
-  <div id="video-modal" class="modal hidden">
-    <div class="modal-content">
-      <button class="modal-close" id="modal-close">&times;</button>
-      <iframe id="yt-frame"
-              title="Project video"
-              frameborder="0"
-              allow="autoplay; encrypted-media"
-              allowfullscreen></iframe>
-    </div>
-  </div>
-
-  <script>
-    /* ── Nav background on scroll ── */
-    const nav = document.getElementById('nav');
-    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    /* ── Smooth scroll for nav links ── */
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', e => {
-        const target = document.querySelector(link.getAttribute('href'));
-        if (!target) return;
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-      });
-    });
-
-    /* ── Scroll reveal (IntersectionObserver) ── */
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-
-    /* Stagger project cards and skill cells */
-    document.querySelectorAll('.project-card.reveal').forEach((el, i) => {
-      el.style.transitionDelay = (i * 80) + 'ms';
-    });
-    document.querySelectorAll('.skill-cell.reveal').forEach((el, i) => {
-      el.style.transitionDelay = (i * 60) + 'ms';
-    });
-
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-    /* ── Video modal ── */
-    const modal       = document.getElementById('video-modal');
-    const ytFrame     = document.getElementById('yt-frame');
-    const modalClose  = document.getElementById('modal-close');
-
-    function openModal(videoId) {
-      ytFrame.src = `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&rel=0&playsinline=1`;
-      modal.classList.remove('hidden');
-    }
-
-    function closeModal() {
-      modal.classList.add('hidden');
-      ytFrame.src = '';
-    }
-
-    document.querySelectorAll('.project-card').forEach(card => {
-      card.addEventListener('click', () => {
-        const vid  = card.dataset.video;
-        const href = card.dataset.link;
-        if (vid)  openModal(vid);
-        else if (href) window.open(href, '_blank');
-      });
-    });
-
-    modalClose.addEventListener('click', closeModal);
-    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-
-    /* Close modal on Escape */
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
-    });
-  </script>
-
+  <!-- sections go here -->
+  <script>/* JS added in Task 8 */</script>
 </body>
 </html>
