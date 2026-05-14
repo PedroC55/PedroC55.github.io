@@ -443,6 +443,75 @@
       transition: width 0.25s ease;
     }
     .project-link:hover::after { width: 100%; }
+
+    /* ── CONTACT ── */
+    .contact-section {
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+    }
+
+    .contact-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      max-width: 560px;
+    }
+
+    .contact-heading {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 700;
+      line-height: 1.05;
+      color: var(--text-primary);
+    }
+    .contact-heading em {
+      font-style: italic;
+      color: var(--accent-primary);
+    }
+
+    .contact-email {
+      font-size: 1rem;
+      color: var(--accent-primary);
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .contact-email:hover { color: var(--accent-secondary); }
+
+    .contact-socials {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .social-btn {
+      display: inline-block;
+      padding: 0.5rem 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: 2rem;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .social-btn:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem var(--section-h);
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
   </style>
 </head>
 <body>
@@ -650,8 +719,26 @@
       </div>
     </section>
 
-    <!-- remaining sections added in later tasks -->
+    <!-- ── CONTACT ── -->
+    <section class="contact-section section" id="contact">
+      <div class="container">
+        <span class="section-label reveal">Get in Touch</span>
+        <div class="contact-inner reveal">
+          <p class="contact-heading">Let's<br><em>talk.</em></p>
+          <a href="mailto:pedrocoelho485@gmail.com" class="contact-email" aria-label="Email Pedro Coelho">pedrocoelho485@gmail.com</a>
+          <div class="contact-socials">
+            <a href="https://github.com/PedroC55" class="social-btn" target="_blank" rel="noopener" aria-label="Pedro Coelho on GitHub">GitHub</a>
+            <a href="https://www.linkedin.com/in/pedrocoelho485/" class="social-btn" target="_blank" rel="noopener" aria-label="Pedro Coelho on LinkedIn">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <footer class="footer">
+    <span>© 2025 Pedro Coelho</span>
+    <span>Game Developer — Aveiro, PT</span>
+  </footer>
   <script>
 const nav = document.getElementById('nav');
 const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
