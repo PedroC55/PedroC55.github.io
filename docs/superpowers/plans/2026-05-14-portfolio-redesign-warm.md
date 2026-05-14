@@ -1,0 +1,1195 @@
+# Portfolio Redesign (Warm Editorial) — Implementation Plan
+
+> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
+
+**Goal:** Rebuild `index.html` as a warm cream/sand editorial portfolio for Pedro Coelho, replacing the dark design with inline CSS and JS, no external stylesheet, no video modal.
+
+**Architecture:** Single `index.html` — all CSS in `<style>`, all JS in `<script>`. `assets/css/style.css` is emptied (kept in repo but unused). No frameworks, no build step. GitHub Pages deploys on `git push master`. Each task produces a commit.
+
+**Tech Stack:** HTML5, CSS3 (custom properties, grid, flexbox, keyframes, IntersectionObserver), vanilla JS, Google Fonts CDN (Playfair Display + DM Sans)
+
+**Spec:** `docs/superpowers/specs/2026-05-13-portfolio-redesign-design.md`
+
+---
+
+## File Map
+
+| File | Action | Responsibility |
+|------|--------|---------------|
+| `index.html` | Full rewrite | All HTML, all CSS in `<style>`, all JS in `<script>` |
+| `assets/css/style.css` | Empty | Kept in repo, no longer loaded |
+| `assets/img/CV.jpg` | Unchanged | Profile photo referenced from hero |
+| `_layouts/default.html` | Unchanged | Jekyll artifact, not used by index.html |
+
+---
+
+## Task 1: Document skeleton, design tokens, grain overlay
+
+**Files:**
+- Rewrite: `index.html`
+- Empty: `assets/css/style.css`
+
+- [ ] **Step 1: Empty `assets/css/style.css`**
+
+Replace the entire contents of `assets/css/style.css` with a single comment:
+
+```css
+/* Styles moved inline to index.html */
+```
+
+- [ ] **Step 2: Replace `index.html` with the new skeleton**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pedro Coelho — Game Developer & XR Developer</title>
+  <meta name="description" content="Portfolio of Pedro Coelho, game developer specialising in VR, AR, and interactive experiences. Master's in Digital Games, University of Aveiro." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    /* ── DESIGN TOKENS ── */
+    :root {
+      --bg-primary:       #FAF7F2;
+      --bg-secondary:     #F2EDE4;
+      --bg-card:          #FFFFFF;
+      --accent-primary:   #C8956C;
+      --accent-secondary: #8B6F5E;
+      --text-primary:     #2C2416;
+      --text-secondary:   #6B5744;
+      --text-muted:       #A08878;
+      --border:           #E8DDD3;
+      --shadow:           rgba(44, 36, 22, 0.08);
+      --font-display:     'Playfair Display', Georgia, serif;
+      --font-body:        'DM Sans', system-ui, sans-serif;
+      --nav-h:            64px;
+      --section-v:        96px;
+      --section-h:        48px;
+      --max-w:            1120px;
+    }
+
+    /* ── RESET ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    img  { display: block; max-width: 100%; }
+    a    { color: inherit; text-decoration: none; }
+    ul   { list-style: none; }
+
+    /* ── BASE ── */
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── GRAIN OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      opacity: 0.03;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ── LAYOUT UTILITIES ── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .section {
+      padding: var(--section-v) var(--section-h);
+    }
+
+    /* ── SHARED SECTION HEADER ── */
+    .section-label {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-primary);
+      margin-bottom: 0.5rem;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.1;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 3rem;
+    }
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 40px;
+      height: 2px;
+      background: var(--accent-primary);
+    }
+
+    /* ── SCROLL REVEAL ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+  <!-- sections go here -->
+  <script>/* JS added in Task 8 */</script>
+</body>
+</html>
+```
+
+- [ ] **Step 3: Open `index.html` in a browser**
+
+Expected: blank warm-cream page, no errors in console. Google Fonts CDN request appears in Network tab.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add index.html assets/css/style.css
+git -c user.email="pedrocoelho485@gmail.com" -c user.name="Pedro Coelho" commit -m "feat: skeleton, design tokens, grain overlay, empty style.css"
+```
+
+---
+
+## Task 2: Navigation
+
+**Files:**
+- Modify: `index.html` — add `<nav>` HTML, nav CSS, nav JS
+
+- [ ] **Step 1: Add nav HTML inside `<body>` before the comment**
+
+```html
+<nav class="nav" id="nav">
+  <a class="nav-logo" href="#hero">Pedro Coelho</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+```
+
+- [ ] **Step 2: Add nav CSS inside `<style>` (before the closing `</style>`)**
+
+```css
+/* ── NAV ── */
+.nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--section-h);
+  z-index: 100;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.nav.scrolled {
+  background: var(--bg-primary);
+  box-shadow: 0 1px 0 var(--border);
+}
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+}
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+.nav-links a {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--accent-primary); }
+```
+
+- [ ] **Step 3: Add nav + smooth-scroll JS (replace the placeholder comment in `<script>`)**
+
+```js
+const nav = document.getElementById('nav');
+const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
+window.addEventListener('scroll', onScroll, { passive: true });
+onScroll();
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', e => {
+    const target = document.querySelector(link.getAttribute('href'));
+    if (!target) return;
+    e.preventDefault();
+    target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+```
+
+- [ ] **Step 4: Open in browser**
+
+Expected: "Pedro Coelho" in terracotta on the left, three nav links on the right. Nav is transparent initially; gains `--bg-primary` background + bottom border after scrolling 40px.
+
+- [ ] **Step 5: Commit**
+
+```bash
+git add index.html
+git -c user.email="pedrocoelho485@gmail.com" -c user.name="Pedro Coelho" commit -m "feat: fixed nav with scroll-triggered background"
+```
+
+---
+
+## Task 3: Hero section — layout and photo
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 1: Add hero HTML inside `<body>`, after `<nav>`, before `<script>`**
+
+```html
+<main>
+  <!-- ── HERO ── -->
+  <section class="hero section" id="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <p class="hero-eyebrow">
+          <span class="hero-eyebrow-line" aria-hidden="true"></span>
+          Game Developer &amp; XR Developer · Universidade de Aveiro
+        </p>
+        <h1 class="hero-name">Pedro<br>Coelho</h1>
+        <p class="hero-subtitle">Crafting immersive interactive experiences — VR, AR &amp; Digital Games</p>
+        <div class="hero-actions">
+          <a href="mailto:pedrocoelho485@gmail.com" class="hero-btn" aria-label="Send email to Pedro Coelho">Email</a>
+          <a href="https://github.com/PedroC55" class="hero-btn" target="_blank" rel="noopener" aria-label="Pedro Coelho on GitHub">GitHub</a>
+          <a href="https://www.linkedin.com/in/pedrocoelho485/" class="hero-btn" target="_blank" rel="noopener" aria-label="Pedro Coelho on LinkedIn">LinkedIn</a>
+        </div>
+      </div>
+      <div class="hero-photo-wrap">
+        <img src="assets/img/CV.jpg" alt="Pedro Coelho" class="hero-photo">
+      </div>
+    </div>
+  </section>
+
+  <!-- remaining sections added in later tasks -->
+</main>
+```
+
+- [ ] **Step 2: Add hero CSS to `<style>`**
+
+```css
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: calc(var(--nav-h) + 2rem);
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 20%, #EDE4D8 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, #F0E8DC 0%, transparent 60%),
+    var(--bg-primary);
+}
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 4rem;
+  align-items: center;
+}
+
+/* Eyebrow */
+.hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+.hero-eyebrow-line {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--accent-primary);
+  flex-shrink: 0;
+}
+
+/* Name */
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 7vw, 6rem);
+  font-weight: 900;
+  line-height: 1.0;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+/* Subtitle */
+.hero-subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--text-secondary);
+  max-width: 480px;
+  line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+/* Buttons */
+.hero-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+.hero-btn {
+  display: inline-block;
+  padding: 0.6rem 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: 2rem;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  transition: border-color 0.2s, color 0.2s;
+}
+.hero-btn:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+/* Photo */
+.hero-photo-wrap {
+  position: relative;
+}
+.hero-photo-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 2px solid var(--accent-primary);
+  border-radius: 1rem;
+  transform: translate(12px, 12px);
+  opacity: 0.45;
+  z-index: 0;
+}
+.hero-photo {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+}
+```
+
+- [ ] **Step 3: Open in browser**
+
+Expected: two-column hero — text left, photo right with a terracotta offset border behind it. Gradient mesh creates a gentle warm wash. Layout fills the viewport.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add index.html
+git -c user.email="pedrocoelho485@gmail.com" -c user.name="Pedro Coelho" commit -m "feat: hero layout — two columns, photo with offset border, gradient mesh"
+```
+
+---
+
+## Task 4: Hero load animations
+
+**Files:**
+- Modify: `index.html` — add CSS keyframes + animation declarations
+
+- [ ] **Step 1: Add keyframes and per-element animation rules to `<style>`**
+
+```css
+/* ── HERO ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(var(--ty, 20px)); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeScale {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.hero-eyebrow {
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0s forwards;
+  --ty: 16px;
+}
+.hero-name {
+  opacity: 0;
+  animation: fadeUp 0.8s ease 0.15s forwards;
+  --ty: 24px;
+}
+.hero-subtitle {
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.35s forwards;
+  --ty: 12px;
+}
+.hero-actions {
+  opacity: 0;
+  animation: fadeUp 0.6s ease 0.55s forwards;
+  --ty: 8px;
+}
+.hero-photo-wrap {
+  opacity: 0;
+  animation: fadeScale 0.8s ease 0.2s forwards;
+}
+```
+
+- [ ] **Step 2: Hard-refresh in browser (Ctrl+Shift+R)**
+
+Expected: eyebrow appears first, name sweeps up 0.15s later (most dramatic), subtitle follows, then buttons. Photo fades in scaled up simultaneously with the eyebrow.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add index.html
+git -c user.email="pedrocoelho485@gmail.com" -c user.name="Pedro Coelho" commit -m "feat: hero load animations with staggered delays"
+```
+
+---
+
+## Task 5: Skills section
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 1: Add skills HTML after the hero `</section>`, inside `<main>`, replacing the `<!-- remaining sections -->` comment**
+
+```html
+  <!-- ── SKILLS ── -->
+  <section class="skills-section section" id="skills">
+    <div class="container">
+      <span class="section-label reveal">Capabilities</span>
+      <h2 class="section-title reveal">Skills</h2>
+      <div class="skills-grid">
+
+        <div class="skill-group reveal">
+          <span class="skill-cat">Game Dev</span>
+          <ul class="skill-tags">
+            <li>Unity</li><li>Godot</li><li>Unreal Engine</li>
+            <li>Pygame</li><li>Blender</li><li>Inform 7</li>
+          </ul>
+        </div>
+
+        <div class="skill-group reveal">
+          <span class="skill-cat">XR / VR / AR</span>
+          <ul class="skill-tags">
+            <li>Meta Quest SDK</li><li>XR Interaction Toolkit</li>
+            <li>MRUK</li><li>MindAR.js</li><li>3DVista</li>
+          </ul>
+        </div>
+
+        <div class="skill-group reveal">
+          <span class="skill-cat">Frontend</span>
+          <ul class="skill-tags">
+            <li>HTML</li><li>CSS</li><li>React.js</li><li>Vite</li>
+          </ul>
+        </div>
+
+        <div class="skill-group reveal">
+          <span class="skill-cat">Backend</span>
+          <ul class="skill-tags">
+            <li>Java</li><li>Python</li><li>JavaScript</li>
+            <li>C#</li><li>Node.js</li>
+          </ul>
+        </div>
+
+        <div class="skill-group reveal">
+          <span class="skill-cat">Databases</span>
+          <ul class="skill-tags">
+            <li>SQL</li><li>MongoDB</li><li>Apache Cassandra</li><li>Neo4j</li>
+          </ul>
+        </div>
+
+        <div class="skill-group reveal">
+          <span class="skill-cat">Mobile</span>
+          <ul class="skill-tags">
+            <li>Android Native</li><li>Flutter</li><li>Dart</li>
+          </ul>
+        </div>
+
+        <div class="skill-group reveal">
+          <span class="skill-cat">Tools</span>
+          <ul class="skill-tags">
+            <li>Git</li><li>GitHub</li><li>Bash</li>
+            <li>LaTeX</li><li>Assembly</li><li>Docker</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- remaining sections added in later tasks -->
+```
+
+- [ ] **Step 2: Add skills CSS to `<style>`**
+
+```css
+/* ── SKILLS ── */
+.skills-section { background: var(--bg-secondary); }
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem 4rem;
+}
+
+.skill-group { min-width: 180px; }
+
+.skill-cat {
+  display: block;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.skill-tags li {
+  padding: 4px 12px;
+  border: 1px solid var(--border);
+  border-radius: 2rem;
+  background: var(--bg-primary);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  cursor: default;
+  transition: border-color 0.2s, color 0.2s;
+}
+.skill-tags li:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+```
+
+- [ ] **Step 3: Open in browser and scroll down**
+
+Expected: sand background skills section. Pill tags in cream with warm border. Seven skill groups in a wrapping flex layout. Tags turn terracotta on hover.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add index.html
+git -c user.email="pedrocoelho485@gmail.com" -c user.name="Pedro Coelho" commit -m "feat: skills section — 7 categories with pill tags"
+```
+
+---
+
+## Task 6: Projects section
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 1: Add projects HTML after the skills `</section>`, replacing `<!-- remaining sections -->`**
+
+```html
+  <!-- ── PROJECTS ── -->
+  <section class="projects-section section" id="projects">
+    <div class="container">
+      <span class="section-label reveal">Selected Work</span>
+      <h2 class="section-title reveal">Projects</h2>
+      <div class="projects-grid">
+
+        <article class="project-card reveal">
+          <span class="project-num" aria-hidden="true">01</span>
+          <div class="project-card-header">
+            <span class="project-cat">VR · Survival · Game Design</span>
+            <span class="project-year">2024</span>
+          </div>
+          <h3 class="project-title">Bake 'Em Up!</h3>
+          <p class="project-desc">VR survival game and cooking simulator where you play as a cat baker defending a food truck from zombies using magically-powered breads. Responsible for enemy AI, ragdoll physics, sound design, and UI/UX.</p>
+          <div class="project-footer">
+            <ul class="project-tags"><li>Unity</li><li>VR</li><li>C#</li><li>Game Design</li></ul>
+            <a href="https://rafinha-uwu.itch.io/bake-em-up" class="project-link" target="_blank" rel="noopener" aria-label="View Bake Em Up on itch.io">View Project →</a>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <span class="project-num" aria-hidden="true">02</span>
+          <div class="project-card-header">
+            <span class="project-cat">2D Platformer · Pixel Art</span>
+            <span class="project-year">2023</span>
+          </div>
+          <h3 class="project-title">Underground Rebellion</h3>
+          <p class="project-desc">2D pixel art action-platformer with skill-based combat through a parry system. Responsible for player mechanics (parry, dash, wall jump), UI/UX, tutorial, and minimap.</p>
+          <div class="project-footer">
+            <ul class="project-tags"><li>Unity</li><li>2D</li><li>Pixel Art</li><li>C#</li></ul>
+            <a href="https://plbc.itch.io/underground-rebellion" class="project-link" target="_blank" rel="noopener" aria-label="View Underground Rebellion on itch.io">View Project →</a>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <span class="project-num" aria-hidden="true">03</span>
+          <div class="project-card-header">
+            <span class="project-cat">AR · Mixed Reality</span>
+            <span class="project-year">2024</span>
+          </div>
+          <h3 class="project-title">Spy Room</h3>
+          <p class="project-desc">AR game concept for Meta Quest using room scanning and spatial mapping (MRUK). Player collects diamonds while dodging progressively spawning laser obstacles placed in their physical space.</p>
+          <div class="project-footer">
+            <ul class="project-tags"><li>Unity</li><li>AR</li><li>Meta Quest</li><li>C#</li></ul>
+            <a href="https://github.com/PedroC55/Spy_Room" class="project-link" target="_blank" rel="noopener" aria-label="View Spy Room on GitHub">View Project →</a>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <span class="project-num" aria-hidden="true">04</span>
+          <div class="project-card-header">
+            <span class="project-cat">Educational · Puzzle Game</span>
+            <span class="project-year">2023</span>
+          </div>
+          <h3 class="project-title">Calculus</h3>
+          <p class="project-desc">Casual educational puzzle game where arithmetic enemies fall from the sky and the player defeats them using numbers and basic operations as weapons. Progressively harder as pages turn.</p>
+          <div class="project-footer">
+            <ul class="project-tags"><li>Unity</li><li>C#</li><li>Educational</li><li>Mobile</li></ul>
+            <a href="https://plbc.itch.io/calculus" class="project-link" target="_blank" rel="noopener" aria-label="View Calculus on itch.io">View Project →</a>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <span class="project-num" aria-hidden="true">05</span>
+          <div class="project-card-header">
+            <span class="project-cat">IoT · Smart Home</span>
+            <span class="project-year">2023</span>
+          </div>
+          <h3 class="project-title">SmartKeeper</h3>
+          <p class="project-desc">IoT assistant for active ageing at home, monitoring the environment non-intrusively to support health, independence, and autonomy for elderly users.</p>
+          <div class="project-footer">
+            <ul class="project-tags"><li>IoT</li><li>Web</li><li>Monitoring</li></ul>
+            <a href="https://bernardoleandro1.github.io/PI/" class="project-link" target="_blank" rel="noopener" aria-label="View SmartKeeper project">View Project →</a>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <span class="project-num" aria-hidden="true">06</span>
+          <div class="project-card-header">
+            <span class="project-cat">Full Stack · Web</span>
+            <span class="project-year">2023</span>
+          </div>
+          <h3 class="project-title">Pick Up Points System</h3>
+          <p class="project-desc">Full-stack pick-up points management system for delivery companies, built with React, Java, and Spring Boot, including unit and integration test coverage.</p>
+          <div class="project-footer">
+            <ul class="project-tags"><li>React</li><li>Java</li><li>Spring Boot</li><li>Docker</li></ul>
+            <a href="https://github.com/PedroC55/TQS_Project" class="project-link" target="_blank" rel="noopener" aria-label="View Pick Up Points System on GitHub">View Project →</a>
+          </div>
+        </article>
+
+        <article class="project-card reveal">
+          <span class="project-num" aria-hidden="true">07</span>
+          <div class="project-card-header">
+            <span class="project-cat">Mobile · Android</span>
+            <span class="project-year">2022</span>
+          </div>
+          <h3 class="project-title">MovingCampus</h3>
+          <p class="project-desc">Mobile app for Erasmus students at the University of Aveiro integrating GPS navigation, QR code scanning, and optical text recognition to help explore the campus.</p>
+          <div class="project-footer">
+            <ul class="project-tags"><li>Android</li><li>Mobile</li><li>Location</li></ul>
+            <a href="https://github.com/PedroC55/ICM_Project1" class="project-link" target="_blank" rel="noopener" aria-label="View MovingCampus on GitHub">View Project →</a>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- remaining sections added in later tasks -->
+```
+
+- [ ] **Step 2: Add projects CSS to `<style>`**
+
+```css
+/* ── PROJECTS ── */
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 2rem;
+  box-shadow: 0 2px 12px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.project-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px var(--shadow);
+}
+
+.project-num {
+  position: absolute;
+  top: 1rem;
+  right: 1.25rem;
+  font-family: var(--font-display);
+  font-size: 5rem;
+  font-weight: 900;
+  color: var(--accent-primary);
+  opacity: 0.10;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+}
+
+.project-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.project-cat {
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.project-year {
+  font-size: 0.65rem;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+}
+
+.project-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+
+.project-desc {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.75;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.project-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+.project-tags li {
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 2rem;
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+}
+
+.project-link {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--accent-primary);
+  white-space: nowrap;
+  position: relative;
+  flex-shrink: 0;
+}
+.project-link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent-primary);
+  transition: width 0.25s ease;
+}
+.project-link:hover::after { width: 100%; }
+```
+
+- [ ] **Step 3: Open in browser and scroll to projects**
+
+Expected: white cards on cream background in a 2-column grid. Each card has a faint large number top-right. Cards lift 4px on hover with deeper shadow. "View Project →" link gets an underline animation on hover.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add index.html
+git -c user.email="pedrocoelho485@gmail.com" -c user.name="Pedro Coelho" commit -m "feat: projects section — 2-col grid, 7 cards, editorial numbers, external links"
+```
+
+---
+
+## Task 7: Contact section and footer
+
+**Files:**
+- Modify: `index.html`
+
+- [ ] **Step 1: Add contact + footer HTML after the projects `</section>`, replacing `<!-- remaining sections -->`**
+
+```html
+  <!-- ── CONTACT ── -->
+  <section class="contact-section section" id="contact">
+    <div class="container">
+      <span class="section-label reveal">Get in Touch</span>
+      <div class="contact-inner reveal">
+        <p class="contact-heading">Let's<br><em>talk.</em></p>
+        <a href="mailto:pedrocoelho485@gmail.com" class="contact-email" aria-label="Email Pedro Coelho">pedrocoelho485@gmail.com</a>
+        <div class="contact-socials">
+          <a href="https://github.com/PedroC55" class="social-btn" target="_blank" rel="noopener" aria-label="Pedro Coelho on GitHub">GitHub</a>
+          <a href="https://www.linkedin.com/in/pedrocoelho485/" class="social-btn" target="_blank" rel="noopener" aria-label="Pedro Coelho on LinkedIn">LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <span>© 2025 Pedro Coelho</span>
+  <span>Game Developer — Aveiro, PT</span>
+</footer>
+```
+
+- [ ] **Step 2: Add contact + footer CSS to `<style>`**
+
+```css
+/* ── CONTACT ── */
+.contact-section {
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+}
+
+.contact-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 560px;
+}
+
+.contact-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  color: var(--text-primary);
+}
+.contact-heading em {
+  font-style: italic;
+  color: var(--accent-primary);
+}
+
+.contact-email {
+  font-size: 1rem;
+  color: var(--accent-primary);
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
+}
+.contact-email:hover { color: var(--accent-secondary); }
+
+.contact-socials {
+  display: flex;
+  gap: 0.75rem;
+}
+.social-btn {
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  border: 1px solid var(--border);
+  border-radius: 2rem;
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  transition: border-color 0.2s, color 0.2s;
+}
+.social-btn:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
+}
+
+/* ── FOOTER ── */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem var(--section-h);
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+```
+
+- [ ] **Step 3: Open in browser and scroll to the bottom**
+
+Expected: "Let's *talk.*" in Playfair with italic terracotta "talk.", email link in terracotta, two outlined social pill buttons. Footer: copyright left, location right.
+
+- [ ] **Step 4: Commit**
+
+```bash
+git add index.html
+git -c user.email="pedrocoelho485@gmail.com" -c user.name="Pedro Coelho" commit -m "feat: contact section and footer"
+```
+
+---
+
+## Task 8: Scroll reveal JS with stagger
+
+**Files:**
+- Modify: `index.html` — add IntersectionObserver JS to `<script>`
+
+- [ ] **Step 1: Add reveal JS to `<script>` (after the nav/smooth-scroll code from Task 2)**
+
+```js
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.skill-group.reveal').forEach((el, i) => {
+  el.style.transitionDelay = (i * 50) + 'ms';
+});
+document.querySelectorAll('.project-card.reveal').forEach((el, i) => {
+  el.style.transitionDelay = (i * 80) + 'ms';
+});
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+```
+
+- [ ] **Step 2: Open in browser and scroll through the full page**
+
+Expected: section labels, headings, skill groups, and project cards all fade up from `translateY(24px)` as they enter the viewport. Skill groups stagger at 50ms each; project cards at 80ms each. Each element only animates once.
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add index.html
+git -c user.email="pedrocoelho485@gmail.com" -c user.name="Pedro Coelho" commit -m "feat: IntersectionObserver scroll reveal with staggered delays"
+```
+
+---
+
+## Task 9: Responsive CSS and `prefers-reduced-motion`
+
+**Files:**
+- Modify: `index.html` — add media queries to `<style>`
+
+- [ ] **Step 1: Add responsive + accessibility CSS to `<style>` (append at the bottom, before `</style>`)**
+
+```css
+/* ── RESPONSIVE — Tablet ── */
+@media (max-width: 1023px) {
+  :root {
+    --section-v: 72px;
+    --section-h: 32px;
+  }
+  .hero-grid {
+    grid-template-columns: 1fr 320px;
+    gap: 2.5rem;
+  }
+}
+
+/* ── RESPONSIVE — Mobile ── */
+@media (max-width: 767px) {
+  :root {
+    --section-v: 56px;
+    --section-h: 20px;
+  }
+
+  .nav-links { display: none; }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+  .hero-photo-wrap {
+    order: -1;
+    max-width: 240px;
+    margin: 0 auto;
+  }
+  .hero-photo {
+    aspect-ratio: 1 / 1;
+  }
+  .hero-name {
+    font-size: clamp(2.8rem, 12vw, 4rem);
+  }
+
+  .projects-grid { grid-template-columns: 1fr; }
+
+  .footer {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-eyebrow,
+  .hero-name,
+  .hero-subtitle,
+  .hero-actions,
+  .hero-photo-wrap {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .reveal {
+    transition: none;
+  }
+  .project-card {
+    transition: none;
+  }
+}
+```
+
+- [ ] **Step 2: Test in browser DevTools responsive mode**
+
+At **375px**:
+- Nav shows only "Pedro Coelho", no links
+- Hero: photo (square, centred) stacked above the text block
+- Projects: single column
+
+At **768px**:
+- Two-column hero still works (tighter gap)
+- Projects: single column (< 768px breakpoint)
+
+At **1280px**:
+- Full two-column hero, two-column projects grid
+
+- [ ] **Step 3: Commit**
+
+```bash
+git add index.html
+git -c user.email="pedrocoelho485@gmail.com" -c user.name="Pedro Coelho" commit -m "feat: responsive breakpoints and prefers-reduced-motion support"
+```
+
+---
+
+## Task 10: Final verification
+
+**Files:**
+- Modify: `index.html` — fix any issues found during verification
+
+- [ ] **Step 1: Accessibility audit**
+
+Confirm these attributes are present:
+
+| Element | Required |
+|---------|----------|
+| `<img class="hero-photo">` | `alt="Pedro Coelho"` |
+| GitHub hero button | `aria-label="Pedro Coelho on GitHub"` |
+| LinkedIn hero button | `aria-label="Pedro Coelho on LinkedIn"` |
+| Email hero button | `aria-label="Send email to Pedro Coelho"` |
+| Each "View Project →" link | `aria-label="View [Name] on [platform]"` |
+| GitHub social button | `aria-label="Pedro Coelho on GitHub"` |
+| LinkedIn social button | `aria-label="Pedro Coelho on LinkedIn"` |
+| `.hero-eyebrow-line` | `aria-hidden="true"` |
+| `.project-num` spans | `aria-hidden="true"` |
+
+If any are missing, add them now to `index.html`.
+
+- [ ] **Step 2: Full smoke test**
+
+- [ ] Nav background appears after scrolling 40px
+- [ ] Nav links smooth-scroll to the correct section anchor
+- [ ] Hero animations fire on page load (eyebrow → name → subtitle → buttons, photo)
+- [ ] Skills pill tags turn terracotta on hover
+- [ ] Scroll reveal fires for all `.reveal` elements
+- [ ] All 7 "View Project →" links open the correct external URL in a new tab
+- [ ] Email link (`mailto:`) opens mail client
+- [ ] GitHub and LinkedIn social buttons open correctly
+- [ ] Page readable at 375px, 768px, and 1280px
+- [ ] No old video modal `<div id="video-modal">` remains in the HTML
+
+- [ ] **Step 3: Final commit**
+
+```bash
+git add index.html
+git -c user.email="pedrocoelho485@gmail.com" -c user.name="Pedro Coelho" commit -m "feat: complete warm editorial portfolio rebuild"
+```
+
+---
+
+## Spec Coverage Self-Review
+
+| Spec requirement | Task |
+|-----------------|------|
+| Warm cream palette (`--bg-primary: #FAF7F2` etc.) | Task 1 |
+| Playfair Display + DM Sans via Google Fonts | Task 1 |
+| Grain overlay `body::before` at 3% opacity | Task 1 |
+| Fixed nav, transparent → filled on scroll | Task 2 |
+| Nav links hidden on mobile | Task 9 |
+| Hero two-column grid | Task 3 |
+| Hero eyebrow with terracotta rule | Task 3 |
+| Hero name `clamp(3.5rem, 7vw, 6rem)` | Task 3 |
+| Hero photo with `::after` offset terracotta border | Task 3 |
+| Radial gradient mesh background on hero | Task 3 |
+| Hero staggered load animations | Task 4 |
+| Skills: 7 categories as flex-wrap groups | Task 5 |
+| Skill pills with hover → terracotta | Task 5 |
+| XR / VR / AR category with Meta Quest SDK, MRUK etc. | Task 5 |
+| Projects 2-column grid | Task 6 |
+| Editorial numbers (01–07) at 10% opacity | Task 6 |
+| Project descriptions clamped to 4 lines | Task 6 |
+| All project links → external, no video modal | Task 6 |
+| "View Project →" underline animation | Task 6 |
+| Card lift hover + deeper shadow | Task 6 |
+| Contact "Let's *talk.*" in Playfair italic | Task 7 |
+| Social pill buttons | Task 7 |
+| Footer with copyright + location | Task 7 |
+| IntersectionObserver scroll reveal | Task 8 |
+| Stagger: skills 50ms, projects 80ms | Task 8 |
+| Mobile: single column hero, photo first | Task 9 |
+| `prefers-reduced-motion` disables all animations | Task 9 |
+| `aria-label` on all icon/link elements | Task 10 |
+| `alt` on profile photo | Task 3 + Task 10 |
