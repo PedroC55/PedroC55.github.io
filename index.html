@@ -325,6 +325,124 @@
       border-color: var(--accent-primary);
       color: var(--accent-primary);
     }
+
+    /* ── PROJECTS ── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 0.75rem;
+      padding: 2rem;
+      box-shadow: 0 2px 12px var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px var(--shadow);
+    }
+
+    .project-num {
+      position: absolute;
+      top: 1rem;
+      right: 1.25rem;
+      font-family: var(--font-display);
+      font-size: 5rem;
+      font-weight: 900;
+      color: var(--accent-primary);
+      opacity: 0.10;
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .project-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .project-cat {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+    .project-year {
+      font-size: 0.65rem;
+      letter-spacing: 1px;
+      color: var(--text-muted);
+    }
+
+    .project-title {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .project-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      flex: 1;
+    }
+
+    .project-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      margin-top: auto;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+    .project-tags li {
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      border: 1px solid var(--border);
+      border-radius: 2rem;
+      color: var(--text-muted);
+      background: var(--bg-secondary);
+    }
+
+    .project-link {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--accent-primary);
+      white-space: nowrap;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .project-link::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent-primary);
+      transition: width 0.25s ease;
+    }
+    .project-link:hover::after { width: 100%; }
   </style>
 </head>
 <body>
@@ -418,6 +536,115 @@
               <li>LaTeX</li><li>Assembly</li><li>Docker</li>
             </ul>
           </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ── PROJECTS ── -->
+    <section class="projects-section section" id="projects">
+      <div class="container">
+        <span class="section-label reveal">Selected Work</span>
+        <h2 class="section-title reveal">Projects</h2>
+        <div class="projects-grid">
+
+          <article class="project-card reveal">
+            <span class="project-num" aria-hidden="true">01</span>
+            <div class="project-card-header">
+              <span class="project-cat">VR · Survival · Game Design</span>
+              <span class="project-year">2024</span>
+            </div>
+            <h3 class="project-title">Bake 'Em Up!</h3>
+            <p class="project-desc">VR survival game and cooking simulator where you play as a cat baker defending a food truck from zombies using magically-powered breads. Responsible for enemy AI, ragdoll physics, sound design, and UI/UX.</p>
+            <div class="project-footer">
+              <ul class="project-tags"><li>Unity</li><li>VR</li><li>C#</li><li>Game Design</li></ul>
+              <a href="https://rafinha-uwu.itch.io/bake-em-up" class="project-link" target="_blank" rel="noopener" aria-label="View Bake Em Up on itch.io">View Project →</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="project-num" aria-hidden="true">02</span>
+            <div class="project-card-header">
+              <span class="project-cat">2D Platformer · Pixel Art</span>
+              <span class="project-year">2023</span>
+            </div>
+            <h3 class="project-title">Underground Rebellion</h3>
+            <p class="project-desc">2D pixel art action-platformer with skill-based combat through a parry system. Responsible for player mechanics (parry, dash, wall jump), UI/UX, tutorial, and minimap.</p>
+            <div class="project-footer">
+              <ul class="project-tags"><li>Unity</li><li>2D</li><li>Pixel Art</li><li>C#</li></ul>
+              <a href="https://plbc.itch.io/underground-rebellion" class="project-link" target="_blank" rel="noopener" aria-label="View Underground Rebellion on itch.io">View Project →</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="project-num" aria-hidden="true">03</span>
+            <div class="project-card-header">
+              <span class="project-cat">AR · Mixed Reality</span>
+              <span class="project-year">2024</span>
+            </div>
+            <h3 class="project-title">Spy Room</h3>
+            <p class="project-desc">AR game concept for Meta Quest using room scanning and spatial mapping (MRUK). Player collects diamonds while dodging progressively spawning laser obstacles placed in their physical space.</p>
+            <div class="project-footer">
+              <ul class="project-tags"><li>Unity</li><li>AR</li><li>Meta Quest</li><li>C#</li></ul>
+              <a href="https://github.com/PedroC55/Spy_Room" class="project-link" target="_blank" rel="noopener" aria-label="View Spy Room on GitHub">View Project →</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="project-num" aria-hidden="true">04</span>
+            <div class="project-card-header">
+              <span class="project-cat">Educational · Puzzle Game</span>
+              <span class="project-year">2023</span>
+            </div>
+            <h3 class="project-title">Calculus</h3>
+            <p class="project-desc">Casual educational puzzle game where arithmetic enemies fall from the sky and the player defeats them using numbers and basic operations as weapons. Progressively harder as pages turn.</p>
+            <div class="project-footer">
+              <ul class="project-tags"><li>Unity</li><li>C#</li><li>Educational</li><li>Mobile</li></ul>
+              <a href="https://plbc.itch.io/calculus" class="project-link" target="_blank" rel="noopener" aria-label="View Calculus on itch.io">View Project →</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="project-num" aria-hidden="true">05</span>
+            <div class="project-card-header">
+              <span class="project-cat">IoT · Smart Home</span>
+              <span class="project-year">2023</span>
+            </div>
+            <h3 class="project-title">SmartKeeper</h3>
+            <p class="project-desc">IoT assistant for active ageing at home, monitoring the environment non-intrusively to support health, independence, and autonomy for elderly users.</p>
+            <div class="project-footer">
+              <ul class="project-tags"><li>IoT</li><li>Web</li><li>Monitoring</li></ul>
+              <a href="https://bernardoleandro1.github.io/PI/" class="project-link" target="_blank" rel="noopener" aria-label="View SmartKeeper project">View Project →</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="project-num" aria-hidden="true">06</span>
+            <div class="project-card-header">
+              <span class="project-cat">Full Stack · Web</span>
+              <span class="project-year">2023</span>
+            </div>
+            <h3 class="project-title">Pick Up Points System</h3>
+            <p class="project-desc">Full-stack pick-up points management system for delivery companies, built with React, Java, and Spring Boot, including unit and integration test coverage.</p>
+            <div class="project-footer">
+              <ul class="project-tags"><li>React</li><li>Java</li><li>Spring Boot</li><li>Docker</li></ul>
+              <a href="https://github.com/PedroC55/TQS_Project" class="project-link" target="_blank" rel="noopener" aria-label="View Pick Up Points System on GitHub">View Project →</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="project-num" aria-hidden="true">07</span>
+            <div class="project-card-header">
+              <span class="project-cat">Mobile · Android</span>
+              <span class="project-year">2022</span>
+            </div>
+            <h3 class="project-title">MovingCampus</h3>
+            <p class="project-desc">Mobile app for Erasmus students at the University of Aveiro integrating GPS navigation, QR code scanning, and optical text recognition to help explore the campus.</p>
+            <div class="project-footer">
+              <ul class="project-tags"><li>Android</li><li>Mobile</li><li>Location</li></ul>
+              <a href="https://github.com/PedroC55/ICM_Project1" class="project-link" target="_blank" rel="noopener" aria-label="View MovingCampus on GitHub">View Project →</a>
+            </div>
+          </article>
 
         </div>
       </div>
