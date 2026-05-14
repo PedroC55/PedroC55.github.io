@@ -753,6 +753,24 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
     target.scrollIntoView({ behavior: 'smooth' });
   });
 });
+
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
+
+document.querySelectorAll('.skill-group.reveal').forEach((el, i) => {
+  el.style.transitionDelay = (i * 50) + 'ms';
+});
+document.querySelectorAll('.project-card.reveal').forEach((el, i) => {
+  el.style.transitionDelay = (i * 80) + 'ms';
+});
+
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
   </script>
 </body>
 </html>
