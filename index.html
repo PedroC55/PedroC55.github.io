@@ -31,7 +31,8 @@
 
     /* ── RESET ── */
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body { overflow-x: hidden; }
     img  { display: block; max-width: 100%; }
     a    { color: inherit; text-decoration: none; }
     ul   { list-style: none; }
@@ -349,6 +350,7 @@
     .project-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 8px 28px var(--shadow);
+      transition-delay: 0s;
     }
 
     .project-num {
@@ -740,6 +742,76 @@
           <article class="project-card reveal">
             <span class="project-num" aria-hidden="true">05</span>
             <div class="project-card-header">
+              <span class="project-cat">Web Design · Restaurant</span>
+              <span class="project-year">2025</span>
+            </div>
+            <h3 class="project-title">Tasca do Avelino</h3>
+            <p class="project-desc">Demo website developed as part of a freelance web services concept targeting local Portuguese restaurants. Designed to showcase how a traditional family-run tasca could have a warm, story-driven online presence — complete with a full menu, customer reviews, location info, and table reservation integration. The aesthetic was deliberately rustic and familiar, built to resonate with the restaurant's identity and clientele.</p>
+            <div class="project-footer">
+              <ul class="project-tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Responsive Design</li><li>Web Design</li></ul>
+              <a href="https://demorestaurantes.vercel.app/" class="project-link" target="_blank" rel="noopener" aria-label="View Tasca do Avelino demo">View Demo →</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="project-num" aria-hidden="true">06</span>
+            <div class="project-card-header">
+              <span class="project-cat">Web Design · Fine Dining</span>
+              <span class="project-year">2025</span>
+            </div>
+            <h3 class="project-title">Quinta do Tejo</h3>
+            <p class="project-desc">Second demo website for the same freelance concept, deliberately contrasting in style — targeting upscale fine dining restaurants. Features an editorial luxury aesthetic with a tasting menu presentation, press coverage section, and premium typography, demonstrating the ability to adapt web design tone and language to completely different brand identities within the same industry.</p>
+            <div class="project-footer">
+              <ul class="project-tags"><li>HTML</li><li>CSS</li><li>JavaScript</li><li>Responsive Design</li><li>Web Design</li><li>Fine Dining</li></ul>
+              <a href="https://quinta-tejo.vercel.app/" class="project-link" target="_blank" rel="noopener" aria-label="View Quinta do Tejo demo">View Demo →</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="project-num" aria-hidden="true">07</span>
+            <div class="project-card-header">
+              <span class="project-cat">AR · PWA · Web</span>
+              <span class="project-year">2025</span>
+            </div>
+            <h3 class="project-title">Condeixa XR</h3>
+            <p class="project-desc">Location-based AR Progressive Web App developed for the Municipality of Condeixa-a-Nova, offering three integrated experiences: an interactive map with georeferenced Points of Interest (MapLibre GL JS), an Augmented Reality mode where users point their device at real buildings to reveal a contextual information overlay (MindAR.js image tracking), and an embedded 360° virtual tour. All POI content is managed through a Sanity CMS headless backend, allowing the municipality to update the app without any code changes. The project pivoted from GPS-based AR (AR.js) to image tracking due to positioning inaccuracy — a real-world constraint that shaped the final architecture.</p>
+            <div class="project-footer">
+              <ul class="project-tags"><li>Vite</li><li>Sanity CMS</li><li>MapLibre</li><li>MindAR.js</li><li>AR</li><li>PWA</li><li>JavaScript</li></ul>
+              <a href="https://municipio-condeixa-360.vercel.app/" class="project-link" target="_blank" rel="noopener" aria-label="View Condeixa XR project">View Project →</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="project-num" aria-hidden="true">08</span>
+            <div class="project-card-header">
+              <span class="project-cat">360° Tour · VR · Tourism</span>
+              <span class="project-year">2025</span>
+            </div>
+            <h3 class="project-title">Quinta da Pacheca — Virtual Tour</h3>
+            <p class="project-desc">Complete rebuild of the 360° interactive virtual tour for Quinta da Pacheca, a wine estate in the Douro Valley. Redeveloped from scratch in 3DVista using existing 360° photography, replacing a previous version that did not meet quality standards. Work included configuring all navigation hotspots, designing and implementing a custom UI skin (prototyped in Figma and imported into 3DVista's skin editor), and developing interactive features: hover effects, tooltips, floor plan viewer, Google Maps embed, spatial audio, and VR headset support.</p>
+            <div class="project-footer">
+              <ul class="project-tags"><li>3DVista</li><li>360° Photography</li><li>UI Design</li><li>Figma</li><li>VR</li><li>Tourism</li></ul>
+              <a href="https://critecng.com/hubd/quintapacheca/" class="project-link" target="_blank" rel="noopener" aria-label="View Quinta da Pacheca virtual tour">View Tour →</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="project-num" aria-hidden="true">09</span>
+            <div class="project-card-header">
+              <span class="project-cat">360° Tour · VR · Real Estate</span>
+              <span class="project-year">2025</span>
+            </div>
+            <h3 class="project-title">Grupo NB — Apartment Virtual Tour</h3>
+            <p class="project-desc">End-to-end 360° virtual tour developed for Grupo NB, a real estate client, showcasing a residential apartment complex in Aveiro for sale. The project covered the full pipeline: on-site 360° photography sessions capturing all rooms and common areas, image processing and assembly in 3DVista, and a custom interactive skin with room labels, area information, inter-unit navigation, and Google Maps embed. Delivered as a web-based experience compatible with desktop browsers and VR headsets.</p>
+            <div class="project-footer">
+              <ul class="project-tags"><li>3DVista</li><li>360° Photography</li><li>Real Estate</li><li>UI Design</li><li>VR</li></ul>
+              <a href="https://critecng.com/hubd/nb2040/" class="project-link" target="_blank" rel="noopener" aria-label="View Grupo NB apartment virtual tour">View Tour →</a>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <span class="project-num" aria-hidden="true">10</span>
+            <div class="project-card-header">
               <span class="project-cat">IoT · Smart Home</span>
               <span class="project-year">2023</span>
             </div>
@@ -752,7 +824,7 @@
           </article>
 
           <article class="project-card reveal">
-            <span class="project-num" aria-hidden="true">06</span>
+            <span class="project-num" aria-hidden="true">11</span>
             <div class="project-card-header">
               <span class="project-cat">Full Stack · Web</span>
               <span class="project-year">2023</span>
@@ -766,7 +838,7 @@
           </article>
 
           <article class="project-card reveal">
-            <span class="project-num" aria-hidden="true">07</span>
+            <span class="project-num" aria-hidden="true">12</span>
             <div class="project-card-header">
               <span class="project-cat">Mobile · Android</span>
               <span class="project-year">2022</span>
@@ -823,6 +895,9 @@ const revealObserver = new IntersectionObserver((entries) => {
     if (entry.isIntersecting) {
       entry.target.classList.add('visible');
       revealObserver.unobserve(entry.target);
+      entry.target.addEventListener('transitionend', () => {
+        entry.target.style.transitionDelay = '0ms';
+      }, { once: true });
     }
   });
 }, { threshold: 0.12 });
@@ -831,7 +906,7 @@ document.querySelectorAll('.skill-group.reveal').forEach((el, i) => {
   el.style.transitionDelay = (i * 50) + 'ms';
 });
 document.querySelectorAll('.project-card.reveal').forEach((el, i) => {
-  el.style.transitionDelay = (i * 80) + 'ms';
+  el.style.transitionDelay = (i * 60) + 'ms';
 });
 
 document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
