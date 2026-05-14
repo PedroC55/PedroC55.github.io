@@ -283,6 +283,48 @@
       opacity: 0;
       animation: fadeScale 0.8s ease 0.2s forwards;
     }
+
+    /* ── SKILLS ── */
+    .skills-section { background: var(--bg-secondary); }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem 4rem;
+    }
+
+    .skill-group { min-width: 180px; }
+
+    .skill-cat {
+      display: block;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .skill-tags li {
+      padding: 4px 12px;
+      border: 1px solid var(--border);
+      border-radius: 2rem;
+      background: var(--bg-primary);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      cursor: default;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .skill-tags li:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
   </style>
 </head>
 <body>
@@ -313,6 +355,70 @@
         </div>
         <div class="hero-photo-wrap">
           <img src="assets/img/CV.jpg" alt="Pedro Coelho" class="hero-photo">
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SKILLS ── -->
+    <section class="skills-section section" id="skills">
+      <div class="container">
+        <span class="section-label reveal">Capabilities</span>
+        <h2 class="section-title reveal">Skills</h2>
+        <div class="skills-grid">
+
+          <div class="skill-group reveal">
+            <span class="skill-cat">Game Dev</span>
+            <ul class="skill-tags">
+              <li>Unity</li><li>Godot</li><li>Unreal Engine</li>
+              <li>Pygame</li><li>Blender</li><li>Inform 7</li>
+            </ul>
+          </div>
+
+          <div class="skill-group reveal">
+            <span class="skill-cat">XR / VR / AR</span>
+            <ul class="skill-tags">
+              <li>Meta Quest SDK</li><li>XR Interaction Toolkit</li>
+              <li>MRUK</li><li>MindAR.js</li><li>3DVista</li>
+            </ul>
+          </div>
+
+          <div class="skill-group reveal">
+            <span class="skill-cat">Frontend</span>
+            <ul class="skill-tags">
+              <li>HTML</li><li>CSS</li><li>React.js</li><li>Vite</li>
+            </ul>
+          </div>
+
+          <div class="skill-group reveal">
+            <span class="skill-cat">Backend</span>
+            <ul class="skill-tags">
+              <li>Java</li><li>Python</li><li>JavaScript</li>
+              <li>C#</li><li>Node.js</li>
+            </ul>
+          </div>
+
+          <div class="skill-group reveal">
+            <span class="skill-cat">Databases</span>
+            <ul class="skill-tags">
+              <li>SQL</li><li>MongoDB</li><li>Apache Cassandra</li><li>Neo4j</li>
+            </ul>
+          </div>
+
+          <div class="skill-group reveal">
+            <span class="skill-cat">Mobile</span>
+            <ul class="skill-tags">
+              <li>Android Native</li><li>Flutter</li><li>Dart</li>
+            </ul>
+          </div>
+
+          <div class="skill-group reveal">
+            <span class="skill-cat">Tools</span>
+            <ul class="skill-tags">
+              <li>Git</li><li>GitHub</li><li>Bash</li>
+              <li>LaTeX</li><li>Assembly</li><li>Docker</li>
+            </ul>
+          </div>
+
         </div>
       </div>
     </section>
