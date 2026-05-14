@@ -142,6 +142,112 @@
       transition: color 0.2s;
     }
     .nav-links a:hover { color: var(--accent-primary); }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding-top: calc(var(--nav-h) + 2rem);
+      background:
+        radial-gradient(ellipse 60% 50% at 80% 20%, #EDE4D8 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, #F0E8DC 0%, transparent 60%),
+        var(--bg-primary);
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 400px;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    /* Eyebrow */
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow-line {
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--accent-primary);
+      flex-shrink: 0;
+    }
+
+    /* Name */
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(3.5rem, 7vw, 6rem);
+      font-weight: 900;
+      line-height: 1.0;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+    }
+
+    /* Subtitle */
+    .hero-subtitle {
+      font-size: 1rem;
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    /* Buttons */
+    .hero-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .hero-btn {
+      display: inline-block;
+      padding: 0.6rem 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: 2rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .hero-btn:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    /* Photo */
+    .hero-photo-wrap {
+      position: relative;
+    }
+    .hero-photo-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--accent-primary);
+      border-radius: 1rem;
+      transform: translate(12px, 12px);
+      opacity: 0.45;
+      z-index: 0;
+    }
+    .hero-photo {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+    }
   </style>
 </head>
 <body>
@@ -153,7 +259,31 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
-  <!-- sections go here -->
+  <main>
+    <!-- ── HERO ── -->
+    <section class="hero section" id="hero">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <p class="hero-eyebrow">
+            <span class="hero-eyebrow-line" aria-hidden="true"></span>
+            Game Developer &amp; XR Developer · Universidade de Aveiro
+          </p>
+          <h1 class="hero-name">Pedro<br>Coelho</h1>
+          <p class="hero-subtitle">Crafting immersive interactive experiences — VR, AR &amp; Digital Games</p>
+          <div class="hero-actions">
+            <a href="mailto:pedrocoelho485@gmail.com" class="hero-btn" aria-label="Send email to Pedro Coelho">Email</a>
+            <a href="https://github.com/PedroC55" class="hero-btn" target="_blank" rel="noopener" aria-label="Pedro Coelho on GitHub">GitHub</a>
+            <a href="https://www.linkedin.com/in/pedrocoelho485/" class="hero-btn" target="_blank" rel="noopener" aria-label="Pedro Coelho on LinkedIn">LinkedIn</a>
+          </div>
+        </div>
+        <div class="hero-photo-wrap">
+          <img src="assets/img/CV.jpg" alt="Pedro Coelho" class="hero-photo">
+        </div>
+      </div>
+    </section>
+
+    <!-- remaining sections added in later tasks -->
+  </main>
   <script>
 const nav = document.getElementById('nav');
 const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 40);
