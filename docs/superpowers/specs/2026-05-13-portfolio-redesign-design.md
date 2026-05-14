@@ -1,28 +1,21 @@
 # Portfolio Redesign — Design Spec
-**Date:** 2026-05-13  
-**Project:** PedroC55.github.io  
+**Date:** 2026-05-14
+**Project:** PedroC55.github.io
 **Status:** Approved
 
 ---
 
 ## Overview
 
-A complete rebuild of Pedro Coelho's portfolio website. The goal is to create a memorable, professional site that signals craft — something a hiring manager at a game studio opens and immediately understands "this person knows what they're doing."
-
-The rebuild touches every file: HTML structure, CSS system, JavaScript behavior. The tech stack stays vanilla HTML/CSS/JS (GitHub Pages compatible, no build tools, no frameworks).
+A complete rebuild of Pedro Coelho's portfolio as a single-page static site on GitHub Pages. The goal is a memorable, warmly editorial portfolio that signals craft and personality — something a hiring manager at a game studio opens and immediately understands "this person pays attention to detail." No frameworks, no build step: pure HTML/CSS/JS in a single `index.html`.
 
 ---
 
-## Aesthetic Direction: Editorial Dark
+## Aesthetic Direction: Warmly Editorial ("Crafted with Care")
 
-**Chosen direction:** Magazine-editorial meets premium game studio. Dark, typographic, restrained. The kind of portfolio someone at IO Interactive or Riot Games would have — confident without being loud.
+Warm cream and sand tones. The feel of a designer's sketchbook or artisan product catalogue — generous whitespace, serif display type, subtle grain and texture, terracotta accents. Explicitly NOT a dark developer portfolio. Comparable reference: a thoughtful editorial magazine or a small creative studio's site.
 
-**Justification:** Pedro is a game developer doing a Master's in Digital Games. His work spans VR, AR, Unity, mobile, and web. The Editorial Dark direction conveys:
-- Seriousness and craft (editorial typography)
-- Comfort in dark/immersive environments (game dev native)
-- Range without clutter (clean sections, no visual noise)
-
-**What makes it unforgettable:** The name IS the hero. Giant Playfair Display at ~120px dominates the viewport — there are no images, no gradients competing for attention. The typography does all the work.
+**Guiding principle:** every visual detail serves the content; nothing is decorative for its own sake.
 
 ---
 
@@ -30,194 +23,189 @@ The rebuild touches every file: HTML structure, CSS system, JavaScript behavior.
 
 ### Color Palette (CSS variables)
 ```css
---bg:           #0a0a0f   /* near-black with a blue undertone */
---surface:      #0d0d14   /* elevated surfaces (cards, cells) */
---border:       #1a1a1a   /* subtle dividers */
---border-light: #111111   /* even subtler dividers */
---text-primary: #f5f0e8   /* warm off-white — not pure white */
---text-secondary: #7a6d60 /* muted body text */
---text-dim:     #3a3028   /* very dim labels, ghost numbers */
---accent:       #c8b89a   /* warm gold/tan — the only color */
---accent-dim:   #2a2218   /* dimmed accent for borders/hover states */
+--bg-primary:       #FAF7F2;              /* cream, almost white */
+--bg-secondary:     #F2EDE4;              /* soft sand */
+--bg-card:          #FFFFFF;
+--accent-primary:   #C8956C;              /* terracotta / caramel */
+--accent-secondary: #8B6F5E;             /* warm brown */
+--text-primary:     #2C2416;              /* near-black, warm */
+--text-secondary:   #6B5744;             /* mid brown */
+--text-muted:       #A08878;
+--border:           #E8DDD3;
+--shadow:           rgba(44, 36, 22, 0.08);
 ```
 
 ### Typography
-- **Display font:** Playfair Display — weights 700, 900, italic 700
-  - Used for: hero name, section titles, contact heading, pull quote
-- **Body font:** DM Sans — weights 300, 400, 500
-  - Used for: nav links, body text, labels, tags, metadata, CTA buttons
-- **Scale:**
-  - Hero name: clamp(72px, 10vw, 128px)
-  - Section titles: 36px
-  - Body: 13–14px
-  - Labels/tags: 8–10px, letter-spacing: 3–4px, text-transform: uppercase
+- **Display / headings:** Playfair Display — weights 700, 900, italic 700
+- **Body / interface:** DM Sans — weights 300, 400, 500
+- Imported via Google Fonts `<link>` in `<head>`
+- No Inter, Roboto, Arial, or system sans-serif fallbacks beyond the named fonts
 
-### Spacing Scale
-- Base unit: 8px
-- Section padding: 96px top/bottom, 48px sides (desktop)
-- Card padding: 28px top/bottom, 32px sides
-- Gap between cards: 8px
-
-### Border Radius
-None — all elements use sharp corners. Consistent with editorial aesthetic.
+### Special Effects
+- **Grain overlay:** `body::before` pseudo-element covering 100vw/100vh, SVG noise filter or tiled data-URI noise, `opacity: 0.03`, `pointer-events: none`, `z-index: 0`; all content sections at `position: relative; z-index: 1`
+- **Gradient mesh hero background:** two to three overlapping `radial-gradient` calls in `--bg-secondary`/`--bg-primary` tones creating a soft, non-uniform warmth
 
 ---
 
 ## Site Architecture
 
-Single-page scroll. Fixed minimal nav at top. Five content sections + footer.
+Single-page scroll. Four visible sections + footer. No hamburger menu on mobile (hero CTA and natural scroll handle navigation).
 
 ```
 [nav]
-[01 Hero]
-[02 About]
-[03 Skills]
-[04 Work]
-[05 Contact]
-[footer]
+[Hero]
+[Skills]
+[Projects]
+[Contact / Footer]
 ```
 
 ### Navigation
-- Fixed/sticky, `backdrop-filter: blur(12px)` for readability over content
-- Left: monogram "P·C" in Playfair Display, accent color
-- Right: WORK · ABOUT · SKILLS · CONTACT in DM Sans, 9px, 3px letter-spacing
-- Transparent initially, gains background on scroll
-- Smooth scroll to anchor on click
-
-### 01 — Hero
-- Full viewport height (`min-height: 100vh`)
-- Layout: left-aligned, vertically centered
-- Elements (top to bottom):
-  1. Eyebrow: small-caps label with a leading horizontal rule — "Game Developer — University of Aveiro"
-  2. Name: "Pedro / Coelho" in Playfair Display at max size, line-height 0.88
-  3. Subtitle row: 40px horizontal rule + small-caps one-liner — "Crafting immersive interactive experiences — VR, AR & Digital Games"
-  4. CTA button: outlined, "See My Work" — smooth scrolls to #work
-- Ghost page number "01" in Playfair Display, ~80px, color `#0f0f0f` — bottom-right decorative element
-- Vertical "scroll" label with a descending line — right edge, centered vertically
-- Load animation: name translateY(24px)→0 + opacity 0→1 (0.8s ease), subtitle staggered 0.2s after, CTA staggered 0.4s after
-
-### 02 — About
-- Two-column grid: `1fr 340px`
-- Left column:
-  - Pull quote in Playfair italic — excerpt from bio: *"A passion for creating immersive interactive experiences."*
-  - Left border accent (2px, `--accent` at 20% opacity)
-  - Full bio paragraph in DM Sans
-  - Metadata rows (key/value pairs with bottom border): Degree, Focus, Location, Available for
-- Right column:
-  - Profile photo (`assets/img/CV.jpg`) — full column width, `object-fit: cover`
-  - Aspect ratio ~3:4
-  - Border: 1px solid `--border`
-
-### 03 — Skills
-- Replaces the existing HTML table entirely
-- 3×2 CSS grid, separated by 1px `--border` lines
-- Each cell has:
-  - Category label (DM Sans, 8px, letter-spacing 3px, `--accent`)
-  - Tag list: inline bordered chips (border: 1px solid `--border`, padding 3px 10px)
-- Categories: Game Dev · Languages · Frontend · Database · Mobile · Tools
-- Skills content is exactly the same as current site — only presentation changes
-
-### 04 — Work
-- Section label + Playfair "Work" heading + horizontal rule
-- All 7 projects as feature cards, stacked vertically, 8px gap
-- Each card:
-  - Left accent bar: 3px, `--accent` at 20% opacity → 100% on hover
-  - Header row: category label (left) + year (right)
-  - Title in Playfair Display 700, 20px
-  - Description: full original text preserved, DM Sans 13px, `--text-secondary`, line-height 1.75
-  - Footer row: tech tag chips (left) + "View ↗" link (right, `--accent`)
-- Cards with `data-video` open the existing YouTube modal on click
-- Cards with `data-link` open the URL in a new tab
-- "View ↗" link has `event.stopPropagation()` to avoid double-triggering
-- Hover state: `translateY(-2px)`, accent bar brightens, very subtle box-shadow
-
-**Project list with tech tags:**
-1. Bake 'Em Up! — VR · Survival — Unity, VR, C#, AI — itch.io link + video
-2. Underground Rebellion — 2D Platformer · Pixel Art — Unity, C#, Pixel Art — itch.io link + video
-3. SmartKeeper — IoT · Smart Home — Web, UX, IoT — external link + video
-4. Calculus — Educational · Puzzle — Pygame, Python, Game Design — itch.io link + video
-5. Spy Room Concept — AR · Mixed Reality — Unity, AR, Meta Quest, C# — GitHub link + video
-6. Pick Up Points System — Full Stack · Web — React, Java, Spring Boot, Docker — GitHub link
-7. MovingCampus — Mobile · Android — Android, QR Code, GPS, OCR — GitHub link
-
-### 05 — Contact
-- Left-aligned, max-width 560px
-- "Let's / talk." in Playfair Display italic, ~52px — line break after "Let's"
-- Email address: `pedrocoelho485@gmail.com` — DM Sans, 15px, `--accent`, `mailto:` link
-- Social links row: GitHub + LinkedIn as small outlined buttons (DM Sans, 9px, letter-spacing 3px)
-
-### Footer
-- Single line, `border-top: 1px solid --border`
-- Left: "© 2026 Pedro Coelho"
-- Right: "Game Developer — Aveiro, PT"
-- Both in DM Sans 9px, `--text-dim`, letter-spacing 2px
+- Fixed/sticky at top; starts transparent, gains `--bg-primary` + subtle `box-shadow` on scroll past 40px
+- Left: name or monogram in Playfair Display, `--accent-primary`
+- Right: SKILLS · WORK · CONTACT links in DM Sans, small-caps, `--text-secondary`; hover → `--accent-primary`
+- Smooth scroll to anchors on click
 
 ---
 
-## Video Modal
+## Section: Hero
 
-Keep existing modal behavior and JavaScript exactly as-is. Restyle only:
-- Background: `rgba(0,0,0,0.92)` + `backdrop-filter: blur(12px)`
-- Modal content: `border: 1px solid --border`, `box-shadow: 0 0 60px rgba(200,184,154,0.08)`
-- Close button: Playfair Display, `--accent` color
+Full-viewport-height section (`min-height: 100vh`). Two asymmetric columns:
 
----
+**Left column (wider, ~60%)**
+- Eyebrow line: `<span class="hero-eyebrow-line">` (thin 32px terracotta rule) + small-caps label — "Game Developer & XR Developer · Universidade de Aveiro"
+- Name: "Pedro Coelho" in Playfair Display, `font-size: clamp(3.5rem, 7vw, 6rem)`, `line-height: 1.0`, `--text-primary`
+- Subtitle: "Crafting immersive interactive experiences — VR, AR & Digital Games" in DM Sans 300
+- Three pill/outlined contact buttons: Email · GitHub · LinkedIn
+  - Default: border `--border`, background transparent, text `--text-secondary`
+  - Hover: border fills to `--accent-primary`, text `--accent-primary`, `transition: 0.2s`
 
-## Motion & Animation
+**Right column (~40%)**
+- Profile photo `assets/img/CV.jpg`; `border-radius: 1rem`; `object-fit: cover`
+- Decorative offset border: `::after` pseudo-element, `border: 2px solid --accent-primary`, `opacity: 0.5`, offset `+12px +12px`, same `border-radius`, behind the photo
 
-### Page Load (Hero)
+**Load animations (CSS keyframes)**
 ```
-hero eyebrow:  opacity 0→1, translateY(16px)→0, delay 0s,    duration 0.7s
-hero name:     opacity 0→1, translateY(24px)→0, delay 0.15s, duration 0.9s
-hero subtitle: opacity 0→1, translateY(12px)→0, delay 0.5s,  duration 0.7s
-hero CTA:      opacity 0→1, translateY(8px)→0,  delay 0.7s,  duration 0.6s
+eyebrow:  opacity 0→1, translateY(16px)→0, delay 0s,    0.6s ease
+name:     opacity 0→1, translateY(24px)→0, delay 0.15s, 0.8s ease
+subtitle: opacity 0→1, translateY(12px)→0, delay 0.35s, 0.6s ease
+buttons:  opacity 0→1, translateY(8px)→0,  delay 0.55s, 0.6s ease
+photo:    opacity 0→1, scale(0.97)→scale(1), delay 0.2s, 0.8s ease
 ```
 
-### Scroll Reveals (IntersectionObserver)
-- All `.reveal` elements start at `opacity: 0; transform: translateY(20px)`
-- On intersection (threshold 0.15): class `visible` added → `opacity: 1; transform: translateY(0); transition: 0.6s ease`
-- Project cards stagger: each card gets `transition-delay: calc(index * 80ms)`
-- Skills cells stagger similarly
+---
 
-### Hover States
-- Project cards: `transform: translateY(-2px)`, accent bar `opacity: 1`, `transition: 0.25s ease`
-- Nav links: `color: --accent`, `transition: 0.2s`
-- CTA button: `background: --accent-dim`, `transition: 0.2s`
-- Social links: `border-color: --accent`, `color: --accent`, `transition: 0.2s`
+## Section: Skills (`id="skills"`)
+
+**Section header pattern (shared across all sections):**
+- Small-caps category label (DM Sans, `--accent-primary`, letter-spacing 3px)
+- Section title in Playfair Display
+- Thin decorative rule via `::after` pseudo-element on the title, `background: --accent-primary`, ~40px wide
+
+No tables. Skill groups in a responsive flex-wrap grid. Each group:
+- Category name: DM Sans, `text-transform: uppercase`, `font-size: 0.7rem`, `letter-spacing: 3px`, `--text-muted`
+- Skills as **tag pills**: `border: 1px solid --border`, `background: --bg-secondary`, `padding: 4px 12px`, `border-radius: 2rem`, `font-size: 0.75rem`, `--text-secondary`
+- Pill hover: `border-color: --accent-primary`, `color: --accent-primary`, `transition: 0.2s`
+
+**Skill categories and content:**
+| Category | Skills |
+|----------|--------|
+| Game Dev | Unity, Godot, Unreal Engine, Pygame, Blender, Inform 7 |
+| XR / VR / AR | Meta Quest SDK, XR Interaction Toolkit, MRUK, MindAR.js, 3DVista |
+| Frontend | HTML, CSS, React.js, Vite |
+| Backend | Java, Python, JavaScript, C#, Node.js |
+| Databases | SQL, MongoDB, Apache Cassandra, Neo4j |
+| Mobile | Android Native, Flutter, Dart |
+| Tools | Git, GitHub, Bash, LaTeX, Assembly, Docker |
 
 ---
 
-## File Structure
+## Section: Projects (`id="projects"`)
 
-```
-PedroC55.github.io/
-├── index.html          ← complete rebuild
-├── assets/
-│   ├── css/
-│   │   └── style.css   ← complete rebuild
-│   └── img/
-│       └── CV.jpg      ← unchanged
-└── _layouts/
-    └── default.html    ← unchanged (Jekyll layout, not used by index.html)
-```
+Same section header pattern. 2-column CSS grid on desktop, 1-column on mobile (< 768px).
 
-No new dependencies. Fonts via Google Fonts CDN. particles.js removed (replaced by pure CSS atmosphere: radial gradient on hero background).
+**Card anatomy:**
+- `position: relative; overflow: hidden`
+- Background `--bg-card`; `border: 1px solid --border`; `border-radius: 0.75rem`
+- `box-shadow: 0 2px 12px --shadow`
+- Hover: `transform: translateY(-4px)`, `box-shadow: 0 8px 28px --shadow` (doubled), `transition: all 0.3s ease`
+- **Editorial number:** absolute top-right, `font-size: 5rem`, Playfair Display, `color: --accent-primary`, `opacity: 0.10`, `line-height: 1`, non-interactive
+- Category + year row: small-caps category left, year right, both `--text-muted`, DM Sans 0.7rem
+- Project title: Playfair Display 700, ~1.2rem, `--text-primary`
+- Description: DM Sans 0.85rem, `--text-secondary`, `line-height: 1.75`, max 3 lines displayed (`overflow: hidden`; no JS truncation needed — CSS is sufficient)
+- Tech tags row: pill tags same style as skills, smaller padding
+- "View Project →" link: `--accent-primary`, DM Sans 0.8rem, underline animates in on hover (`width: 0→100%` transition on `::after`)
+- All project links open in `target="_blank"` — **no video modal**
+
+**Project list (ordered as specified):**
+
+| # | Title | Category | Tags | Link |
+|---|-------|----------|------|------|
+| 01 | Bake 'Em Up! | VR · Survival · Game Design | Unity, VR, C#, Game Design | https://rafinha-uwu.itch.io/bake-em-up |
+| 02 | Underground Rebellion | 2D Platformer · Pixel Art | Unity, 2D, Pixel Art, C# | https://plbc.itch.io/underground-rebellion |
+| 03 | Spy Room | AR · Mixed Reality | Unity, AR, Meta Quest, C# | https://github.com/PedroC55/Spy_Room |
+| 04 | Calculus | Educational · Puzzle | Unity, C#, Educational, Mobile | https://plbc.itch.io/calculus |
+| 05 | SmartKeeper | IoT · Smart Home | IoT, Web, Monitoring | https://bernardoleandro1.github.io/PI/ |
+| 06 | Pick Up Points System | Full Stack · Web | React, Java, Spring Boot, Docker | https://github.com/PedroC55/TQS_Project |
+| 07 | MovingCampus | Mobile · Android | Android, Mobile, Location | https://github.com/PedroC55/ICM_Project1 |
 
 ---
 
-## Content Preservation Rules
+## Contact + Footer
 
-- All project descriptions preserved exactly (may tighten to 2 sentences for card view, full text kept in modal/expanded state)
-- All links preserved: itch.io, GitHub, external project pages
-- All video IDs preserved for modal
-- Email address preserved (with corrected `mailto:` prefix)
-- GitHub and LinkedIn URLs preserved
-- Bio text preserved (pull quote extracted from it, original kept in full)
+Simple and elegant, combined at the bottom.
+
+**Contact block:**
+- "Let's talk." in Playfair Display italic, large (~3rem)
+- Email as `mailto:` link, `--accent-primary`, DM Sans
+- GitHub + LinkedIn as small outlined social buttons (same pill style)
+- `background: --bg-secondary`; top `border-top: 1px solid --border`
+
+**Footer:**
+- "Pedro Coelho © 2025" centred, DM Sans 0.75rem, `--text-muted`
+- `background: --bg-secondary`
 
 ---
 
-## Responsive Behavior
+## Scroll Reveal Animations
 
-- **Desktop (≥1024px):** Full two-column About, 3×2 Skills grid, all sections at 96px padding
-- **Tablet (640px–1023px):** About becomes single column (photo above bio), Skills becomes 2×3, section padding 64px
-- **Mobile (<640px):** Hero name scales down via `clamp()`, single column everywhere, section padding 32px. Nav collapses: monogram "P·C" stays visible on left; nav links are hidden and replaced with no hamburger (the hero CTA and natural scroll handle navigation adequately on mobile).
+Implemented with `IntersectionObserver` (threshold 0.12).
+
+- All `.reveal` elements start: `opacity: 0; transform: translateY(24px)`
+- On intersection: add class `.visible` → `opacity: 1; transform: translateY(0); transition: opacity 0.6s ease, transform 0.6s ease`
+- Project cards staggered: `transition-delay: calc(index * 80ms)` via inline style
+- Skill groups staggered: `transition-delay: calc(index * 50ms)` via inline style
+
+---
+
+## Responsive Breakpoints
+
+| Breakpoint | Hero | Skills | Projects |
+|-----------|------|--------|---------|
+| ≥ 1024px | Two columns | Multi-column flex groups | 2-column grid |
+| 640–1023px | Two columns (tighter) | Multi-column flex groups | 1-column grid |
+| < 640px | Single column (photo first, then text) | Single-column flex groups | 1-column grid |
+
+Nav links hidden on mobile (< 640px); monogram stays. No hamburger.
+
+---
+
+## File Deliverable
+
+Single `index.html` containing:
+- All CSS in `<style>` within `<head>`
+- All JS in `<script>` before `</body>`
+- External dependency: Google Fonts `<link>` only
+- `assets/img/CV.jpg` referenced as-is
+
+`assets/css/style.css` will be emptied/removed from active use (kept in repo but overridden by inline styles).
+
+`_layouts/default.html` and `_includes/` untouched (Jekyll artifacts, not used by `index.html`).
+
+---
+
+## Accessibility
+
+- `alt="Pedro Coelho"` on profile photo
+- `aria-label` on GitHub and LinkedIn icon/text links
+- All colour pairs meet WCAG AA contrast (warm dark on cream backgrounds)
+- `prefers-reduced-motion` media query wraps all animation styles — if set, animations are instant (no translate, no opacity fade)
