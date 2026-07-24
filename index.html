@@ -160,6 +160,8 @@ img{max-width:100%}
 .lvl-go{position:absolute;top:20px;right:clamp(18px,3vw,34px);font-family:var(--px);font-size:9px;color:var(--yellow);opacity:0;transition:opacity .2s}
 .lvl:hover .lvl-go{opacity:1;animation:blink .7s steps(1) infinite}
 @media(max-width:640px){.lvl-go{display:none}.lvl-year{margin-left:0}}
+.lvl-video{position:relative;z-index:2;margin-left:12px;font-family:var(--px);font-size:clamp(7px,1vw,9px);color:var(--pink);background:transparent;border:1px solid var(--pink);padding:5px 10px;cursor:pointer;text-transform:uppercase;letter-spacing:.05em;transition:all .15s}
+.lvl-video:hover{background:var(--pink);color:var(--crt);box-shadow:0 0 12px rgba(255,42,109,.6)}
 
 /* ================= BONUS STAGES (archive) ================= */
 .bonus{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -251,7 +253,7 @@ body.turbo .hero-title{animation:glitch .25s steps(2) infinite}
       <div class="pcard-hint">[ hover the portrait to boost resolution ]</div>
     </div>
     <div class="profile-txt rv">
-      <p>Hi, I'm Pedro — a game developer from <b>Aveiro, Portugal</b>, and I've been turning ideas into playable worlds since I first realised that code could do that.</p>
+      <p>Hi, I'm Pedro, a game developer from <b>Aveiro, Portugal</b>, and I've been turning ideas into playable worlds since I first realised that code could do that.</p>
       <p>Most recently I spent a year building a <em>gamified VR training application</em> in Unity for Meta Quest as my Master's project in Digital Game Development — conveyor belts, socket interactions, avatar narration, the works. Before and around that: VR survival games, mixed-reality experiments that spawn lasers in your living room, AR city guides, and 360° virtual tours of wine estates.</p>
       <p>If it's interactive, I want to build it. I care about the details players never consciously notice — the button pulse, the haptic tick, the tutorial that doesn't feel like one.</p>
       <p>Off-screen you'll find me grinding card battlers, hunting down retro games, or planning the next trip.</p>
@@ -282,7 +284,7 @@ body.turbo .hero-title{animation:glitch .25s steps(2) infinite}
 <section class="sec" id="levels">
   <div class="sec-bar"><span class="sec-label">Level Select</span><span class="sec-stage">06 WORLDS</span></div>
 
-  <a class="lvl rv" href="https://municipio-condeixa-360.vercel.app/" target="_blank" rel="noopener">
+  <a class="lvl rv" href="https://municipio-condeixa.vercel.app/" target="_blank" rel="noopener">
     <span class="lvl-go">PLAY ►</span>
     <div class="lvl-top"><span class="lvl-no">LV.01</span><span class="lvl-name">Condeixa XR</span><span class="lvl-year">2025</span></div>
     <p class="lvl-desc">Location-based AR Progressive Web App for the Municipality of Condeixa-a-Nova — georeferenced POI map, AR mode that overlays info on real buildings via image tracking, and an embedded 360° tour. All content CMS-managed.</p>
@@ -291,7 +293,7 @@ body.turbo .hero-title{animation:glitch .25s steps(2) infinite}
 
   <a class="lvl rv" href="https://rafinha-uwu.itch.io/bake-em-up" target="_blank" rel="noopener">
     <span class="lvl-go">PLAY ►</span>
-    <div class="lvl-top"><span class="lvl-no">LV.02</span><span class="lvl-name">Bake 'Em Up!</span><span class="lvl-year">2024</span></div>
+    <div class="lvl-top"><span class="lvl-no">LV.02</span><span class="lvl-name">Bake 'Em Up!</span><span class="lvl-year">2024</span><button type="button" class="lvl-video" onclick="event.preventDefault();event.stopPropagation();window.open('https://www.youtube.com/watch?v=mbHaFuriT2E','_blank','noopener')">▶ Video</button></div>
     <p class="lvl-desc">VR survival game and cooking simulator — a cat baker defends a food truck from zombies with magically-powered breads. Enemy AI, ragdoll physics, sound design and UI/UX.</p>
     <div class="lvl-tags"><span>VR</span><span>Unity</span><span>C#</span><span>Survival</span></div>
   </a>
@@ -305,14 +307,14 @@ body.turbo .hero-title{animation:glitch .25s steps(2) infinite}
 
   <a class="lvl rv" href="https://github.com/PedroC55/Spy_Room" target="_blank" rel="noopener">
     <span class="lvl-go">PLAY ►</span>
-    <div class="lvl-top"><span class="lvl-no">LV.04</span><span class="lvl-name">Spy Room</span><span class="lvl-year">2024</span></div>
+    <div class="lvl-top"><span class="lvl-no">LV.04</span><span class="lvl-name">Spy Room</span><span class="lvl-year">2024</span><button type="button" class="lvl-video" onclick="event.preventDefault();event.stopPropagation();window.open('https://www.youtube.com/shorts/ZIM7osRks9c','_blank','noopener')">▶ Video</button></div>
     <p class="lvl-desc">Mixed-reality game for Meta Quest using room scanning and spatial mapping — collect diamonds while dodging laser obstacles spawned inside your own physical space.</p>
     <div class="lvl-tags"><span>Mixed Reality</span><span>Meta Quest</span><span>MRUK</span><span>Unity</span></div>
   </a>
 
   <a class="lvl rv" href="https://plbc.itch.io/underground-rebellion" target="_blank" rel="noopener">
     <span class="lvl-go">PLAY ►</span>
-    <div class="lvl-top"><span class="lvl-no">LV.05</span><span class="lvl-name">Underground Rebellion</span><span class="lvl-year">2023</span></div>
+    <div class="lvl-top"><span class="lvl-no">LV.05</span><span class="lvl-name">Underground Rebellion</span><span class="lvl-year">2023</span><button type="button" class="lvl-video" onclick="event.preventDefault();event.stopPropagation();window.open('https://www.youtube.com/watch?v=_AF4ouDuBSw','_blank','noopener')">▶ Video</button></div>
     <p class="lvl-desc">Pixel-art action-platformer built around skill-based combat with a parry system. Player mechanics (parry, dash, wall jump), UI/UX, tutorial and minimap.</p>
     <div class="lvl-tags"><span>2D Platformer</span><span>Pixel Art</span><span>Unity</span></div>
   </a>
@@ -527,7 +529,7 @@ document.getElementById('coinBtn').addEventListener('click', ()=>{
   coins++;
   creditsEl.textContent = String(coins).padStart(2,'0');
   blip(987, .09); setTimeout(()=>blip(1318,.12), 90);
-  setTimeout(()=>{ location.href = 'mailto:pedrocoelho485@gmail.com'; }, 320);
+  setTimeout(()=>{ location.href = 'mailto:pedro.coelho.web@gmail.com'; }, 320);
 });
 
 /* ============ CONTINUE? countdown ============ */
