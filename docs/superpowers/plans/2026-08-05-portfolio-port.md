@@ -1479,6 +1479,7 @@ Source: lines 55–115.
   display: flex; gap: 20px; width: max-content; padding: 4px var(--pad-inline);
   animation: om-marquee 46s linear infinite;
 }
+@media (prefers-reduced-motion: reduce) { .work__track { animation: none; } }
 .card {
   flex: 0 0 auto; width: min(74vw,268px); background-color: rgba(var(--ink-rgb),0.05);
   border: 1px solid rgba(var(--ink-rgb),0.28); padding: 0; cursor: pointer; text-align: left;
@@ -1529,6 +1530,7 @@ Source: lines 117–237.
 }
 .acc-inner p { margin: 0; font-size: 17px; line-height: 1.56; font-weight: 400; text-wrap: pretty; color: var(--c-ink); }
 .mono-list { font-family: var(--font-mono); font-size: 12px; line-height: 1.95; color: var(--c-ink-muted); }
+.acc-inner--list { display: block; }
 
 /* ---- footer ---- */
 .footer {
