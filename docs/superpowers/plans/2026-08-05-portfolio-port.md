@@ -21,6 +21,7 @@
 1. `this.zones = document.querySelectorAll('[data-tone]')` in the source is assigned but never read anywhere in the Component class — genuinely dead code. It is **not** ported (see Task 7 note). This has zero visual effect either way; flagging only because the plan omits something that exists in the source.
 2. The carousel renders each project **twice** (`for (let pass = 0; pass < 2; pass++)`) to make the CSS `translateX(-50%)` marquee loop seamlessly — this is required for the animation to loop without a visible jump, so both copies are kept. The second copy gets `aria-hidden="true" tabindex="-1"` so keyboard/screen-reader users don't tab through every project twice — this is an accessibility-only change (zero visual/animation difference) directly serving the user's own explicit "full keyboard navigation" requirement (section 4), not a design opinion.
 3. The rail's pause-on-focus behavior is implemented with `focusin`/`focusout` (bubbling) rather than a literal `onFocus`/`onBlur` on the wrapper div, because non-bubbling focus/blur on a non-focusable wrapper would not fire when a card inside it receives focus. This preserves the *intended* behavior (auto-scroll pauses while any card is focused) faithfully; it does not change anything visible.
+4. **FOUC fix added after Task 6's code-quality review.** `accordion.js`'s `initAccordion()` — an exact, verbatim port of the source's `setupAccordion()`/`syncPanels()` — never touches `.acc-inner` opacity/transform at init (only `setRow()`, triggered by clicks, does). The *original* DC export relied on the initially-open "Frontend" row's `data-acc-inner` markup simply omitting the closed-state `opacity:0;transform:translateY(8px)` inline styles that every other (closed) row has, so it rendered visible from first paint with no JS needed. My Task 11 CSS instead centralized that closed-state look into one shared `.acc-inner` class applied uniformly — which would have made the Frontend row's content invisible *permanently* (not just a flash) until manually toggled, since nothing at init ever sets its opacity back to 1. Fixed by restoring the original technique: Task 9's Frontend row now carries `style="opacity:1;transform:none"` on its `.acc-inner` and `style="max-height:1000px"` on its `.acc-panel` (this second one closes a related, milder FOUC gap the same reviewer found: `.acc-panel` had no default `max-height`, so on a slow load all 8 panels would render at full height before JS collapses 7 of them — Task 11's `.acc-panel` rule now defaults to `max-height: 0`). Both fixes are in HTML/CSS only; `accordion.js` itself (already reviewed and committed) is untouched.
 
 ---
 
@@ -1161,8 +1162,8 @@ Semantic structure: skip link → fixed `<nav>` → `<header>` (hero) → `<main
       <div class="skills__inner">
         <div data-acc-row="1">
           <button type="button" data-acc-btn="1" aria-expanded="true" class="acc-btn"><span>Frontend</span><span data-acc-sign="1" aria-hidden="true" class="acc-sign">−</span></button>
-          <div data-acc-panel="1" class="acc-panel">
-            <div data-acc-inner="1" class="acc-inner">
+          <div data-acc-panel="1" class="acc-panel" style="max-height:1000px">
+            <div data-acc-inner="1" class="acc-inner" style="opacity:1;transform:none">
               <p>Client-facing products that shipped and got handed over to non-technical owners.</p>
               <div class="mono-list">React.js · TypeScript · JavaScript · HTML · CSS · Vite · WordPress · Sanity CMS</div>
             </div>
@@ -1520,7 +1521,7 @@ Source: lines 117–237.
 }
 @media (prefers-reduced-motion: reduce) { .acc-btn { transition: none; } }
 .acc-sign { font-family: var(--font-mono); font-size: 15px; color: var(--c-ink-muted); }
-.acc-panel { overflow: hidden; transition: max-height .32s cubic-bezier(0.22,1,0.36,1); }
+.acc-panel { overflow: hidden; max-height: 0; transition: max-height .32s cubic-bezier(0.22,1,0.36,1); }
 .acc-inner {
   display: flex; flex-direction: column; gap: 10px; padding: 2px 0 clamp(26px,4vh,40px); max-width: 58ch;
   opacity: 0; transform: translateY(8px);
