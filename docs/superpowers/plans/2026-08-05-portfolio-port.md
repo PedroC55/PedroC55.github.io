@@ -418,6 +418,8 @@ export function initColorField({ canvas, fallback, reduced, getDepth }) {
   if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
     canvas.style.display = 'none';
     if (fallback) fallback.style.display = 'block';
+    const lose = gl.getExtension('WEBGL_lose_context');
+    if (lose) lose.loseContext();
     return { resize() {}, teardown() {} };
   }
 
@@ -1047,8 +1049,8 @@ Semantic structure: skip link → fixed `<nav>` → `<header>` (hero) → `<main
 <meta property="og:description" content="Full-stack products end to end for real clients — AR web apps, 360º tours, React/Spring Boot systems — with machine learning as the next step.">
 <meta property="og:url" content="https://pedroc55.github.io/">
 <meta property="og:image" content="https://pedroc55.github.io/Assets/og-image.webp">
-<meta property="og:image:width" content="632">
-<meta property="og:image:height" content="367">
+<meta property="og:image:width" content="633">
+<meta property="og:image:height" content="368">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Pedro Coelho — Full-Stack &amp; Machine Learning Engineer">
 <meta name="twitter:description" content="Full-stack products end to end for real clients — AR web apps, 360º tours, React/Spring Boot systems — with machine learning as the next step.">
@@ -1324,7 +1326,7 @@ console.log(buf.slice(0,4).toString(), buf.slice(8,12).toString());
 "
 ```
 
-Expected: `RIFF WEBP` (confirms the copy is a valid WebP file, matches the `og:image:width`/`height` values of 632×367 already written into `index.html` in Task 9).
+Expected: `RIFF WEBP` (confirms the copy is a valid WebP file, matches the `og:image:width`/`height` values of 633×368 already written into `index.html` in Task 9 — corrected from an initial 632×367 misread of the file's VP8X header during the final holistic review).
 
 - [ ] **Step 5: Commit**
 
