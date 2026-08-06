@@ -66,6 +66,8 @@ export function initColorField({ canvas, fallback, reduced, getDepth }) {
   if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
     canvas.style.display = 'none';
     if (fallback) fallback.style.display = 'block';
+    const lose = gl.getExtension('WEBGL_lose_context');
+    if (lose) lose.loseContext();
     return { resize() {}, teardown() {} };
   }
 
