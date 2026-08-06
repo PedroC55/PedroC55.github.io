@@ -1141,18 +1141,18 @@ Semantic structure: skip link → fixed `<nav>` → `<header>` (hero) → `<main
       <div data-reveal="1" class="work__rail-wrap">
         <div data-rail="1" class="work__rail">
           <div data-track="1" class="work__track">
-            <button type="button" data-card="condeixa" class="card" aria-label="Show Condeixa XR, 2025"><div class="card__thumb"></div><div class="card__meta"><span class="card__title">Condeixa XR</span><span class="card__year">2025</span></div></button>
-            <button type="button" data-card="pacheca" class="card" aria-label="Show Quinta da Pacheca, 2025"><div class="card__thumb"></div><div class="card__meta"><span class="card__title">Quinta da Pacheca</span><span class="card__year">2025</span></div></button>
-            <button type="button" data-card="nb" class="card" aria-label="Show Grupo NB Tour, 2025"><div class="card__thumb"></div><div class="card__meta"><span class="card__title">Grupo NB Tour</span><span class="card__year">2025</span></div></button>
-            <button type="button" data-card="spy" class="card" aria-label="Show Spy Room, 2024"><div class="card__thumb"></div><div class="card__meta"><span class="card__title">Spy Room</span><span class="card__year">2024</span></div></button>
-            <button type="button" data-card="bake" class="card" aria-label="Show Bake 'Em Up!, 2024"><div class="card__thumb"></div><div class="card__meta"><span class="card__title">Bake 'Em Up!</span><span class="card__year">2024</span></div></button>
-            <button type="button" data-card="creative-learning" class="card" aria-label="Show Creative Learning, 2026"><div class="card__thumb"></div><div class="card__meta"><span class="card__title">Creative Learning</span><span class="card__year">2026</span></div></button>
-            <button type="button" data-card="condeixa" class="card" aria-hidden="true" tabindex="-1"><div class="card__thumb"></div><div class="card__meta"><span class="card__title">Condeixa XR</span><span class="card__year">2025</span></div></button>
-            <button type="button" data-card="pacheca" class="card" aria-hidden="true" tabindex="-1"><div class="card__thumb"></div><div class="card__meta"><span class="card__title">Quinta da Pacheca</span><span class="card__year">2025</span></div></button>
-            <button type="button" data-card="nb" class="card" aria-hidden="true" tabindex="-1"><div class="card__thumb"></div><div class="card__meta"><span class="card__title">Grupo NB Tour</span><span class="card__year">2025</span></div></button>
-            <button type="button" data-card="spy" class="card" aria-hidden="true" tabindex="-1"><div class="card__thumb"></div><div class="card__meta"><span class="card__title">Spy Room</span><span class="card__year">2024</span></div></button>
-            <button type="button" data-card="bake" class="card" aria-hidden="true" tabindex="-1"><div class="card__thumb"></div><div class="card__meta"><span class="card__title">Bake 'Em Up!</span><span class="card__year">2024</span></div></button>
-            <button type="button" data-card="creative-learning" class="card" aria-hidden="true" tabindex="-1"><div class="card__thumb"></div><div class="card__meta"><span class="card__title">Creative Learning</span><span class="card__year">2026</span></div></button>
+            <button type="button" data-card="condeixa" class="card" aria-label="Show Condeixa XR, 2025"><span class="card__thumb"></span><span class="card__meta"><span class="card__title">Condeixa XR</span><span class="card__year">2025</span></span></button>
+            <button type="button" data-card="pacheca" class="card" aria-label="Show Quinta da Pacheca, 2025"><span class="card__thumb"></span><span class="card__meta"><span class="card__title">Quinta da Pacheca</span><span class="card__year">2025</span></span></button>
+            <button type="button" data-card="nb" class="card" aria-label="Show Grupo NB Tour, 2025"><span class="card__thumb"></span><span class="card__meta"><span class="card__title">Grupo NB Tour</span><span class="card__year">2025</span></span></button>
+            <button type="button" data-card="spy" class="card" aria-label="Show Spy Room, 2024"><span class="card__thumb"></span><span class="card__meta"><span class="card__title">Spy Room</span><span class="card__year">2024</span></span></button>
+            <button type="button" data-card="bake" class="card" aria-label="Show Bake 'Em Up!, 2024"><span class="card__thumb"></span><span class="card__meta"><span class="card__title">Bake 'Em Up!</span><span class="card__year">2024</span></span></button>
+            <button type="button" data-card="creative-learning" class="card" aria-label="Show Creative Learning, 2026"><span class="card__thumb"></span><span class="card__meta"><span class="card__title">Creative Learning</span><span class="card__year">2026</span></span></button>
+            <button type="button" data-card="condeixa" class="card" aria-hidden="true" tabindex="-1"><span class="card__thumb"></span><span class="card__meta"><span class="card__title">Condeixa XR</span><span class="card__year">2025</span></span></button>
+            <button type="button" data-card="pacheca" class="card" aria-hidden="true" tabindex="-1"><span class="card__thumb"></span><span class="card__meta"><span class="card__title">Quinta da Pacheca</span><span class="card__year">2025</span></span></button>
+            <button type="button" data-card="nb" class="card" aria-hidden="true" tabindex="-1"><span class="card__thumb"></span><span class="card__meta"><span class="card__title">Grupo NB Tour</span><span class="card__year">2025</span></span></button>
+            <button type="button" data-card="spy" class="card" aria-hidden="true" tabindex="-1"><span class="card__thumb"></span><span class="card__meta"><span class="card__title">Spy Room</span><span class="card__year">2024</span></span></button>
+            <button type="button" data-card="bake" class="card" aria-hidden="true" tabindex="-1"><span class="card__thumb"></span><span class="card__meta"><span class="card__title">Bake 'Em Up!</span><span class="card__year">2024</span></span></button>
+            <button type="button" data-card="creative-learning" class="card" aria-hidden="true" tabindex="-1"><span class="card__thumb"></span><span class="card__meta"><span class="card__title">Creative Learning</span><span class="card__year">2026</span></span></button>
           </div>
         </div>
       </div>
@@ -1488,7 +1488,7 @@ Source: lines 55–115.
 .card:hover { border-color: var(--c-accent); transform: translateY(-4px); background-color: rgba(var(--ink-rgb),0.1); }
 @media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
 .card__thumb {
-  aspect-ratio: 16/10; width: 100%;
+  display: block; aspect-ratio: 16/10; width: 100%;
   background-image: repeating-linear-gradient(135deg, rgba(var(--ink-rgb),0.16) 0 1px, rgba(var(--ink-rgb),0) 1px 10px);
 }
 .card__meta { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 11px 13px 13px; }
