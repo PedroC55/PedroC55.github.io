@@ -74,7 +74,7 @@ export const PROJECTS = [
     id: 'bake', title: "Bake 'Em Up!", year: '2024',
     blurb: "A VR survival game about baking under pressure, with hand-driven interaction and a strict performance budget on standalone hardware.",
     problem: "Standalone headsets give you no headroom: drop frames and players feel it in their stomach. The game still had to keep several physics-driven objects in the air at once.",
-    decisions: "Budgeted the frame first and designed within it, pooling objects, simplifying colliders and baking lighting. Made every interaction physical rather than menu-driven, so the difficulty comes from handling things, not from reading UI.",
+    decisions: "I handled the menus, the AI for every enemy type, and the ragdolls they collapse into when they go down. All three had to live inside the frame budget: with several enemies active at once, their behaviour and their physics are the first things a standalone headset struggles with. Pooled objects, simplified colliders and baked lighting bought back the headroom.",
     tags: ['Unity', 'C#', 'VR'],
     gallery: [
       { src: 'Assets/projects/bake/01.webp', caption: 'Hand-driven interaction at the oven',

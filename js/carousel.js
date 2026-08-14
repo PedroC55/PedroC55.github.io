@@ -76,9 +76,11 @@ export function initCarousel({ rail, track, featured, reduced }) {
     });
   }
 
-  function swap(p) {
+  /** Write a project's copy into `root`, which is either the live panel or an
+   *  offscreen clone used for measuring. */
+  function fill(root, p) {
     const set = (sel, text) => {
-      const el = featured.querySelector(sel);
+      const el = root.querySelector(sel);
       if (el) el.textContent = text;
     };
     set('[data-f-title]', p.title);
@@ -86,7 +88,7 @@ export function initCarousel({ rail, track, featured, reduced }) {
     set('[data-f-blurb]', p.blurb);
     set('[data-f-problem]', p.problem);
     set('[data-f-decisions]', p.decisions);
-    const tags = featured.querySelector('[data-f-tags]');
+    const tags = root.querySelector('[data-f-tags]');
     if (tags) {
       tags.replaceChildren(...p.tags.map(t => {
         const span = document.createElement('span');
@@ -95,6 +97,57 @@ export function initCarousel({ rail, track, featured, reduced }) {
         return span;
       }));
     }
+  }
+
+  /* Hold the panel at the height of the tallest project so selecting a different
+   * one never shifts the rail below it.
+   *
+   * This used to be a set of hand-tuned min-heights per breakpoint. That needed
+   * re-measuring every time the copy, the media size or the column rules
+   * changed, and it silently stopped being right at any width, zoom level or
+   * font fallback that was not one of the ones measured. Here the browser
+   * measures instead: every project's copy is laid out in a hidden clone at the
+   * live panel's width, and the largest result becomes the floor. No magic
+   * numbers, correct at any viewport.
+   *
+   * Without JS there is no way to change project, so the height cannot change
+   * either, which is why no CSS fallback floor is needed. */
+  function equalise() {
+    if (!featured.parentElement || !featured.offsetWidth) return;
+    const clone = featured.cloneNode(true);
+    clone.querySelectorAll('.work__slide').forEach(n => n.remove());
+    Object.assign(clone.style, {
+      position: 'absolute', left: '0', top: '0', visibility: 'hidden',
+      pointerEvents: 'none', minHeight: '0', opacity: '0',
+      width: featured.offsetWidth + 'px'
+    });
+    clone.removeAttribute('data-featured');
+    const host = featured.parentElement;
+    const hostPos = getComputedStyle(host).position;
+    if (hostPos === 'static') host.style.position = 'relative';
+    host.appendChild(clone);
+
+    let max = 0;
+    const cap = clone.querySelector('[data-f-medialabel]');
+    PROJECTS.forEach(p => {
+      fill(clone, p);
+      // The caption belongs to whichever slide is showing, so measure against
+      // the longest one this project can display.
+      if (cap && p.gallery) {
+        cap.textContent = p.gallery
+          .map(s => s.caption || '')
+          .reduce((a, b) => (b.length > a.length ? b : a), '');
+      }
+      max = Math.max(max, clone.offsetHeight);
+    });
+
+    clone.remove();
+    if (hostPos === 'static') host.style.position = '';
+    featured.style.minHeight = max ? max + 'px' : '';
+  }
+
+  function swap(p) {
+    fill(featured, p);
     gallery.load(p);
     markActive();
     featured.style.opacity = '1';
@@ -213,13 +266,18 @@ export function initCarousel({ rail, track, featured, reduced }) {
   };
   track.addEventListener('click', onClick);
 
-  const onResize = () => measureRail();
+  const onResize = () => { measureRail(); equalise(); };
   window.addEventListener('resize', onResize);
 
   gallery.load(PROJECTS[0]);
   markActive();
   measureRail();
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(measureRail);
+  equalise();
+  // Fallback metrics are narrower than Archivo, so the first measurement can be
+  // short by a line; redo it once the real face is in.
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => { measureRail(); equalise(); });
+  }
   raf = requestAnimationFrame(tick);
 
   return {

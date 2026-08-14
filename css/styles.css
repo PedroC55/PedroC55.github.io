@@ -77,13 +77,19 @@
    * it the capped sections sat left-aligned inside a much wider viewport and the
    * right-hand margin grew far larger than the left on wide screens. */
   --name-nav: 16px;
-  --name-hero: min(9.5vw, 148px);
-  --container: 1500px;
+  --name-hero: min(8.4vw, 148px);
+  --container: 1700px;
   --shell: calc(var(--container) + 2 * var(--pad-inline));
 }
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Nothing on this page is meant to scroll sideways: the only horizontal
+ * scroller is the project rail, which clips itself. Enforcing it at the root
+ * closes the gap where a vw-based length overshoots the content box, because
+ * `vw` counts the vertical scrollbar's width and the content box does not, so a
+ * full-width element ends up exactly one scrollbar too wide. */
+html, body { overflow-x: clip; max-width: 100%; }
 html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
@@ -201,7 +207,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .nav__name {
   position: absolute; left: var(--pad-inline); top: calc((64px - var(--name-nav)) / 2);
   z-index: 1; font-family: var(--font-sans); font-weight: 700;
-  font-variation-settings: 'wdth' 125; font-size: var(--name-hero); line-height: 1; letter-spacing: 0.005em;
+  font-variation-settings: 'wdth' 125; font-size: var(--name-hero); line-height: 1; letter-spacing: -0.02em;
   color: var(--c-ink); white-space: nowrap; transform-origin: left top; display: inline-flex; will-change: transform;
 }
 .nav__letter { display: inline-block; }
@@ -233,7 +239,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 }
 .hero__ghost {
   font-family: var(--font-sans); font-weight: 700; font-variation-settings: 'wdth' 125;
-  font-size: var(--name-hero); line-height: 1; letter-spacing: 0.005em; white-space: nowrap;
+  font-size: var(--name-hero); line-height: 1; letter-spacing: -0.02em; white-space: nowrap;
   visibility: hidden; margin-left: -0.03em;
 }
 .hero__thesis {
@@ -281,8 +287,8 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
  * every width. Below the wrap point the text is alone on its line and goes back
  * to a `ch` measure, since a percentage there would needlessly narrow it. */
 @media (min-width: 820px) {
-  .about__col { max-width: 62%; }
-  .about__photo { max-width: 34%; }
+  .about__col { max-width: 64%; }
+  .about__photo { max-width: min(34%, 520px); }
   .about__inner { align-items: center; }
 }
 .about__photo img {
@@ -298,18 +304,11 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
   transition: opacity .2s ease;
 }
 @media (prefers-reduced-motion: reduce) { .work__featured { transition: none; } }
-/* Projects have different amounts of copy, so without a floor the panel height
- * swung ~190px between them and shoved the rail below up and down on every
- * selection. The media column is already height-stable (aspect-ratio), so this
- * only has to absorb the text. Values are measured maxima across all six
- * projects at each band, plus ~20px headroom for font-loading reflow.
- *
- * The 1100px edge is where the media stops wrapping under the copy (measured:
- * stacked at 1080, side by side at 1100). Below it the panel is text + media
- * tall regardless, so a floor would only add dead space. Re-measure these if
- * the media cap or the project copy changes; both move these numbers. */
-@media (min-width: 1100px) { .work__featured { min-height: 735px; } }
-@media (min-width: 1700px) { .work__featured { min-height: 635px; } }
+/* The panel's floor is set at runtime by js/carousel.js, which lays out every
+ * project in a hidden clone and takes the tallest. Hand-tuned min-heights per
+ * breakpoint used to live here; they had to be re-measured after every copy or
+ * layout change and were wrong at any width or zoom that was not one of the
+ * measured ones. */
 .work__info { flex: 1 1 min(100%,460px); display: flex; flex-direction: column; gap: clamp(18px,2.6vh,30px); min-width: 0; }
 .work__heading { display: flex; align-items: baseline; gap: 16px; }
 .work__title {
@@ -318,7 +317,14 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 }
 .work__year { font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.1em; color: var(--c-ink); flex: 0 0 auto; }
 .work__blurb { margin: 0; max-width: 56ch; font-size: clamp(17px,1.3vw,21px); line-height: 1.58; font-weight: 400; text-wrap: pretty; }
-.work__specs { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,290px),1fr)); gap: clamp(18px,2.5vw,44px); }
+.work__specs {
+  display: grid;
+  /* 230px keeps the problem/decisions pair side by side down to ~1400px now
+   * that the media takes a larger share of the panel. Below that they stack,
+   * which is the right call on a narrow screen anyway. */
+  grid-template-columns: repeat(auto-fit,minmax(min(100%,230px),1fr));
+  gap: clamp(18px,2.5vw,44px);
+}
 .work__spec-label {
   font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--c-ink-muted); margin-bottom: 8px;
@@ -330,7 +336,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
  * project copy, capped while it still sits beside it. The cap is deliberately
  * large: the imagery is the point of this panel, and at 720px the media and the
  * copy split the 1500px container roughly half and half. */
-.work__media { position: relative; margin: 0; flex: 1 1 clamp(260px,48%,720px); max-width: 720px; display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+.work__media { position: relative; margin: 0; flex: 1 1 clamp(260px,52%,880px); max-width: 880px; display: flex; flex-direction: column; gap: 9px; min-width: 0; }
 /* Aspect-locked so the panel height never moves as slides cycle or projects
  * change. Slides stack absolutely and crossfade in place. */
 .work__media-box {
@@ -433,29 +439,33 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 
 /* ---- skills accordion ---- */
 .skills { position: relative; padding: clamp(110px,20vh,240px) var(--pad-inline); max-width: var(--shell); margin-inline: auto; }
-.skills__inner { max-width: 900px; margin-inline: auto; width: 100%; }
+.skills__inner { width: 100%; }
 .acc-btn {
   width: 100%; padding: clamp(10px,1.4vh,16px) 0;
   display: flex; align-items: baseline; justify-content: space-between; gap: 24px; cursor: pointer;
   font-family: var(--font-sans); font-weight: 700; font-variation-settings: 'wdth' 125;
-  font-size: clamp(21px,3.3vw,40px); line-height: 1.05; letter-spacing: -0.012em; text-transform: uppercase;
+  font-size: clamp(24px,3.8vw,54px); line-height: 1.05; letter-spacing: -0.015em; text-transform: uppercase;
   color: var(--c-ink); text-align: left; transition: color .2s ease;
 }
 .acc-btn:hover { color: var(--c-ink-muted); }
 .acc-btn--minor {
-  font-weight: 500; font-variation-settings: 'wdth' 112; font-size: clamp(15px,1.6vw,22px);
+  font-weight: 500; font-variation-settings: 'wdth' 112; font-size: clamp(17px,2vw,28px);
   line-height: 1.05; letter-spacing: 0.01em; text-transform: uppercase; color: var(--c-ink-muted);
 }
 @media (prefers-reduced-motion: reduce) { .acc-btn { transition: none; } }
-.acc-sign { font-family: var(--font-mono); font-size: 15px; color: var(--c-ink-muted); }
+.acc-sign { font-family: var(--font-mono); font-size: 18px; color: var(--c-ink-muted); }
 .acc-panel { overflow: hidden; max-height: 0; transition: max-height .32s cubic-bezier(0.22,1,0.36,1); }
 .acc-inner {
-  display: flex; flex-direction: column; gap: 10px; padding: 2px 0 clamp(26px,4vh,40px); max-width: 58ch;
+  display: flex; flex-direction: column; gap: 12px; padding: 6px 0 clamp(30px,4.5vh,48px);
+  /* No reading-measure cap here. These are one-line labels, not body prose, and
+   * the section is now full width, so letting them run to the container edge
+   * keeps each on a single line instead of breaking into a short paragraph. */
+  max-width: none;
   opacity: 0; transform: translateY(8px);
   transition: opacity .32s cubic-bezier(0.22,1,0.36,1), transform .32s cubic-bezier(0.22,1,0.36,1);
 }
-.acc-inner p { margin: 0; font-size: 17px; line-height: 1.56; font-weight: 400; text-wrap: pretty; color: var(--c-ink); }
-.mono-list { font-family: var(--font-mono); font-size: 12px; line-height: 1.95; color: var(--c-ink-muted); }
+.acc-inner p { margin: 0; font-size: clamp(16px,1.3vw,22px); line-height: 1.55; font-weight: 400; text-wrap: pretty; color: var(--c-ink); }
+.mono-list { font-family: var(--font-mono); font-size: clamp(12px,0.95vw,16px); line-height: 1.95; color: var(--c-ink-muted); }
 .acc-inner--list { display: block; }
 
 /* ---- footer ---- */
