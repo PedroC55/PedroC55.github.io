@@ -72,6 +72,14 @@
   --font-sans: Archivo, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   --pad-inline: clamp(20px, 5.5vw, 104px);
+  /* One shell for every section, so the nav, the hero, the about text, the work
+   * panel and the footer all start at the same x and end at the same x. Without
+   * it the capped sections sat left-aligned inside a much wider viewport and the
+   * right-hand margin grew far larger than the left on wide screens. */
+  --name-nav: 16px;
+  --name-hero: min(9.5vw, 148px);
+  --container: 1500px;
+  --shell: calc(var(--container) + 2 * var(--pad-inline));
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -87,7 +95,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.page { position: relative; color: var(--c-ink); overflow-x: hidden; }
+/* `clip`, not `hidden`. Per the CSS overflow spec, `overflow-x: hidden` next to
+ * an `overflow-y: visible` forces overflow-y to compute to `auto`, which turned
+ * .page into a nested scroll container: it ended up with ~14px of internal
+ * scroll that swallowed wheel events before the document got them, so the page
+ * felt stuck. `clip` still clips the marquee overhang but creates no scroll
+ * container, so overflow-y stays visible. */
+.page { position: relative; color: var(--c-ink); overflow-x: clip; }
 
 ::selection { background: var(--c-ink); color: var(--c-deep); }
 
@@ -125,13 +139,26 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .skip-link:focus { top: 12px; }
 @media (prefers-reduced-motion: reduce) { .skip-link { transition: none; } }
 
+/* ---- scroll reveals ----
+ * The hidden state is applied by JS (.is-armed), never by the stylesheet, so a
+ * failed or blocked script leaves every section readable instead of blank.
+ * [data-reveal-step] staggers children of an armed group; the step index is set
+ * as --step in js/main.js. */
+.is-armed { opacity: 0; transform: translateY(22px); }
+.is-armed[data-reveal-from="left"] { transform: translateX(-24px); }
+.is-in {
+  opacity: 1; transform: none;
+  transition: opacity .62s cubic-bezier(.22,1,.36,1), transform .62s cubic-bezier(.22,1,.36,1);
+  transition-delay: calc(var(--step, 0) * 90ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .is-armed { opacity: 1; transform: none; }
+  .is-in { transition: none; transition-delay: 0s; }
+}
+
 @keyframes om-drift {
   from { background-position: 0 0, 0 0, 0 0, 0 0; }
   to { background-position: 7vw -5vh, -6vw 4vh, 5vw 6vh, -8vw -7vh; }
-}
-@keyframes om-marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
 }
 /* ---- fixed background layers ---- */
 .field-canvas {
@@ -163,10 +190,18 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
   position: fixed; top: 0; left: 0; right: 0; height: 64px;
   display: flex; align-items: center; justify-content: space-between; gap: 24px;
   padding: 0 var(--pad-inline); z-index: 60;
+  max-width: var(--shell); margin-inline: auto;
 }
+/* Rendered at the HERO size and scaled DOWN into the nav, never the reverse.
+ * It used to be 16px text scaled up ~9x; combined with will-change that pins a
+ * rasterised texture, returning to the top reused the small-scale raster and the
+ * name came back blurred. Downscaling can never lose detail, so the largest
+ * state is now the native one. Absolutely positioned so its 148px box does not
+ * blow out the 64px nav row; .nav__links keeps its place with margin-left:auto. */
 .nav__name {
-  position: relative; z-index: 1; font-family: var(--font-sans); font-weight: 700;
-  font-variation-settings: 'wdth' 125; font-size: 16px; line-height: 1; letter-spacing: 0.005em;
+  position: absolute; left: var(--pad-inline); top: calc((64px - var(--name-nav)) / 2);
+  z-index: 1; font-family: var(--font-sans); font-weight: 700;
+  font-variation-settings: 'wdth' 125; font-size: var(--name-hero); line-height: 1; letter-spacing: 0.005em;
   color: var(--c-ink); white-space: nowrap; transform-origin: left top; display: inline-flex; will-change: transform;
 }
 .nav__letter { display: inline-block; }
@@ -177,7 +212,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 }
 .nav__fill .nav__letter { color: var(--c-accent); }
 .nav__links {
-  position: relative; z-index: 1; display: flex; gap: clamp(14px,2.4vw,34px); align-items: center;
+  position: relative; z-index: 1; margin-left: auto; display: flex; gap: clamp(14px,2.4vw,34px); align-items: center;
   font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
   opacity: 0; padding-bottom: 9px;
 }
@@ -189,6 +224,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
   position: relative; min-height: 100svh; box-sizing: border-box;
   display: flex; flex-direction: column; justify-content: space-between;
   padding: calc(64px + clamp(56px,13vh,150px)) var(--pad-inline) clamp(40px,8vh,88px);
+  max-width: var(--shell); margin-inline: auto;
 }
 .hero__tags {
   display: flex; flex-wrap: wrap; gap: 8px 26px;
@@ -197,7 +233,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 }
 .hero__ghost {
   font-family: var(--font-sans); font-weight: 700; font-variation-settings: 'wdth' 125;
-  font-size: min(9.5vw,148px); line-height: 0.88; letter-spacing: -0.02em; white-space: nowrap;
+  font-size: var(--name-hero); line-height: 1; letter-spacing: 0.005em; white-space: nowrap;
   visibility: hidden; margin-left: -0.03em;
 }
 .hero__thesis {
@@ -214,20 +250,41 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 @media (prefers-reduced-motion: reduce) { .kw__bar { transition: none; } }
 
 /* ---- about ---- */
-.about { position: relative; padding: clamp(110px,22vh,260px) var(--pad-inline); }
+.about { position: relative; padding: clamp(110px,22vh,260px) var(--pad-inline); max-width: var(--shell); margin-inline: auto; }
 /* Text left, portrait right, both flush to the section container so the About
- * block shares the exact left/right margins as the Work panel above it. */
+ * block shares the exact left/right margins as the Work panel above it. The
+ * column is wide enough that text and portrait meet at a normal gap rather than
+ * sitting at opposite ends of the container with a hole between them. */
 .about__inner {
-  max-width: 1500px;
   display: flex; flex-wrap: wrap; justify-content: space-between;
-  gap: clamp(30px,4vw,72px); align-items: flex-start;
+  gap: clamp(30px,3vw,56px); align-items: flex-start;
 }
-.about__col { flex: 1 1 min(100%,440px); max-width: 58ch; min-width: 0; display: flex; flex-direction: column; gap: 1.15em; }
-.about__col p { margin: 0; font-size: clamp(18px,1.45vw,23px); line-height: 1.62; font-weight: 400; text-wrap: pretty; color: var(--c-ink); }
+.about__col { flex: 1 1 min(100%,440px); max-width: 66ch; min-width: 0; display: flex; flex-direction: column; gap: 1.15em; }
+.about__col p {
+  margin: 0; font-size: clamp(18px,1.45vw,23px); line-height: 1.62; font-weight: 400;
+  text-align: justify; hyphens: auto; color: var(--c-ink);
+}
+/* Justifying a narrow measure opens rivers, so only do it once the column is
+ * wide enough to absorb the extra word spacing. */
+@media (max-width: 700px) { .about__col p { text-align: left; hyphens: manual; } }
 /* Grows rather than sitting at its flex-basis, so that once it wraps below the
  * text on narrow viewports it fills the line instead of stranding itself at its
  * 220px floor. max-width caps it while it is still beside the text. */
-.about__photo { margin: 0; flex: 1 1 clamp(220px,30%,400px); max-width: 400px; min-width: 0; }
+/* The px cap governs the stacked case, where the portrait is alone on its line
+ * and would otherwise stretch to the full column width and tower over the text. */
+.about__photo { margin: 0; flex: 1 1 clamp(220px,34%,510px); max-width: 340px; min-width: 0; }
+/* Above the wrap point (measured: stacked at 780px, side by side at 820px) both
+ * columns are capped as a share of the container instead of by `ch`. A `ch` cap
+ * resolves against the column's own font size, not the container, so it stopped
+ * growing while the container kept widening and left a 200px hole between the
+ * text and the portrait on large screens. 62 + 34 + the gap fills the row at
+ * every width. Below the wrap point the text is alone on its line and goes back
+ * to a `ch` measure, since a percentage there would needlessly narrow it. */
+@media (min-width: 820px) {
+  .about__col { max-width: 62%; }
+  .about__photo { max-width: 34%; }
+  .about__inner { align-items: center; }
+}
 .about__photo img {
   display: block; width: 100%; height: auto; aspect-ratio: 4/5; object-fit: cover;
   background-color: rgba(var(--ink-rgb),0.07);
@@ -235,12 +292,24 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 
 /* ---- work: featured panel ---- */
 .work { position: relative; }
-.work__top { padding: clamp(80px,16vh,180px) var(--pad-inline) clamp(56px,9vh,110px); }
+.work__top { padding: clamp(80px,16vh,180px) var(--pad-inline) clamp(48px,6vh,76px); max-width: var(--shell); margin-inline: auto; }
 .work__featured {
   display: flex; flex-wrap: wrap; gap: clamp(26px,4vw,64px); align-items: flex-start;
-  max-width: 1500px; transition: opacity .2s ease;
+  transition: opacity .2s ease;
 }
 @media (prefers-reduced-motion: reduce) { .work__featured { transition: none; } }
+/* Projects have different amounts of copy, so without a floor the panel height
+ * swung ~190px between them and shoved the rail below up and down on every
+ * selection. The media column is already height-stable (aspect-ratio), so this
+ * only has to absorb the text. Values are measured maxima across all six
+ * projects at each band, plus ~20px headroom for font-loading reflow.
+ *
+ * The 1100px edge is where the media stops wrapping under the copy (measured:
+ * stacked at 1080, side by side at 1100). Below it the panel is text + media
+ * tall regardless, so a floor would only add dead space. Re-measure these if
+ * the media cap or the project copy changes; both move these numbers. */
+@media (min-width: 1100px) { .work__featured { min-height: 735px; } }
+@media (min-width: 1700px) { .work__featured { min-height: 635px; } }
 .work__info { flex: 1 1 min(100%,460px); display: flex; flex-direction: column; gap: clamp(18px,2.6vh,30px); min-width: 0; }
 .work__heading { display: flex; align-items: baseline; gap: 16px; }
 .work__title {
@@ -258,23 +327,90 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .work__tags { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--c-ink); }
 .work__tag { border: 1px solid rgba(var(--ink-rgb),0.34); padding: 5px 10px; }
 /* Same growth rule as .about__photo: fills the line once it wraps under the
- * project copy, capped while it still sits beside it. */
-.work__media { margin: 0; flex: 1 1 clamp(260px,40%,540px); max-width: 540px; display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+ * project copy, capped while it still sits beside it. The cap is deliberately
+ * large: the imagery is the point of this panel, and at 720px the media and the
+ * copy split the 1500px container roughly half and half. */
+.work__media { position: relative; margin: 0; flex: 1 1 clamp(260px,48%,720px); max-width: 720px; display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+/* Aspect-locked so the panel height never moves as slides cycle or projects
+ * change. Slides stack absolutely and crossfade in place. */
 .work__media-box {
-  aspect-ratio: 16/10; width: 100%; overflow: hidden;
+  position: relative; aspect-ratio: 16/10; width: 100%; overflow: hidden;
   background-color: rgba(var(--ink-rgb),0.07);
 }
-.work__media-box img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.work__slide {
+  position: absolute; inset: 0; display: block; width: 100%; height: 100%;
+  object-fit: cover; opacity: 0; transition: opacity .42s ease;
+}
+@media (prefers-reduced-motion: reduce) { .work__slide { transition: none; } }
+/* Prev/next arrows: out of the way until wanted, but never unreachable. They
+ * fade in on hover of the whole figure (which also pauses the auto-advance, so
+ * the image you reached for holds still), on keyboard focus, and permanently on
+ * touch devices, which have no hover to reveal them with. */
+/* Full-height edge panels rather than floating squares: the gradient is opaque
+ * enough at the very edge to carry the chevron on any image and fades to
+ * nothing before it reaches the middle, so the control reads as part of the
+ * photograph instead of a box sitting on top of it. */
+.work__nav {
+  position: absolute; top: 0; bottom: 0;
+  width: clamp(64px,14%,104px); display: grid; align-items: center;
+  cursor: pointer; color: var(--c-ink);
+  opacity: 0; transition: opacity .25s ease;
+  /* Slides are appended after these buttons and are absolutely positioned too,
+   * so without an explicit stacking order they paint on top and swallow the
+   * clicks: the arrows look present but do nothing. */
+  z-index: 2;
+}
+.work__nav--prev {
+  left: 0; justify-items: start; padding-left: 16px;
+  background-image: linear-gradient(to right, rgba(18,10,28,0.75), rgba(18,10,28,0.32) 45%, rgba(18,10,28,0));
+}
+.work__nav--next {
+  right: 0; justify-items: end; padding-right: 16px;
+  background-image: linear-gradient(to left, rgba(18,10,28,0.75), rgba(18,10,28,0.32) 45%, rgba(18,10,28,0));
+}
+.work__nav svg { filter: drop-shadow(0 1px 3px rgba(18,10,28,0.9)); }
+.work__nav[hidden] { display: none; }
+.work__media:hover .work__nav,
+.work__media:has(.work__nav:focus-visible) .work__nav { opacity: 1; }
+.work__nav:hover { opacity: 1; }
+.work__nav:hover svg { transform: scale(1.15); }
+.work__nav svg { transition: transform .2s ease; }
+@media (prefers-reduced-motion: reduce) { .work__nav svg { transition: none; } .work__nav:hover svg { transform: none; } }
+@media (hover: none) { .work__nav { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .work__nav { transition: none; } }
+.work__media-footer { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
 .work__media-caption { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-ink); }
+.work__dots { display: flex; gap: 7px; flex: 0 0 auto; padding-top: 2px; }
+.work__dots[hidden] { display: none; }
+.work__dot {
+  width: 7px; height: 7px; padding: 0; cursor: pointer; border-radius: 50%;
+  background-color: rgba(var(--ink-rgb),0.3); transition: background-color .2s ease, transform .2s ease;
+}
+.work__dot:hover { background-color: rgba(var(--ink-rgb),0.6); }
+/* Ink, not Ember: the palette rule allows Ember only three places (the nav name
+ * gauge, the active rail card, the thesis keywords) and this would be a fourth. */
+.work__dot.is-on { background-color: var(--c-ink); transform: scale(1.25); }
+@media (prefers-reduced-motion: reduce) { .work__dot { transition: none; } }
 
 /* ---- work: carousel rail ---- */
 .work__rail-wrap { padding: 0 0 clamp(90px,16vh,180px); }
-.work__rail { overflow: hidden; width: 100%; }
-.work__track {
-  display: flex; gap: 20px; width: max-content; padding: 4px var(--pad-inline);
-  animation: om-marquee 46s linear infinite;
+/* The rail is a real scroll container and the drift is driven in JS by moving
+ * scrollLeft (see js/carousel.js), rather than by a CSS transform animation.
+ * One mechanism instead of two means dragging and auto-scrolling cannot fight
+ * each other, and touch gets native panning and momentum for free.
+ * overflow-y is explicitly hidden so a vertical wheel over the rail chains to
+ * the page instead of being swallowed. */
+.work__rail {
+  overflow-x: auto; overflow-y: hidden; width: 100%;
+  overscroll-behavior-x: contain;      /* no browser back-swipe on horizontal flick */
+  scrollbar-width: none;               /* the rail is dragged, not scrollbar-driven */
+  cursor: grab;
 }
-@media (prefers-reduced-motion: reduce) { .work__track { animation: none; } }
+.work__rail::-webkit-scrollbar { display: none; }
+.work__rail.is-dragging { cursor: grabbing; user-select: none; }
+/* While dragging, the pointer must not start an image/text drag instead. */
+.work__rail.is-dragging img, .work__rail.is-dragging .card { pointer-events: none; }
+.work__track { display: flex; gap: 20px; width: max-content; padding: 4px var(--pad-inline); }
 .card {
   flex: 0 0 auto; width: min(74vw,268px); background-color: rgba(var(--ink-rgb),0.05);
   border: 1px solid rgba(var(--ink-rgb),0.28); padding: 0; cursor: pointer; text-align: left;
@@ -296,7 +432,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .card__year { font-family: var(--font-mono); font-size: 11px; color: var(--c-ink); }
 
 /* ---- skills accordion ---- */
-.skills { position: relative; padding: clamp(110px,20vh,240px) var(--pad-inline); }
+.skills { position: relative; padding: clamp(110px,20vh,240px) var(--pad-inline); max-width: var(--shell); margin-inline: auto; }
 .skills__inner { max-width: 900px; margin-inline: auto; width: 100%; }
 .acc-btn {
   width: 100%; padding: clamp(10px,1.4vh,16px) 0;
@@ -326,6 +462,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .footer {
   position: relative; padding: clamp(110px,22vh,260px) var(--pad-inline) clamp(48px,8vh,90px);
   display: flex; flex-direction: column; gap: clamp(40px,9vh,110px);
+  max-width: var(--shell); margin-inline: auto;
 }
 .footer__cta {
   margin: 0; max-width: 21ch; font-family: var(--font-sans); font-weight: 700; font-variation-settings: 'wdth' 125;

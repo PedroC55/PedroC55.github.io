@@ -59,14 +59,14 @@
   </header>
 
   <main id="main-content">
-    <section id="about" data-tone="recessed" data-reveal="1" class="about">
+    <section id="about" data-tone="recessed" class="about">
       <div class="about__inner">
-        <div class="about__col">
+        <div data-reveal="1" data-reveal-group="1" class="about__col">
           <p>I'm a software engineer based in Porto, Portugal, and full-stack is the part of this work I actually enjoy: owning a product from the database schema up to the last pixel. A georeferenced AR web app for a municipality, 360º tours for a Douro wine estate and a residential development, a React and Spring Boot logistics tool with full test coverage, a multi-tenant learning platform with a React frontend over a REST API I wrote myself. Different stacks, same appetite for holding the whole thing in my head at once.</p>
           <p>My master's in Digital Game Development at the University of Aveiro is where I learned realtime rendering, spatial interaction and how to finish something under constraint. I spend that training on products, not games.</p>
           <p>What interests me is the decision trail, why this stack, which tradeoff, what breaks first. I like problems where the interface has to survive the physical world: a phone held up to a stone facade in full sunlight, a headset on someone who has never worn one.</p>
         </div>
-        <figure class="about__photo">
+        <figure data-reveal="1" class="about__photo">
           <img src="Assets/pedro-portrait.webp" alt="Pedro Coelho" width="640" height="800" loading="lazy" decoding="async">
         </figure>
       </div>
@@ -98,11 +98,20 @@
               <span class="work__tag">PWA</span>
             </div>
           </div>
-          <figure class="work__media">
-            <div data-f-media="1" class="work__media-box">
-              <img data-f-img="1" src="Assets/projects/condeixa/hero.webp" alt="Condeixa XR 360º tour: a black-and-white historical photograph of the square blended into the live view of the street as it looks today." width="1200" height="750" decoding="async">
+          <figure data-f-gallery="1" class="work__media">
+            <div data-f-media="1" class="work__media-box" role="group" aria-label="Project images">
+              <img src="Assets/projects/condeixa/01.webp" alt="A black-and-white historical photograph of the square blended into the live 360º view of the street as it looks today." class="work__slide" style="opacity:1" decoding="async">
+              <button type="button" data-prev="1" class="work__nav work__nav--prev" aria-label="Previous image">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M15 4 7 12l8 8"/></svg>
+              </button>
+              <button type="button" data-next="1" class="work__nav work__nav--next" aria-label="Next image">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M9 4l8 8-8 8"/></svg>
+              </button>
             </div>
-            <figcaption data-f-medialabel="1" class="work__media-caption">360º tour, heritage overlay on the square</figcaption>
+            <div class="work__media-footer">
+              <figcaption data-f-medialabel="1" class="work__media-caption">360º tour, heritage overlay on the square</figcaption>
+              <div data-f-dots="1" class="work__dots"></div>
+            </div>
           </figure>
         </div>
       </div>
@@ -127,8 +136,8 @@
       </div>
     </section>
 
-    <section id="skills" data-tone="recessed" data-reveal="1" class="skills">
-      <div class="skills__inner">
+    <section id="skills" data-tone="recessed" class="skills">
+      <div data-reveal="1" data-reveal-group="1" class="skills__inner">
         <div data-acc-row="1">
           <button type="button" data-acc-btn="1" aria-expanded="true" class="acc-btn"><span>Frontend</span><span data-acc-sign="1" aria-hidden="true" class="acc-sign">−</span></button>
           <div data-acc-panel="1" class="acc-panel" style="max-height:1000px">
@@ -204,9 +213,9 @@
     </section>
   </main>
 
-  <footer id="contact" data-tone="elevated" data-reveal="1" class="footer">
-    <p class="footer__cta">Hiring, or have something that needs building? <a href="mailto:pedro.coelho.web@gmail.com">Write to me</a></p>
-    <div class="footer__meta">
+  <footer id="contact" data-tone="elevated" class="footer">
+    <p data-reveal="1" class="footer__cta">Hiring, or have something that needs building? <a href="mailto:pedro.coelho.web@gmail.com">Write to me</a></p>
+    <div data-reveal="1" data-reveal-group="1" class="footer__meta">
       <a href="mailto:pedro.coelho.web@gmail.com">pedro.coelho.web@gmail.com</a>
       <a href="https://github.com/PedroC55" target="_blank" rel="noopener noreferrer">github.com/PedroC55</a>
       <a href="https://linkedin.com/in/pedrocoelho485" target="_blank" rel="noopener noreferrer">linkedin.com/in/pedrocoelho485</a>
