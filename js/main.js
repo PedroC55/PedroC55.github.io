@@ -28,8 +28,14 @@ function boot() {
 
   const compress = !reduced;
 
-  if (!compress) {
-    ghost.style.visibility = 'visible';
+  /* The hero's own big name is what the stylesheet shows, so a page that is
+   * still loading, or one whose scripts never arrive, looks right rather than
+   * dropping a full-size name over whatever section the browser restored the
+   * scroll to. When the morph is active the gauge draws that text instead, so
+   * the static copy steps aside. */
+  if (compress) {
+    ghost.style.visibility = 'hidden';
+  } else {
     name.style.opacity = '0';
     name.style.transition = 'opacity .2s ease';
   }

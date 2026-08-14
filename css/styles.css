@@ -207,7 +207,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .nav__name {
   position: absolute; left: var(--pad-inline); top: calc((64px - var(--name-nav)) / 2);
   z-index: 1; font-family: var(--font-sans); font-weight: 700;
-  font-variation-settings: 'wdth' 125; font-size: var(--name-hero); line-height: 1; letter-spacing: -0.02em;
+  font-variation-settings: 'wdth' 125; font-size: var(--name-nav); line-height: 1; letter-spacing: -0.02em;
   color: var(--c-ink); white-space: nowrap; transform-origin: left top; display: inline-flex; will-change: transform;
 }
 .nav__letter { display: inline-block; }
@@ -240,7 +240,7 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .hero__ghost {
   font-family: var(--font-sans); font-weight: 700; font-variation-settings: 'wdth' 125;
   font-size: var(--name-hero); line-height: 1; letter-spacing: -0.02em; white-space: nowrap;
-  visibility: hidden; margin-left: -0.03em;
+  margin-left: -0.03em;
 }
 .hero__thesis {
   max-width: 44ch; margin: 0; margin-left: auto; margin-right: clamp(0px,4vw,80px);

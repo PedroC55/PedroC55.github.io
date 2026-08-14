@@ -12,6 +12,10 @@ export function initScrollGauge({ nav, name, ghost, links, linkEls, sections, fa
    * from 16px left the rasterised layer stretched and blurry on the way back to
    * the top; scaling down cannot lose detail. */
   function measure() {
+    /* The stylesheet leaves the name at nav size so that the pre-JS paint is
+     * already correct at any scroll position. Raising it to the hero size is
+     * this module's job, and it has to happen before anything is measured. */
+    name.style.fontSize = 'var(--name-hero)';
     const prevTransform = name.style.transform;
     name.style.transform = 'none';
     const nr = name.getBoundingClientRect();
