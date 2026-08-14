@@ -1,0 +1,20 @@
+CLAUDE.md
+Pedro Coelho - Portfolio.dc.html
+support.js
+.thumbnail
+
+# Raw image sources: kept locally, never published.
+# The site ships only the WebP derived from these:
+#   Assets/projects/<id>/hero.webp   1200x750, 16/10
+#   Assets/projects/<id>/thumb.webp   640x400, 16/10
+#   Assets/pedro-portrait.webp        640x800, 4/5
+# If a source is replaced, re-crop to the same sizes so the explicit
+# width/height in index.html stays correct and no layout shift appears.
+Assets/Bake/
+Assets/Condeixa/
+Assets/Creative_Learning/
+Assets/NB/
+Assets/Pacheca/
+Assets/Spy_Room/
+Assets/pedro.jpg
+docs
