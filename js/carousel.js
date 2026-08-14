@@ -27,6 +27,11 @@ export function initCarousel({ rail, track, featured, reduced }) {
     set('[data-f-problem]', p.problem);
     set('[data-f-decisions]', p.decisions);
     set('[data-f-medialabel]', p.media);
+    const img = featured.querySelector('[data-f-img]');
+    if (img && img.getAttribute('src') !== p.hero) {
+      img.src = p.hero;
+      img.alt = p.alt;
+    }
     const tags = featured.querySelector('[data-f-tags]');
     if (tags) {
       tags.innerHTML = '';
@@ -76,8 +81,22 @@ export function initCarousel({ rail, track, featured, reduced }) {
 
   markActive();
 
+  // Warm the other heroes while the page is idle, so selecting a card swaps to
+  // a decoded image instead of flashing the empty box mid-fade.
+  const idle = window.requestIdleCallback || (fn => setTimeout(fn, 1200));
+  const cancelIdle = window.cancelIdleCallback || clearTimeout;
+  const idleId = idle(() => {
+    PROJECTS.forEach(p => {
+      if (p.id === active) return;
+      const pre = new Image();
+      pre.decoding = 'async';
+      pre.src = p.hero;
+    });
+  });
+
   return {
     teardown() {
+      cancelIdle(idleId);
       rail.removeEventListener('mouseenter', onEnter);
       rail.removeEventListener('mouseleave', onLeave);
       rail.removeEventListener('focusin', onEnter);

@@ -215,9 +215,23 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 
 /* ---- about ---- */
 .about { position: relative; padding: clamp(110px,22vh,260px) var(--pad-inline); }
-.about__inner { max-width: 1500px; }
-.about__col { width: min(100%,58ch); display: flex; flex-direction: column; gap: 1.15em; }
+/* Text left, portrait right, both flush to the section container so the About
+ * block shares the exact left/right margins as the Work panel above it. */
+.about__inner {
+  max-width: 1500px;
+  display: flex; flex-wrap: wrap; justify-content: space-between;
+  gap: clamp(30px,4vw,72px); align-items: flex-start;
+}
+.about__col { flex: 1 1 min(100%,440px); max-width: 58ch; min-width: 0; display: flex; flex-direction: column; gap: 1.15em; }
 .about__col p { margin: 0; font-size: clamp(18px,1.45vw,23px); line-height: 1.62; font-weight: 400; text-wrap: pretty; color: var(--c-ink); }
+/* Grows rather than sitting at its flex-basis, so that once it wraps below the
+ * text on narrow viewports it fills the line instead of stranding itself at its
+ * 220px floor. max-width caps it while it is still beside the text. */
+.about__photo { margin: 0; flex: 1 1 clamp(220px,30%,400px); max-width: 400px; min-width: 0; }
+.about__photo img {
+  display: block; width: 100%; height: auto; aspect-ratio: 4/5; object-fit: cover;
+  background-color: rgba(var(--ink-rgb),0.07);
+}
 
 /* ---- work: featured panel ---- */
 .work { position: relative; }
@@ -243,13 +257,14 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .work__spec-text { margin: 0; max-width: 52ch; font-size: 16px; line-height: 1.6; font-weight: 400; text-wrap: pretty; }
 .work__tags { display: flex; flex-wrap: wrap; gap: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.06em; color: var(--c-ink); }
 .work__tag { border: 1px solid rgba(var(--ink-rgb),0.34); padding: 5px 10px; }
-.work__media { margin: 0; flex: 0 1 clamp(240px,34%,420px); display: flex; flex-direction: column; gap: 9px; min-width: 0; }
+/* Same growth rule as .about__photo: fills the line once it wraps under the
+ * project copy, capped while it still sits beside it. */
+.work__media { margin: 0; flex: 1 1 clamp(260px,40%,540px); max-width: 540px; display: flex; flex-direction: column; gap: 9px; min-width: 0; }
 .work__media-box {
-  aspect-ratio: 4/5; width: 100%; background-color: rgba(var(--ink-rgb),0.07);
-  background-image: repeating-linear-gradient(135deg, rgba(var(--ink-rgb),0.16) 0 1px, rgba(var(--ink-rgb),0) 1px 10px);
-  display: flex; align-items: flex-end; padding: 14px; box-sizing: border-box;
+  aspect-ratio: 16/10; width: 100%; overflow: hidden;
+  background-color: rgba(var(--ink-rgb),0.07);
 }
-.work__media-label { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-ink); }
+.work__media-box img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .work__media-caption { font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--c-ink); }
 
 /* ---- work: carousel rail ---- */
@@ -269,9 +284,10 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .card:hover { border-color: var(--c-accent); transform: translateY(-4px); background-color: rgba(var(--ink-rgb),0.1); }
 @media (prefers-reduced-motion: reduce) { .card { transition: none; } .card:hover { transform: none; } }
 .card__thumb {
-  display: block; aspect-ratio: 16/10; width: 100%;
-  background-image: repeating-linear-gradient(135deg, rgba(var(--ink-rgb),0.16) 0 1px, rgba(var(--ink-rgb),0) 1px 10px);
+  display: block; aspect-ratio: 16/10; width: 100%; overflow: hidden;
+  background-color: rgba(var(--ink-rgb),0.07);
 }
+.card__thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .card__meta { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 11px 13px 13px; }
 .card__title {
   font-family: var(--font-sans); font-weight: 700; font-variation-settings: 'wdth' 118; font-size: 15px;
@@ -331,12 +347,17 @@ a:focus-visible, button:focus-visible, [tabindex]:focus-visible {
 .footer__loc { color: var(--c-ink); }
 
 /*
- * No project currently has a real photo/video — every .work__media-box and
- * .card__thumb is a CSS placeholder. When a real asset is added later:
- *   <picture>
- *     <source srcset="Assets/<project>/cover.webp" type="image/webp">
- *     <img src="Assets/<project>/cover.jpg" alt="…" width="W" height="H" loading="lazy">
- *   </picture>
- * inside .work__media-box / .card__thumb, keeping explicit width/height to avoid
- * layout shift. Not applied now because there is no image to attach it to.
+ * Project imagery now lives in Assets/projects/<id>/ as WebP only (hero.webp
+ * 1200x750, thumb.webp 640x400, both 16/10 to match .work__media-box and
+ * .card__thumb). No JPEG fallback is shipped: every browser that supports the
+ * CSS used here (aspect-ratio, :focus-visible) also decodes WebP.
+ *
+ * Sources are the originals in Assets/<Project>/. They are regenerated with
+ * Pillow, not committed by hand — if a source is replaced, re-crop to the same
+ * two sizes so the explicit width/height in the markup stays correct and no
+ * layout shift is introduced.
+ *
+ * The featured hero swaps on carousel selection (see js/carousel.js); the
+ * thumbs are static and decorative (alt=""), since each card button already
+ * carries an aria-label naming the project.
  */
